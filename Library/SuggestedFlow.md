@@ -12,7 +12,7 @@ First a home page with 3 options: Reservation, Management and Exit.
  6. Checking whether a book is borrowed on name
  7. Create/View/Delete user account
  8. Return a book
- 9. Pay fine
+ 9. Pay fine to library
  10. See user history
 
 ## Admin
