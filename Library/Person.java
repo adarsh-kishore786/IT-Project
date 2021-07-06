@@ -17,6 +17,12 @@ public abstract class Person {
     public String getPassword() {
         return password;
     }
+    public void init(String pname, int page, String pusername, String ppassword) {
+        name=pname;
+        age=page;
+        username=pusername;
+        password=ppassword;
+    }
     public String toString() {
         return ("\nName: "+name+"\nAge: "+age+"\nUser Name: "+username+"\n");
     }   
