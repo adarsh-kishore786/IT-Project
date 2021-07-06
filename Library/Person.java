@@ -5,6 +5,12 @@ public abstract class Person {
     private String username;
     private String password;
 
+    Person(String pname, int page, String pusername, String ppassword) {
+        name=pname;
+        age=page;
+        username=pusername;
+        password=ppassword;
+    }
     public String getName() {
         return name;
     }
@@ -17,13 +23,8 @@ public abstract class Person {
     public String getPassword() {
         return password;
     }
-    public void init(String pname, int page, String pusername, String ppassword) {
-        name=pname;
-        age=page;
-        username=pusername;
-        password=ppassword;
-    }
+    @Override
     public String toString() {
         return ("\nName: "+name+"\nAge: "+age+"\nUser Name: "+username+"\n");
-    }   
+    }
 }
