@@ -1,5 +1,3 @@
-import java.security.Permission;
-
 /**
  * Will handle the functions of the admin of 
  * the library. 
@@ -39,6 +37,7 @@ public class Admin extends Person
     public double getRevenue() { return m_revenue; }
     public int getNumBooksOnRent() { return m_numBooksOnRent; }
     public int getNumBooksSold() { return m_numBooksSold; }
+    public int getNumBooksBorrowLimit() { return m_numBooksBorrowLimit; }
 
     // public void sellBook(Book b) {}
     // public void rentBook(Book b) {}
