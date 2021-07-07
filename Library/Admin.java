@@ -4,6 +4,7 @@
  * 
  * It is a child class from Person.java
  */
+import java.util.*;
 
 public class Admin extends Person
 {
@@ -39,11 +40,54 @@ public class Admin extends Person
     public int getNumBooksSold() { return m_numBooksSold; }
     public int getNumBooksBorrowLimit() { return m_numBooksBorrowLimit; }
 
-    // public void sellBook(Book b) {}
-    // public void rentBook(Book b) {}
-    // public Book[] getBooks() {}
+    public void sellBook(Book b) 
+    {
+        int numCopies = getNumCopies(b);
+        if (numCopies == 0) // if no copies, then return
+            return;
+
+        // add it in revenue and update number of copies
+        b.setNumCopies(b.getNumCopies() - numCopies);   
+        m_revenue += b.getPrice() * numCopies;   
+    }
+
+    public void rentBook(Book b) 
+    {
+        int numCopies = getNumCopies(b);
+        if (numCopies == 0)
+            return;
+
+        // Update borrower list
+        // b.setNumCopies(b.getNumCopies() - numCopies);
+    }
+
+    public void getBackBook(Book b)
+    {
+
+    }
     // public void takeFine(double fine) {}
     // public String getHistory(Customer cust) {}
 
     public static double getFineRate() { return m_fineRate; }
+
+    private int getNumCopies(Book b)
+    {
+        // Check if book is available
+        if (!b.isAvailable())
+        {
+            System.out.println("This book is not available currently.");
+            return 0;
+        }
+        // How many copies are there
+        System.out.println("There are " + b.getNumCopies() + " copies of this book available.");
+        int numCopies = 1;
+
+        // How many copies Customer wants to buy
+        System.out.println("Take 1 copy? (Y/N)");
+        Scanner sc = new Scanner(System.in);
+        char c = sc.nextLine().charAt(0);
+
+        if (c != 'y' && c != 'Y') numCopies = 0;
+        return numCopies;
+    }
 } 
