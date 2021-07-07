@@ -42,7 +42,7 @@ public class Admin extends Person
 
     public void sellBook(Book b) 
     {
-        int numCopies = getNumCopies(b);
+        int numCopies = getNumCopiesAvailable(b);
         if (numCopies == 0) // if no copies, then return
             return;
 
@@ -57,20 +57,27 @@ public class Admin extends Person
         if (numCopies == 0)
             return;
 
-        // Update borrower list
-        // b.setNumCopies(b.getNumCopies() - numCopies);
+        b.setNumCopies(b.getNumCopies() - numCopies);
     }
 
-    public void getBackBook(Book b)
+    public void getBackBook(String username, Book b)
     {
 
     }
-    // public void takeFine(double fine) {}
-    // public String getHistory(Customer cust) {}
+
+    public void takeFine(double fine) 
+    {
+
+    }
+
+    public String getHistory(Customer cust) 
+    {
+        
+    }
 
     public static double getFineRate() { return m_fineRate; }
 
-    private int getNumCopies(Book b)
+    private int getNumCopiesAvailable(Book b)
     {
         // Check if book is available
         if (!b.isAvailable())
@@ -89,5 +96,54 @@ public class Admin extends Person
 
         if (c != 'y' && c != 'Y') numCopies = 0;
         return numCopies;
+    }
+
+    private void listOfBooks()
+    {
+        ArrayList<Book> books = new ArrayList<>();
+        ArrayList<String> genre = new ArrayList<>();
+        genre.add("Fiction");
+        genre.add("Historical");
+
+        books.add(new Book("The Forest of Vanishing Stars", "Kristin Harmel", 
+                    genre, 450.0, "9781982158934"));
+
+        genre.clear();
+        genre.add("Mystery");
+        genre.add("Detective");
+        genre.add("Fiction");
+        genre.add("Historical");
+
+        books.add(new Book("The Devil and the Dark Water", "Stuart Turton",
+                    genre, 548.48, "9781728234298"));
+
+        genre.clear();
+        genre.add("Non-Fiction");
+        genre.add("Contemporary");
+        genre.add("Spiritual");
+
+        books.add(new Book("Transcedental Kingdom", "Yaa Gyasi",
+                    genre, 767.36, "9781984899767"));
+
+        genre.clear();
+        genre.add("Historical");
+        genre.add("Fiction");
+
+        books.add(new Book("The Exiles", "Christina Baker Kline",
+                    genre, 815.40, "9780062356338"));
+
+        genre.clear();
+        genre.add("Non-fiction");
+        genre.add("Mathematics");
+        
+        books.add(new Book("Contemporary Abstract Algebra", "Joseph Gallian",
+                    genre, 490.00, "9789353502522"));
+
+        genre.clear();
+        genre.add("Fiction");
+        genre.add("Science Fiction");
+
+        books.add(new Book("The End of Eternity", "Isaac Asimov",
+                    genre, 195.00, "9780449237045"));
     }
 } 
