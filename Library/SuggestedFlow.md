@@ -4,8 +4,8 @@ First a home page with 3 options: Reservation, Management and Exit.
 ## Visitor
  Suggested APIs/Functions:
  
- 1. About the Library
- 2. Help (Info)
+ 1. About the Library (Vivlio)
+ 2. Help (Information)
  3. Search for a book (Info) Subcategories: Genre, Availability, Author, Keywords; Display book details
  4. Borrowing a book
  5. Buying a book
