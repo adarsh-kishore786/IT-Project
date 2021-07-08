@@ -1,7 +1,5 @@
 import java.io.*;
-
-public abstract class Person implements Serializable 
-{
+public abstract class Person implements Serializable {
 
     private String m_name;
     private int m_age;
