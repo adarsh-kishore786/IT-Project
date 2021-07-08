@@ -2,82 +2,98 @@ import java.util.*;
 import java.io.*;
 
 public class Customer extends Person {
-  private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects
+  private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
+  //private static int borrowLimit;
   private int numBooksBorrowed;
   private int numBooksBought;
-  String history;
-  ArrayList<Book> booksBorrowed;
-  ArrayList<Book> booksBought;
-  Transaction transaction=new Transaction();
+  String history=""; //planning to make hisory an array list at a later stage
+  ArrayList<Book> booksBorrowed; //initialized in constructor
+  ArrayList<Book> booksBought; //initialized in constructor
+  Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
 
   Customer(String name,int age,String userName,String password){
-    super(String name,int age,String userName,String password);
+    super(name,age,userName,password);
     this.booksBorrowed=new ArrayList<Book>();
     this.booksBought=new ArrayList<Book>();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
   }
+
+  //needs update; needs to be set by admin
   int getBorrowLimit(){
     return 100;
   }
+
   int getNumBooksBorrowed(){
     return this.numBooksBorrowed;
   }
+
   int getNumBooksBought(){
     return this.numBooksBought;
   }
 
   void buyBook(Book book){
-    Date purchaseDate=new Date();
-    //with arrays
-    // if(booksBought[this.numBooksBought-1]!=null) System.out.println("Buy Limit Reached!");
-    // for(int i=0;i<this.numBooksBought;i++){
-    //   if(booksBought[i]==null) {
-    //     booksBought[i]=book;
-    //     System.out.println("Added!");
-    //   }
-    // }
+    //currently no restriction on buying
+    Date purchaseDate=new Date(); //returns current date
 
-    //with array list
-      booksBought.add(book);
-      numBooksBought++;
+    //reduce number of copies of book
+    int n=book.getNumCopies();
+    book.setNumCopies(n-1);
 
+    //array lists
+      booksBought.add(book); //update array list
+      numBooksBought++; //update number of books bought
+
+      //set transaction purchase date
       transaction.setDateOfPurchase(purchaseDate);
   }
-  void borrowBook(Book book){
-    Date borrowDate=new Date();
-    //with arrays
-    // if(booksBought[getBorrowLimit()-1]!=null) System.out.println("Borrow Limit Reached!");
-    // for(int i=0;i<this.numBooksBorrowed;i++){
-    //   if(booksBorrowed[i]==null) {
-    //     booksBorrowed[i]=book;
-    //     System.out.println("Added!");
-    //   }
-    // }
 
-    //with array list
+  void borrowBook(Book book){
+    //return current date
+    Date borrowDate=new Date();
+
+    //check if limit is respected
     if(booksBorrowed.size()<getBorrowLimit()){
       booksBorrowed.add(book);
       numBooksBorrowed++;
+
+      //reduce number of copies of book
+      int n=book.getNumCopies();
+      book.setNumCopies(n-1);
+
       //pass date and return status to transaction
       transaction.setDateOfBorrow(borrowDate);
       transaction.setIsReturned(false);
 
       System.out.println("Added");
-    }else System.out.println("Borrow Limit Reached! Please return a book to continue");
+    }else System.out.println("Borrow Limit Reached! Please return a book to continue"); //response to limit breach
   }
+
   void returnBook(Book book){
     Date returnDate=new Date();
 
+    //remove book from list
     booksBorrowed.remove(book);
     numBooksBorrowed--;
+
+    //increase number of copies of book
+    int n=book.getNumCopies();
+    book.setNumCopies(n+1);
+
+    //update transaction object with return date and return status
     transaction.setDateOfReturn(returnDate);
     transaction.setIsReturned(true);
+
+    //update history
+    history+=book.getTitle()+" ";
     System.out.println("Returned successfully! \nFine to be paid: "+transaction.getFine());
   }
+
   String getHistory(){
     return history;
   }
+
+  //return transaction object
   Transaction getTransaction(){
     return transaction;
   }
@@ -85,10 +101,10 @@ public class Customer extends Person {
   //write customer object to dat file
   void saveCustomer() throws IOException{
     customerList.add(this); //add customer object to list
-    ObjectOutputStream os=null;
+    ObjectOutputStream os=null; //stream that writes object to file
     try {
       os=new ObjectOutputStream(new FileOutputStream("./src/save.dat"));
-      os.writeObject(customerList);
+      os.writeObject(customerList); //write array list to file
       os.flush();
     }catch(Exception e){
       e.printStackTrace();
@@ -103,9 +119,11 @@ public class Customer extends Person {
     return customerList[n];
   }
 
+  //following functions assume a books.dat file in /src/books.dat
+
   ArrayList<Book> getBookUnderPrice(double price){
     //file url can be changed
-    var books=Book.getBooks("/src/books.dat");
+    ArrayList<Book> books=Book.getBooks("./src/books.dat");
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.getPrice()<price)
@@ -113,9 +131,10 @@ public class Customer extends Person {
     }
     return filteredList;
   }
+
   ArrayList<Book> getBookWithAuthor(String[] authors){
     //file url can be changed
-    var books=Book.getBooks("/src/books.dat");
+    ArrayList<Book> books=Book.getBooks("./src/books.dat");
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(Arrays.asList(authors).contains(b.getAuthor()))
@@ -123,9 +142,10 @@ public class Customer extends Person {
     }
     return filteredList;
   }
+
   ArrayList<Book> getBookWithGenre(String[] genre){
     //file url can be changed
-    var books=Book.getBooks("/src/books.dat");
+    ArrayList<Book> books=Book.getBooks("./src/books.dat");
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(Arrays.asList(genre).contains(b.getGenre()))
@@ -133,9 +153,10 @@ public class Customer extends Person {
     }
     return filteredList;
   }
+
   ArrayList<Book> getIfAvailable(){
     //file url can be changed
-    var books=Book.getBooks("/src/books.dat");
+    ArrayList<Book> books=Book.getBooks("./src/books.dat");
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.isAvailable())
