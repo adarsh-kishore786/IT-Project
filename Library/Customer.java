@@ -108,6 +108,7 @@ public class Customer extends Person {
       os.flush();
     }catch(Exception e){
       e.printStackTrace();
+      customerList.remove(this);
     } finally{
       if(os!=null) os.close();
       System.out.println("Saved!");
