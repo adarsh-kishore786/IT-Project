@@ -5,6 +5,7 @@
  * It is a child class from Person.java
  */
 import java.util.*;
+import java.io.*;
 
 public class Admin extends Person
 {
@@ -14,6 +15,7 @@ public class Admin extends Person
     private double m_revenue;
     private final int m_numBooksBorrowLimit; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
+    private static final String m_url = "src/admin.dat";
 
     public Admin(String name, int age, String username, String password)
     {
@@ -31,14 +33,92 @@ public class Admin extends Person
 
     public static Admin getAdmin()
     {
-        // Load all info from .dat file
-        return null;
+        ObjectInput in = null;
+
+        String name;
+        int age;
+        String username;
+        String password;
+        Admin admin = null;
+
+        try 
+        {
+            in = new ObjectInputStream(new 
+                    BufferedInputStream(new FileInputStream(m_url)));
+            
+            name = in.readUTF();
+            age = in.readInt();
+            username = in.readUTF();
+            password = in.readUTF();
+
+            admin = new Admin(name, age, username, password);
+            admin.setNumBooksSold(in.readInt());
+            admin.setNumBooksOnRent(in.readInt());
+            admin.setRevenue(in.readDouble());
+        }
+        catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
+        catch (IOException ie) { System.err.println(ie); }
+        finally 
+        {
+            if (in != null)
+            {
+                try { in.close(); }
+                catch (IOException ie) { System.err.println(ie); }
+            }
+        }
+        return admin;
+    }
+
+    public void saveAdminDetails()
+    {
+        ObjectOutputStream out = null;
+
+        try 
+        {
+            out = new ObjectOutputStream(new
+                    BufferedOutputStream(new FileOutputStream(m_url)));
+
+            out.writeUTF(m_name);
+            out.writeInt(m_age);
+            out.writeUTF(m_username);
+            out.writeUTF(m_password);
+            
+            out.writeInt(m_numBooksSold);
+            out.writeInt(m_numBooksOnRent);
+            out.writeDouble(m_revenue);
+        }
+        catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
+        catch (IOException ie) { System.err.println(ie); }
+        finally 
+        {
+            if (out != null)
+            {
+                try { out.close(); }
+                catch (IOException ie) { System.err.println(ie); }
+            }
+        }
     }
 
     public double getRevenue() { return m_revenue; }
     public int getNumBooksOnRent() { return m_numBooksOnRent; }
     public int getNumBooksSold() { return m_numBooksSold; }
     public int getNumBooksBorrowLimit() { return m_numBooksBorrowLimit; }
+
+    private void setRevenue(double revenue) { m_revenue = revenue; }
+    private void setNumBooksOnRent(int numBooks) { m_numBooksOnRent = numBooks; }
+    private void setNumBooksSold(int numBooks) { m_numBooksSold = numBooks; }
+
+    @Override
+    public String toString()
+    {
+        String str = super.toString() + "\n";
+
+        str += "Number of books on rent: " + m_numBooksOnRent + "\n";
+        str += "Number of books sold   : " + m_numBooksSold + "\n";
+        str += "Total revenue earned   : Rs. " + m_revenue + "\n";
+
+        return str;
+    }
 
     public void sellBook(Book b) 
     {
@@ -146,4 +226,13 @@ public class Admin extends Person
         books.add(new Book("The End of Eternity", "Isaac Asimov",
                     genre, 195.00, "9780449237045"));
     }
+
+    // public static void main(String[] args) {
+    //     // Admin a = new Admin("Andrew", 35, "al.andrew@vivlio.org",
+    //     //         "Adm1n_paSs");
+    //     // a.saveAdminDetails();
+
+    //     Admin a = getAdmin();
+    //     System.out.println(a);
+    // }
 } 
