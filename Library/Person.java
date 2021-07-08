@@ -1,10 +1,13 @@
-public abstract class Person {
+import java.io.*;
 
-    protected String m_name;
-    protected int m_age;
-    protected String m_username;
-    protected String m_password;
+public abstract class Person implements Serializable 
+{
 
+    private String m_name;
+    private int m_age;
+    private String m_username;
+    private String m_password;
+    
     Person(String name, int age, String username, String password) {
         m_name = name;
         m_age = age;
@@ -23,7 +26,7 @@ public abstract class Person {
     public String getPassword() {
         return m_password;
     }
-
+    
     @Override
     public String toString() {
         return ("\nName     : " + m_name + "\nAge      : " + m_age + 
