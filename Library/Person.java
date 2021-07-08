@@ -1,32 +1,33 @@
 import java.io.*;
-
 public abstract class Person implements Serializable {
 
-    private String name;
-    private int age;
-    private String username;
-    private String password;
+    private String m_name;
+    private int m_age;
+    private String m_username;
+    private String m_password;
     
-    Person(String pname, int page, String pusername, String ppassword) {
-        name=pname;
-        age=page;
-        username=pusername;
-        password=ppassword;
+    Person(String name, int age, String username, String password) {
+        m_name = name;
+        m_age = age;
+        m_username = username;
+        m_password = password;
     }
     public String getName() {
-        return name;
+        return m_name;
     }
     public int getAge() {
-        return age;
+        return m_age;
     }
     public String getUsername() {
-        return username;
+        return m_username;
     }
     public String getPassword() {
-        return password;
+        return m_password;
     }
+    
     @Override
     public String toString() {
-        return ("\nName: "+name+"\nAge: "+age+"\nUser Name: "+username+"\n");
+        return ("\nName     : " + m_name + "\nAge      : " + m_age + 
+            "\nUser Name: " + m_username+ "\n");
     }
 }
