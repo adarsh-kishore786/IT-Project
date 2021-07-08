@@ -103,7 +103,7 @@ public class Customer extends Person {
     customerList.add(this); //add customer object to list
     ObjectOutputStream os=null; //stream that writes object to file
     try {
-      os=new ObjectOutputStream(new FileOutputStream("./src/save.dat"));
+      os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
       os.writeObject(customerList); //write array list to file
       os.flush();
     }catch(Exception e){
