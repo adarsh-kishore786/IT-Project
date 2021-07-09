@@ -117,19 +117,36 @@ public class Admin extends Person
         b.setNumCopies(b.getNumCopies() - numCopies);
     }
 
-    public void getBackBook(String username, Book b)
+    public void getBackBook(Transaction trans, Book book)
     {
+        int index = -1;
+        ArrayList<Books> books = trans.getBorrowedBooks();
+        for (int i = 1; i < books.size(); i++)
+        {
+            if (!trans.getIsReturned.get(i) && books.get(i).getISBN().equals(book.getISBN()))
+            {
+                trans.setIsReturned(i, true);
+                index = i;
+                break;
+            }
+        }
+        if (index == -1)
+        {
+            System.out.println("Customer never borrowed the book.");
+            return;
+        }
+        
+        double fine = trans.getFine(index);
+        if (fine != 0)
+            System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
 
-    }
-
-    public void takeFine(double fine) 
-    {
-
+        m_revenue += fine;
+        trans.setFineToZero(index);
     }
 
     public String getHistory(Customer cust) 
     {
-        
+        return cust.getHistory();
     }
 
     public static double getFineRate() { return m_fineRate; }
