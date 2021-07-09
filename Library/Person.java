@@ -2,7 +2,6 @@ import java.io.*;
 
 public abstract class Person implements Serializable 
 {
-
     protected String m_name;
     protected int m_age;
     protected String m_username;
