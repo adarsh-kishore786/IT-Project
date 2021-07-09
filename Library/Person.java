@@ -3,10 +3,10 @@ import java.io.*;
 public abstract class Person implements Serializable 
 {
 
-    private String m_name;
-    private int m_age;
-    private String m_username;
-    private String m_password;
+    protected String m_name;
+    protected int m_age;
+    protected String m_username;
+    protected String m_password;
     
     Person(String name, int age, String username, String password) {
         m_name = name;
