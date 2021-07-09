@@ -34,28 +34,15 @@ public class Admin extends Person
     public static Admin getAdmin()
     {
         ObjectInput in = null;
-
-        String name;
-        int age;
-        String username;
-        String password;
         Admin admin = null;
 
         try 
         {
             in = new ObjectInputStream(new 
                     BufferedInputStream(new FileInputStream(m_url)));
-            
-            name = in.readUTF();
-            age = in.readInt();
-            username = in.readUTF();
-            password = in.readUTF();
-
-            admin = new Admin(name, age, username, password);
-            admin.setNumBooksSold(in.readInt());
-            admin.setNumBooksOnRent(in.readInt());
-            admin.setRevenue(in.readDouble());
+            admin = (Admin) in.readObject();
         }
+        catch (ClassNotFoundException cnfe) { System.err.println(cnfe); }
         catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
         catch (IOException ie) { System.err.println(ie); }
         finally 
@@ -78,14 +65,8 @@ public class Admin extends Person
             out = new ObjectOutputStream(new
                     BufferedOutputStream(new FileOutputStream(m_url)));
 
-            out.writeUTF(m_name);
-            out.writeInt(m_age);
-            out.writeUTF(m_username);
-            out.writeUTF(m_password);
-            
-            out.writeInt(m_numBooksSold);
-            out.writeInt(m_numBooksOnRent);
-            out.writeDouble(m_revenue);
+            out.writeObject(this);
+            out.flush();
         }
         catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
         catch (IOException ie) { System.err.println(ie); }
@@ -103,10 +84,6 @@ public class Admin extends Person
     public int getNumBooksOnRent() { return m_numBooksOnRent; }
     public int getNumBooksSold() { return m_numBooksSold; }
     public int getNumBooksBorrowLimit() { return m_numBooksBorrowLimit; }
-
-    private void setRevenue(double revenue) { m_revenue = revenue; }
-    private void setNumBooksOnRent(int numBooks) { m_numBooksOnRent = numBooks; }
-    private void setNumBooksSold(int numBooks) { m_numBooksSold = numBooks; }
 
     @Override
     public String toString()
