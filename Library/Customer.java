@@ -45,7 +45,7 @@ public class Customer extends Person {
       numBooksBought++; //update number of books bought
 
       //set transaction purchase date
-      transaction.setDateOfPurchase(purchaseDate);
+      this.transaction.setDateOfPurchase(purchaseDate);
   }
 
   void borrowBook(Book book){
@@ -57,13 +57,12 @@ public class Customer extends Person {
       booksBorrowed.add(book);
       numBooksBorrowed++;
 
+      initializeBorrowTransaction(borrowDate);
+
       //reduce number of copies of book
       int n=book.getNumCopies();
       book.setNumCopies(n-1);
 
-      //pass date and return status to transaction
-      transaction.setDateOfBorrow(borrowDate);
-      transaction.setIsReturned(false);
 
       System.out.println("Added");
     }else System.out.println("Borrow Limit Reached! Please return a book to continue"); //response to limit breach
@@ -80,9 +79,7 @@ public class Customer extends Person {
     int n=book.getNumCopies();
     book.setNumCopies(n+1);
 
-    //update transaction object with return date and return status
-    transaction.setDateOfReturn(returnDate);
-    transaction.setIsReturned(true);
+    initializeReturnTransaction(returnDate);
 
     //update history
     history+=book.getTitle()+" ";
@@ -93,6 +90,18 @@ public class Customer extends Person {
     return history;
   }
 
+  void initializeBorrowTransaction(Date borrowDate){
+    //pass date and return status to transaction
+    this.transaction.setDateOfBorrow(borrowDate);
+    this.transaction.setIsReturned(false);
+
+  }
+
+  void initializeReturnTransaction(Date returnDate){
+    //update transaction object with return date and return status
+    this.transaction.setDateOfReturn(returnDate);
+    this.transaction.setIsReturned(true);
+  }
   //return transaction object
   Transaction getTransaction(){
     return transaction;
