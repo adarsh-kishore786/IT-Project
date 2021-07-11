@@ -84,6 +84,12 @@ public class Book implements Serializable
         return m_buyers;
     }
 
+    //returns an arraylist of all the books
+    public static ArrayList<Book> getBooks() 
+    {
+        return booksList;
+    }
+
     //private function to print genre in a nice manner
     private String showGenre()
     {
@@ -175,12 +181,6 @@ public class Book implements Serializable
                 oos.close();
         }
 
-    }
-
-    //returns an arraylist of all the books
-    public static ArrayList<Book> getBooks() 
-    {
-        return booksList;
     }
 
 }
