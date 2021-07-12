@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Customer extends Person {
+  private static Admin admin=new Admin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
   //private static int borrowLimit;
   private int numBooksBorrowed;
@@ -37,8 +38,8 @@ public class Customer extends Person {
     Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
-    int n=book.getNumCopies();
-    book.setNumCopies(n-1);
+    // int n=book.getNumCopies();
+    // book.setNumCopies(n-1);
 
     //array lists
       booksBought.add(book); //update array list
@@ -60,8 +61,8 @@ public class Customer extends Person {
       initializeBorrowTransaction(borrowDate);
 
       //reduce number of copies of book
-      int n=book.getNumCopies();
-      book.setNumCopies(n-1);
+      // int n=book.getNumCopies();
+      // book.setNumCopies(n-1);
 
 
       System.out.println("Added");
@@ -126,14 +127,14 @@ public class Customer extends Person {
 
   //get customer object from list
   static Customer getCustomer(int n){
-    return customerList[n];
+    return customerList.get(n);
   }
 
   //following functions assume a books.dat file in /src/books.dat
 
   ArrayList<Book> getBookUnderPrice(double price){
     //file url can be changed
-    ArrayList<Book> books=Book.getBooks("./src/books.dat");
+    ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.getPrice()<price)
@@ -144,7 +145,7 @@ public class Customer extends Person {
 
   ArrayList<Book> getBookWithAuthor(String[] authors){
     //file url can be changed
-    ArrayList<Book> books=Book.getBooks("./src/books.dat");
+    ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(Arrays.asList(authors).contains(b.getAuthor()))
@@ -155,7 +156,7 @@ public class Customer extends Person {
 
   ArrayList<Book> getBookWithGenre(String[] genre){
     //file url can be changed
-    ArrayList<Book> books=Book.getBooks("./src/books.dat");
+    ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(Arrays.asList(genre).contains(b.getGenre()))
@@ -166,7 +167,7 @@ public class Customer extends Person {
 
   ArrayList<Book> getIfAvailable(){
     //file url can be changed
-    ArrayList<Book> books=Book.getBooks("./src/books.dat");
+    ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.isAvailable())
