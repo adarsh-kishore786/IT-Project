@@ -28,7 +28,7 @@ public class Admin extends Person
         m_revenue = 0.0;
         
         // Define the constants
-        m_numBooksBorrowLimit = 10; 
+        m_numBooksBorrowLimit = 5; 
     }
 
     public static Admin getAdmin()
@@ -105,16 +105,18 @@ public class Admin extends Person
 
         // add it in revenue and update number of copies
         b.setNumCopies(b.getNumCopies() - numCopies);   
-        m_revenue += b.getPrice() * numCopies;   
+        m_revenue += b.getPrice() * numCopies;
+        Book.saveBooks();   
     }
 
-    public void rentBook(Book b) 
+    public boolean rentBook(Transaction trans, Book b) 
     {
         int numCopies = getNumCopies(b);
         if (numCopies == 0)
-            return;
+            return false;
 
-        b.setNumCopies(b.getNumCopies() - numCopies);
+        trans.rentBookTransaction(b);
+        return true;
     }
 
     public void getBackBook(Transaction trans, Book book)
@@ -123,7 +125,7 @@ public class Admin extends Person
         ArrayList<Books> books = trans.getBorrowedBooks();
         for (int i = 1; i < books.size(); i++)
         {
-            if (!trans.getIsReturned.get(i) && books.get(i).getISBN().equals(book.getISBN()))
+            if (!trans.getIsReturned().get(i))// &&  m_borrowedBooks.get(i) == )
             {
                 trans.setIsReturned(i, true);
                 index = i;
@@ -136,12 +138,14 @@ public class Admin extends Person
             return;
         }
         
-        double fine = trans.getFine(index);
-        if (fine != 0)
-            System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
+        // double fine = trans.getFine(index);
+        // if (fine != 0)
+        //     System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
 
-        m_revenue += fine;
-        trans.setFineToZero(index);
+        // m_revenue += fine;
+        // trans.setFineToZero(index);
+        m_revenue = trans.getRevenue();
+        saveBooks();
     }
 
     public String getHistory(Customer cust) 
