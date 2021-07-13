@@ -119,15 +119,14 @@ public class Admin extends Person
         return true;
     }
 
-    public void getBackBook(Transaction trans, Book book)
+    public boolean getBackBook(Transaction trans, Book book)
     {
         int index = -1;
-        ArrayList<Books> books = trans.getBorrowedBooks();
+        ArrayList<Book> books = trans.getBorrowedBooks();
         for (int i = 1; i < books.size(); i++)
         {
-            if (!trans.getIsReturned().get(i))// &&  m_borrowedBooks.get(i) == )
+            if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
             {
-                trans.setIsReturned(i, true);
                 index = i;
                 break;
             }
@@ -135,17 +134,15 @@ public class Admin extends Person
         if (index == -1)
         {
             System.out.println("Customer never borrowed the book.");
-            return;
+            return false;
         }
         
-        // double fine = trans.getFine(index);
-        // if (fine != 0)
-        //     System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
+        double fine = trans.getFine(index);
+        if (fine != 0)
+             System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
 
-        // m_revenue += fine;
-        // trans.setFineToZero(index);
-        m_revenue = trans.getRevenue();
-        saveBooks();
+        m_revenue += fine;
+        return true;
     }
 
     public String getHistory(Customer cust) 
