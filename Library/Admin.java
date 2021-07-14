@@ -115,7 +115,13 @@ public class Admin extends Person
         if (numCopies == 0)
             return false;
 
-        trans.rentBookTransaction(b);
+        // If customer has 1 copy already, then transaction fails
+        if (!trans.rentBookTransaction(b))
+        {
+            System.out.println("You have borrowed this book already." + 
+                        " Return that copy to borrow another one.");
+            return false;
+        }
         return true;
     }
 
@@ -123,6 +129,8 @@ public class Admin extends Person
     {
         int index = -1;
         ArrayList<Book> books = trans.getBorrowedBooks();
+
+        // checks the index of book in borrowed list
         for (int i = 1; i < books.size(); i++)
         {
             if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
