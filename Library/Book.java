@@ -133,13 +133,13 @@ public class Book implements Serializable
     public void setBorrowers(Customer borrower) throws IOException
     {
         m_borrowersList.add(borrower);
-        saveInfo();
+        saveBooks();
     }
 
     public void setBuyers(Customer buyer) throws IOException
     {
         m_buyersList.add(buyer);
-        saveInfo();
+        saveBooks();
     }
 
     public static boolean checkISBN(String ISBN)
@@ -153,7 +153,7 @@ public class Book implements Serializable
         return false;
     }
 
-    public static void saveInfo() throws IOException
+    public static void saveBooks() throws IOException
     {
         //streams objects required
         FileOutputStream fos=null;
