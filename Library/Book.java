@@ -7,7 +7,7 @@ public class Book implements Serializable
     private String m_title, m_ISBN, m_author;
     private double m_price;
     private int m_numCopies;
-    private ArrayList<Customer> m_buyers, m_borrowers;
+    private ArrayList<Customer> m_borrowersList, m_buyersList;
     private ArrayList<String> m_genre;
 
     //static variable containing a list of all the books in the library
@@ -27,10 +27,10 @@ public class Book implements Serializable
         m_ISBN=ISBN;
         //10 copies of each book 
         m_numCopies=10;
-        m_buyers=new ArrayList<Customer>();
-        m_borrowers=new ArrayList<Customer>();
+        m_buyersList=new ArrayList<Customer>();
+        m_borrowersList=new ArrayList<Customer>();   
     }
-
+        
     public String toString()
     {
         //String representation of the book object with all of its characteristic details
@@ -76,12 +76,12 @@ public class Book implements Serializable
 
     public ArrayList<Customer> getBorrowers()
     {
-        return m_borrowers;
+        return m_borrowersList;
     }
 
     public ArrayList<Customer> getBuyers()
     {
-        return m_buyers;
+        return m_buyersList;
     }
 
     //returns an arraylist of all the books
@@ -122,7 +122,7 @@ public class Book implements Serializable
 
     public void setGenre(ArrayList<String> genre)
     {
-        m_genre=new ArrayList<String>(genre);
+        m_genre.addAll(genre);
     }
 
     public void setNumCopies(int numCopies)
@@ -130,14 +130,16 @@ public class Book implements Serializable
         m_numCopies=numCopies;
     }
 
-    public void setBorrowers(ArrayList<Customer> borrowers)
+    public void setBorrowers(Customer borrower)
     {
-        m_borrowers=new ArrayList<Customer>(borrowers);
+        m_borrowersList.add(borrower);
+        saveInfo();
     }
 
-    public void setBuyers(ArrayList<Customer> buyers)
+    public void setBuyers(Customer buyer)
     {
-        m_buyers=new ArrayList<Customer>(buyers);
+        m_buyersList.add(buyer);
+        saveInfo();
     }
 
     public static boolean checkISBN(String ISBN)
@@ -151,10 +153,41 @@ public class Book implements Serializable
         return false;
     }
 
-    public void saveBook() throws IOException
+    public static void saveInfo() throws IOException
     {
-        //updating the static books list with this new book object
-        booksList.add(this);
+        //streams objects required
+        FileOutputStream fos=null;
+        ObjectOutputStream oos=null;
+
+        //writing the booksList into the file with all the updated information
+        try
+        {
+            //file containing books arraylist-booksFile.dat passed to the stream
+            fos=new FileOutputStream("booksFile.dat");
+            oos=new ObjectOutputStream(fos);
+            oos.writeObject(booksList);
+        }
+        catch (FileNotFoundException fnfe) 
+        { 
+            System.err.println(fnfe); 
+        }
+        catch (IOException ie) 
+        { 
+            System.err.println(ie); 
+        }
+        finally 
+        {
+            if(fos!=null)
+                fos.close();
+            if(oos!=null)
+                oos.close();
+        }
+    }
+
+    public static void saveBooks(ArrayList<Book> books) throws IOException
+    {
+        //updating the static books list with the new books in the arraylist
+        booksList.addAll(books);
 
         //streams objects required
         FileOutputStream fos=null;
@@ -167,11 +200,15 @@ public class Book implements Serializable
             fos=new FileOutputStream("booksFile.dat");
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
-            System.out.println("Book was saved successfully!");
+            System.out.println("All the books have been saved!");
         }
-        catch(Exception e)
-        {
-            System.out.println(e); 
+        catch (FileNotFoundException fnfe) 
+        { 
+            System.err.println(fnfe); 
+        }
+        catch (IOException ie) 
+        { 
+            System.err.println(ie); 
         }
         finally 
         {
