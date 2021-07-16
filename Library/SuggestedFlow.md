@@ -29,5 +29,5 @@ Suggested APIs/Functions:
 9. Sell/Rent book
 
 ## Some additional points:
-1. We will need function to count the number of days automatically for books. For that we can use the Date class in Java. Something like Date.today() - dateOfPurchase() (this is pseudo-code)
+1. We will need function to count the number of days automatically for books. For that we can use the Date class in Java. Something like Date.today() - dateOfBorrow() (this is pseudo-code)
 2. We will use a .dat file to store the details of books and customers (Book.dat and Customer.dat). We also need to see how we save and read from a .dat file using Java.
