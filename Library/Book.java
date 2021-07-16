@@ -130,13 +130,13 @@ public class Book implements Serializable
         m_numCopies=numCopies;
     }
 
-    public void setBorrowers(Customer borrower)
+    public void setBorrowers(Customer borrower) throws IOException
     {
         m_borrowersList.add(borrower);
         saveInfo();
     }
 
-    public void setBuyers(Customer buyer)
+    public void setBuyers(Customer buyer) throws IOException
     {
         m_buyersList.add(buyer);
         saveInfo();
