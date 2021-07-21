@@ -57,13 +57,13 @@ public class Customer extends Person {
 
       if(admin.rentBook(transaction,book)){
         book.setBorrowers(this);
-        book.saveBook(); //this can be called inside setBorrowers method to make customer's work less
+        Book.saveBook(); //this can be called inside setBorrowers method to make customer's work less
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();
 
         System.out.println("Congrats! You have borrowed a new book!");
-      } else System.out.println("Sorry, this book has already been borrowed!");
+      }
 
     }else System.out.println("Borrow Limit Reached! Please return a book to continue"); //response to limit breach
   }
@@ -74,7 +74,7 @@ public class Customer extends Person {
       booksBorrowed.remove(book);
       numBooksBorrowed=booksBorrowed.size();
 
-      //update history
+      //update history(has to be changed)
       history+=book.getTitle()+" ";
     }
     //initializeReturnTransaction(returnDate);
@@ -122,6 +122,7 @@ public class Customer extends Person {
 
   //following functions assume a books.dat file in /src/books.dat
 
+  //TODO format returned book list
   ArrayList<Book> getBookUnderPrice(double price){
 
     ArrayList<Book> books=Book.getBooks();

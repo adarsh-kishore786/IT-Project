@@ -5,7 +5,7 @@ public abstract class Person implements Serializable {
     private int m_age;
     private String m_username;
     private String m_password;
-    
+
     Person(String name, int age, String username, String password) {
         m_name = name;
         m_age = age;
@@ -21,13 +21,11 @@ public abstract class Person implements Serializable {
     public String getUsername() {
         return m_username;
     }
-    public String getPassword() {
-        return m_password;
-    }
     
+
     @Override
     public String toString() {
-        return ("\nName     : " + m_name + "\nAge      : " + m_age + 
+        return ("\nName     : " + m_name + "\nAge      : " + m_age +
             "\nUser Name: " + m_username+ "\n");
     }
 }
