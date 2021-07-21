@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 public class Transaction {
-    ArrayList<LocalDate>= dateOfBorrow();
+    ArrayList<LocalDate> dateOfBorrow();
     private boolean payment(int amount) {
         Scanner details= new Scanner(System.in); 
         boolean status=false;
         long cardNumber, n;
-        int count=0, cvv;
+        int count=0, cvv=0;
         char choice='Y';
         String expiryDate= new String();
         do
