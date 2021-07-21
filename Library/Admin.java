@@ -113,7 +113,10 @@ public class Admin extends Person
     {
         int numCopies = getNumCopies(b);
         if (numCopies == 0)
+        {
+            System.out.println("Sorry, this book has no copies!");
             return false;
+        }
 
         // If customer has 1 copy already, then transaction fails
         if (!trans.rentBookTransaction(b))
