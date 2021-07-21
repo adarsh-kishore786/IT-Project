@@ -97,21 +97,23 @@ public class Admin extends Person
         return str;
     }
 
-    public void sellBook(Book b) 
+    public boolean sellBook(Transaction trans, Book b) 
     {
         int numCopies = getNumCopiesAvailable(b);
         if (numCopies == 0) // if no copies, then return
-            return;
+        {
+            System.out.println("Sorry, this book has no copies!");
+            return false;
+        }
 
-        // add it in revenue and update number of copies
-        b.setNumCopies(b.getNumCopies() - numCopies);   
-        m_revenue += b.getPrice() * numCopies;
-        Book.saveBooks();   
+        if (!trans.sellBookTransaction(b))
+            return false;
+        return true;
     }
 
     public boolean rentBook(Transaction trans, Book b) 
     {
-        int numCopies = getNumCopies(b);
+        int numCopies = getNumCopiesAvailable(b);
         if (numCopies == 0)
         {
             System.out.println("Sorry, this book has no copies!");
