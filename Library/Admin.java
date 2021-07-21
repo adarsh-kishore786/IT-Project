@@ -181,6 +181,7 @@ public class Admin extends Person
         System.out.println("Take 1 copy? (Y/N)");
         Scanner sc = new Scanner(System.in);
         char c = sc.nextLine().charAt(0);
+        sc.close();
 
         if (c != 'y' && c != 'Y') numCopies = 0;
         return numCopies;
