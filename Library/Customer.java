@@ -2,7 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Customer extends Person {
-  private static Admin admin=new Admin();
+  //private static Admin admin=new Admin();
+  private static Admin admin=Admin.getAdmin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
   private static int borrowLimit=admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
@@ -34,18 +35,25 @@ public class Customer extends Person {
 
   void buyBook(Book book){
     //currently no restriction on buying
-    Date purchaseDate=new Date(); //returns current date
+    //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
     // int n=book.getNumCopies();
     // book.setNumCopies(n-1);
 
-    //array lists
-      booksBought.add(book); //update array list
-      numBooksBought++; //update number of books bought
+    if(admin.sellBook(transaction,book)){
 
+      booksBought.add(book); //update array list
+      numBooksBought=booksBought.size(); //update number of books bought
+
+      //updating book list
+      book.setBuyers(this);
+      //Book.saveBook(); already called in Book.java
+
+      System.out.println("Bought Successfully!");
+    }
       //set transaction purchase date
-      this.transaction.setDateOfPurchase(purchaseDate);
+      // this.transaction.setDateOfPurchase(purchaseDate);
   }
 
   void borrowBook(Book book){
