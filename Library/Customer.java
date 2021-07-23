@@ -100,28 +100,36 @@ public class Customer extends Person {
   //write customer object to dat file
   void saveCustomer() throws IOException{
 
+   ObjectOutputStream os=null; //stream that writes object to file
 
-    ObjectOutputStream os=null; //stream that writes object to file
-    try {
+   try {
 
-      if(customerList.contains(this))
-      {
-        int index=customerList.indexOf(this);
-        customerList.set(index,this); //update customer object to list
-      }else customerList.add(this); //add customer object to list
+     if(customerList.contains(this))
+     {
+       int index=customerList.indexOf(this);
+       customerList.set(index,this); //update customer object to list
+     }else customerList.add(this); //add customer object to list
 
-      os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
-      os.writeObject(customerList); //write array list to file
-      os.flush();
+     os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
+     os.writeObject(customerList); //write array list to file
+     os.flush();
 
-    }catch(Exception e){
-      e.printStackTrace();
-      //customerList.remove(this);
-    } finally{
-      if(os!=null) os.close();
-      System.out.println("Saved!");
-    }
-  }
+     System.out.println("Saved!");
+
+   }catch(IOException e){
+     System.err.println(e);
+     //customerList.remove(this);
+   } finally{
+     if(os!=null) {
+       try {
+         os.close();
+       } catch(IOException e) {
+         System.err.println(e);
+       }
+
+     }
+   }
+ }
 
   //get customer object from list
   static Customer getCustomer(int n){
