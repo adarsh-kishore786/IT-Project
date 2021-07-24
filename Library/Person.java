@@ -22,13 +22,10 @@ public abstract class Person implements Serializable
     public String getUsername() {
         return m_username;
     }
-    public String getPassword() {
-        return m_password;
-    }
     
     @Override
     public String toString() {
-        return ("\nName     : " + m_name + "\nAge      : " + m_age + 
+        return ("\nName     : " + m_name + "\nAge      : " + m_age +
             "\nUser Name: " + m_username+ "\n");
     }
 }

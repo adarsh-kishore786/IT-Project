@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Customer extends Person {
+
   private static Admin admin=Admin.getAdmin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
   private static int borrowLimit=admin.getNumBooksBorrowLimit();
@@ -34,18 +35,25 @@ public class Customer extends Person {
 
   void buyBook(Book book){
     //currently no restriction on buying
-    Date purchaseDate=new Date(); //returns current date
+    //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
     // int n=book.getNumCopies();
     // book.setNumCopies(n-1);
 
-    //array lists
-      booksBought.add(book); //update array list
-      numBooksBought++; //update number of books bought
+    if(admin.sellBook(transaction,book)){
 
+      booksBought.add(book); //update array list
+      numBooksBought=booksBought.size(); //update number of books bought
+
+      //updating book list
+      book.setBuyers(this);
+      //Book.saveBook(); already called in Book.java
+
+      System.out.println("Bought Successfully!");
+    }
       //set transaction purchase date
-      this.transaction.setDateOfPurchase(purchaseDate);
+      // this.transaction.setDateOfPurchase(purchaseDate);
   }
 
   void borrowBook(Book book){
@@ -57,13 +65,14 @@ public class Customer extends Person {
 
       if(admin.rentBook(transaction,book)){
         book.setBorrowers(this);
-        Book.saveBooks(); //this can be called inside setBorrowers method to make customer's work less
+        Book.saveBook(); //this can be called inside setBorrowers method to make customer's work less
+
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();
 
         System.out.println("Congrats! You have borrowed a new book!");
-      } else System.out.println("Sorry, this book has already been borrowed!");
+      }
 
     }else System.out.println("Borrow Limit Reached! Please return a book to continue"); //response to limit breach
   }
@@ -74,7 +83,7 @@ public class Customer extends Person {
       booksBorrowed.remove(book);
       numBooksBorrowed=booksBorrowed.size();
 
-      //update history
+      //update history(has to be changed)
       history+=book.getTitle()+" ";
     }
     //initializeReturnTransaction(returnDate);
@@ -92,28 +101,36 @@ public class Customer extends Person {
   //write customer object to dat file
   void saveCustomer() throws IOException{
 
+   ObjectOutputStream os=null; //stream that writes object to file
 
-    ObjectOutputStream os=null; //stream that writes object to file
-    try {
+   try {
 
-      if(customerList.contains(this))
-      {
-        int index=customerList.indexOf(this);
-        customerList.set(index,this); //update customer object to list
-      }else customerList.add(this); //add customer object to list
+     if(customerList.contains(this))
+     {
+       int index=customerList.indexOf(this);
+       customerList.set(index,this); //update customer object to list
+     }else customerList.add(this); //add customer object to list
 
-      os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
-      os.writeObject(customerList); //write array list to file
-      os.flush();
+     os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
+     os.writeObject(customerList); //write array list to file
+     os.flush();
 
-    }catch(Exception e){
-      e.printStackTrace();
-      //customerList.remove(this);
-    } finally{
-      if(os!=null) os.close();
-      System.out.println("Saved!");
-    }
-  }
+     System.out.println("Saved!");
+
+   }catch(IOException e){
+     System.err.println(e);
+     //customerList.remove(this);
+   } finally{
+     if(os!=null) {
+       try {
+         os.close();
+       } catch(IOException e) {
+         System.err.println(e);
+       }
+
+     }
+   }
+ }
 
   //get customer object from list
   static Customer getCustomer(int n){
@@ -122,6 +139,7 @@ public class Customer extends Person {
 
   //following functions assume a books.dat file in /src/books.dat
 
+  //TODO format returned book list
   ArrayList<Book> getBookUnderPrice(double price){
 
     ArrayList<Book> books=Book.getBooks();
