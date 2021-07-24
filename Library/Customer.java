@@ -3,9 +3,9 @@ import java.io.*;
 
 public class Customer extends Person {
 
-  private static Admin admin=Admin.getAdmin();
+  //private static Admin admin=Admin.getAdmin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
-  private static int borrowLimit=admin.getNumBooksBorrowLimit();
+  //private static int borrowLimit=admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
   String history=""; //planning to make hisory an array list at a later stage
@@ -99,7 +99,6 @@ public class Customer extends Person {
   //     //remove book from list
   //     booksBorrowed.remove(book);
   //     numBooksBorrowed=booksBorrowed.size();
-
   //     //update history(has to be changed)
   //     history+=book.getTitle()+" ";
   //   }
@@ -150,7 +149,26 @@ public class Customer extends Person {
  }
 
   //get customer object from list
-  static Customer getCustomer(int n){
+  static Customer getCustomer(int n) throws IOException{
+    ObjectInputStream in=null;
+    try {
+
+      in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")));
+      customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
+
+    }catch(IOException e){
+      System.err.println(e);
+    } catch(ClassNotFoundException e){
+      System.err.println(e);
+    } finally{
+      if(in!=null) {
+        try {
+          in.close();
+        } catch(IOException e) {
+          System.err.println(e);
+        }
+      }
+    }
     return customerList.get(n);
   }
 
@@ -179,14 +197,22 @@ public class Customer extends Person {
     return filteredList;
   }
 
-  ArrayList<Book> getBookWithGenre(String[] genre){
+  ArrayList<Book> getBookWithGenre(String[] genres){
     ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    List<String> genreList=Arrays.asList(genre);
+    List<String> genreList=Arrays.asList(genres);
 
+    //TODO genre is an array list so it needs to be split
     for(Book b:books){
-      if(genreList.contains(b.getGenre()))
-        filteredList.add(b);
+
+      ArrayList<String> bookGenreList=b.getGenre();
+
+      for(String genre:genreList){
+        if(bookGenreList.contains(genre)){
+          filteredList.add(b);
+          break;
+        }
+      }
     }
     return filteredList;
   }
@@ -197,6 +223,17 @@ public class Customer extends Person {
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.isAvailable())
+        filteredList.add(b);
+    }
+    return filteredList;
+  }
+
+  ArrayList<Book> searchByISBN(String[] ISBN){
+    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
+    List<String> isbnList=Arrays.asList(ISBN);
+    for(Book b:books){
+      if(isbnList.contains(b.getISBN()))
         filteredList.add(b);
     }
     return filteredList;
