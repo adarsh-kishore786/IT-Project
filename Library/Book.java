@@ -15,7 +15,13 @@ public class Book implements Serializable
 
     //default constructor with null/default values
     public Book()
-    {}
+    {
+        // try
+        // {
+        //     Book.booksInfo();
+        // }
+        // catch (IOException ie) { System.out.println(ie); }
+    }
 
     //constructor taking in 5 characteristic inputs; others are updated with time
     public Book(String title, String author, ArrayList<String> genre, double price, String ISBN)
@@ -28,13 +34,18 @@ public class Book implements Serializable
         //10 copies of each book 
         m_numCopies=10;
         m_buyersList=new ArrayList<Customer>();
-        m_borrowersList=new ArrayList<Customer>();   
+        m_borrowersList=new ArrayList<Customer>(); 
+    }
+
+    private static void booksInfo() throws IOException
+    {
     }
         
     public String toString()
     {
         //String representation of the book object with all of its characteristic details
-        String s="Title  : "+m_title+"\nAuthor : "+m_author+"\nGenre  : "+showGenre()+"\nPrice  : "+m_price+"\nISBN   : "+m_ISBN;
+        String s="\nTitle  : "+m_title+"\nAuthor : "+m_author+"\nGenre  : "+showGenre()+"\nPrice  : "+m_price+"\nISBN   : "+m_ISBN
+            + "\n";
         return s;
     }
 
@@ -87,6 +98,18 @@ public class Book implements Serializable
     //returns an arraylist of all the books
     public static ArrayList<Book> getBooks() 
     {
+        ObjectInputStream in = null;
+        try 
+        {
+            in = new ObjectInputStream(new BufferedInputStream(
+                new FileInputStream("src/booksFile.dat")));
+            
+            Object obj = in.readObject();
+            if (obj instanceof ArrayList<?>)
+                booksList = (ArrayList<Book>) obj; 
+        }
+        catch (ClassNotFoundException cnfe) { System.err.println(cnfe); }
+        catch (IOException ie) { System.err.println(ie); }
         return booksList;
     }
 
@@ -163,7 +186,7 @@ public class Book implements Serializable
         try
         {
             //file containing books arraylist-booksFile.dat passed to the stream
-            fos=new FileOutputStream("booksFile.dat");
+            fos=new FileOutputStream("src/booksFile.dat");
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
         }
@@ -197,7 +220,7 @@ public class Book implements Serializable
         try
         {
             //file containing books arraylist-booksFile.dat passed to the stream
-            fos=new FileOutputStream("booksFile.dat");
+            fos=new FileOutputStream("src/booksFile.dat");
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
             System.out.println("All the books have been saved!");

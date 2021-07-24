@@ -6,6 +6,8 @@ public abstract class Person implements Serializable
     protected int m_age;
     protected String m_username;
     protected String m_password;
+
+    Person() {}
     
     Person(String name, int age, String username, String password) {
         m_name = name;
