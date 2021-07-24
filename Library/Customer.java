@@ -148,6 +148,7 @@ public class Customer extends Person {
       if(b.getPrice()<price)
         filteredList.add(b);
     }
+    print(filteredList);
     return filteredList;
   }
 
@@ -159,6 +160,7 @@ public class Customer extends Person {
       if(authorList.contains(b.getAuthor()))
         filteredList.add(b);
     }
+    print(filteredList);
     return filteredList;
   }
 
@@ -171,6 +173,7 @@ public class Customer extends Person {
       if(genreList.contains(b.getGenre()))
         filteredList.add(b);
     }
+    print(filteredList);
     return filteredList;
   }
 
@@ -182,6 +185,16 @@ public class Customer extends Person {
       if(b.isAvailable())
         filteredList.add(b);
     }
+    print(filteredList);
     return filteredList;
+  }
+
+  void print(ArrayList<Book> filteredList){
+    for(Book b:filteredList){
+      String genre="";
+      for(String g:b.getGenre())
+        genre+=g+",";
+      System.out.println("Title: "+b.getTitle()+"\nAuthor: "+b.getAuthor()+"\nPrice: "+b.getPrice()+"\nGenre: "+genre+"\nISBN: "+b.getISBN()+"\n");
+    }
   }
 }
