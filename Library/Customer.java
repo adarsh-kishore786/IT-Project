@@ -2,15 +2,15 @@ import java.util.*;
 import java.io.*;
 
 public class Customer extends Person {
-  //private static Admin admin=new Admin();
+
   private static Admin admin=Admin.getAdmin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
   private static int borrowLimit=admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
   String history=""; //planning to make hisory an array list at a later stage
-  // ArrayList<Book> booksBorrowed; //initialized in constructor
-  // ArrayList<Book> booksBought; //initialized in constructor
+  ArrayList<Book> booksBorrowed; //initialized in constructor
+  ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
 
   Customer(String name,int age,String userName,String password){
@@ -66,6 +66,7 @@ public class Customer extends Person {
       if(admin.rentBook(transaction,book)){
         book.setBorrowers(this);
         Book.saveBook(); //this can be called inside setBorrowers method to make customer's work less
+
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();
