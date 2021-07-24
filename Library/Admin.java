@@ -105,6 +105,7 @@ public class Admin extends Person
 
     //     if (!trans.sellBookTransaction(b))
     //         return false;
+    //  m_revenue+=b.getPrice();
     //     return true;
     // }
 
@@ -147,9 +148,13 @@ public class Admin extends Person
     //         return false;
     //     }
         
-    //     double fine = trans.getFine(index);
-    //     if (fine != 0)
-    //          System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
+    //     double fine = trans.returnBookTransaction(index);
+    //     if (fine == -1) 
+    //      {
+    //      System.out.println("Transaction failed, exiting!!!);
+    //        return false;
+    //      }
+    //          
 
     //     m_revenue += fine;
     //     return true;
