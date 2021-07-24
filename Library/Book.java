@@ -163,7 +163,7 @@ public class Book implements Serializable
         try
         {
             //file containing books arraylist-booksFile.dat passed to the stream
-            fos=new FileOutputStream("booksFile.dat");
+            fos=new FileOutputStream("src/booksFile.dat");
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
         }
@@ -197,7 +197,7 @@ public class Book implements Serializable
         try
         {
             //file containing books arraylist-booksFile.dat passed to the stream
-            fos=new FileOutputStream("booksFile.dat");
+            fos=new FileOutputStream("src/booksFile.dat");
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
             System.out.println("All the books have been saved!");
