@@ -1,13 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import java.time.LocalDate;
 public class Transaction {
-    ArrayList<LocalDate> dateOfBorrow();
+
+    ArrayList<LocalDate> dateOfBorrow= new ArrayList<LocalDate>();
+
+
     private boolean payment(int amount) {
         Scanner details= new Scanner(System.in); 
         boolean status=false;
         long cardNumber, n;
-        int count=0, cvv=0;
+        int count=0, cvv;
         char choice='Y';
         String expiryDate= new String();
         do
@@ -43,13 +47,24 @@ public class Transaction {
         boolean status=false, statusPayment;
         int amount=0;
         statusPayment=payment(amount);
+        if (statusPayment==true)
+        status=true;
         return status;
     }
-    public boolean borrowBookTransaction()
+    public boolean borrowBookTransaction(int index, Transaction t)
     {
         boolean status=true, statusPayment;
-        int amount=0;
+        int amount=0, numberOfDays;
+        LocalDate dateOfReturn= LocalDate.now();
+        numberOfDays=dateOfReturn.compareTo(dateOfBorrow.get(index));
+        if (numberOfDays>limitBorrow())
+        {
+            System.out.println("Number of days borrowed exceeds limit! You need to pay a fine!");
+            System.out.println("The amount you need to pay is: Rs "+numberOfDays-limitBorrow()+" ");
+        }
         statusPayment=payment(amount);
+        if (statusPayment==true)
+        status=true;
         return status;
     }
 }
