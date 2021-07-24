@@ -188,8 +188,15 @@ public class Customer extends Person {
 
     //TODO genre is an array list so it needs to be split
     for(Book b:books){
-      if(genreList.contains(b.getGenre()))
-        filteredList.add(b);
+
+      ArrayList<String> bookGenreList=b.getGenre();
+
+      for(String genre:genreList){
+        if(bookGenreList.contains(genre)){
+          filteredList.add(b);
+          break;
+        }
+      }
     }
     return filteredList;
   }
