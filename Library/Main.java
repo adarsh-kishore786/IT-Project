@@ -16,6 +16,26 @@ public class Main
             if (password.compareTo("supersecretpassword")==0) //Better implementation of this part xD
             {
                 //Admin related things
+                System.out.println("\n\nEnter your option (1/2/3) according to the menu: ");
+                System.out.println("1. Manage books");
+                System.out.println("2. ");
+                System.out.println("3. Go back to main");
+                int check=inputManage.nextInt();
+                switch(check)
+                {
+                    case 1:
+                    //Manage books function
+                    break;
+                    case 2:
+                    //Whatever functionalities available in Admin, expand the menu
+                    break;
+                    case 3:
+                    System.out.println("Going back to main");
+                    //Main.main();
+                    break;
+                    default:
+                    System.out.println("Wrong choice entered!");
+                }
             }
             else
             System.out.println("Wrong password!");
