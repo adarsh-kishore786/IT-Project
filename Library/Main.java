@@ -4,6 +4,31 @@ import java.util.Scanner;
 
 public class Main 
 {
+    public static void callAdmin() {
+        Scanner inputManage = new Scanner(System.in);
+        String password;
+        char choiceAdmin;
+        do
+        {
+            System.out.println("Welcome to the Administration section");
+            System.out.println("Please enter the pssword to continue: ");
+            password=inputManage.nextLine();
+            if (password.compareTo("supersecretpassword")==0) //Better implementation of this part xD
+            {
+                //Admin related things
+            }
+            else
+            System.out.println("Wrong password!");
+            System.out.println("Do you want to continue in Admin? Enter Y if yes else press any key: ");
+            choiceAdmin=inputManage.next().charAt(0);
+        } while (choiceAdmin=='Y');
+        
+        inputManage.close();
+
+    }
+    public static void callCustomer() {
+
+    }
     public static void main(String[] args) throws IOException {
         char choiceMain;
         Scanner charIn = new Scanner(System.in);
@@ -20,10 +45,10 @@ public class Main
             switch(check)
             {
                 case 1:
-                //Call Customer
+                callCustomer();
                 break;
                 case 2:
-                //Call Admin
+                callAdmin();
                 break;
                 case 3:
                 System.out.println("Exiting the program!");
