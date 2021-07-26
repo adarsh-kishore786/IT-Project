@@ -94,7 +94,7 @@ public class Book implements Serializable
         return s;
     }
 
-    //private function to print genre in a nice manner
+    //private function to print authors in a nice manner
     private String showAuthor()
     {
         String s=m_author.get(0);
