@@ -15,13 +15,7 @@ public class Book implements Serializable
 
     //default constructor with null/default values
     public Book()
-    {
-        // try
-        // {
-        //     Book.booksInfo();
-        // }
-        // catch (IOException ie) { System.out.println(ie); }
-    }
+    {}
 
     //constructor taking in 5 characteristic inputs; others are updated with time
     public Book(String title, ArrayList<String> author, ArrayList<String> genre, double price, String ISBN)
@@ -100,7 +94,7 @@ public class Book implements Serializable
         return s;
     }
 
-    //private function to print genre in a nice manner
+    //private function to print authors in a nice manner
     private String showAuthor()
     {
         String s=m_author.get(0);
