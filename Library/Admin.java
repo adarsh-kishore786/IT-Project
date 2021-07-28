@@ -16,6 +16,12 @@ public class Admin extends Person
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
     private static final String m_url = "src/admin.dat";
+    private static final int m_maxBorrowDays=14;
+
+    public static int getMaxBorrowDays()
+    {
+        return m_maxBorrowDays;
+    }
 
     public Admin(String name, int age, String username, String password)
     {
@@ -105,6 +111,7 @@ public class Admin extends Person
 
     //     if (!trans.sellBookTransaction(b))
     //         return false;
+    //  m_revenue+=b.getPrice();
     //     return true;
     // }
 
@@ -147,9 +154,13 @@ public class Admin extends Person
     //         return false;
     //     }
         
-    //     double fine = trans.getFine(index);
-    //     if (fine != 0)
-    //          System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
+    //     double fine = trans.returnBookTransaction(index);
+    //     if (fine == -1) 
+    //      {
+    //      System.out.println("Transaction failed, exiting!!!);
+    //        return false;
+    //      }
+    //          
 
     //     m_revenue += fine;
     //     return true;
