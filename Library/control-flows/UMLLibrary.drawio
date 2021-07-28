@@ -1,0 +1,45 @@
+<mxfile host="app.diagrams.net" modified="2021-07-28T04:18:30.818Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36" etag="5Hlh7qLM_B9KRTD85GR0" version="14.9.2" type="github" pages="2">
+  <diagram id="0aetavmPxU3bwbz6fPxj" name="Page-1">
+    <mxGraphModel dx="1038" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-33" value="Person" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="360" width="160" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-34" value="+m_name: String&#xa;+m_age: int&#xa;+m_username: String&#xa;+m_password: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-33">
+          <mxGeometry y="26" width="160" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-35" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-33">
+          <mxGeometry y="90" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-36" value="+getName(): String&#xa;+getAge(): int&#xa;+toString(): String&#xa;+getUserName(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-33">
+          <mxGeometry y="98" width="160" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.488;entryY=0.997;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="TsD7KGuhZZwzooAPxN2N-37" target="TsD7KGuhZZwzooAPxN2N-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-37" value="Customer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="660" width="320" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-38" value="+m_numBooksBorrowed: int&#xa;+m_numBooksBought: int&#xa;+m_booksBorrowed: ArrayList&lt;Book&gt;&#xa;+m_booksBought: ArrayList&lt;Book&gt;&#xa;+m_history: String&#xa;m_transaction: Transaction" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-37">
+          <mxGeometry y="26" width="320" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-39" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-37">
+          <mxGeometry y="120" width="320" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="TsD7KGuhZZwzooAPxN2N-40" value="+getBorrowLimit(): int&#xa;+getNumBooksBorrowed(): int&#xa;+getNumBooksBought(): int&#xa;+buyBook(trans: Transaction, b: Book): void&#xa;+borrowBook(trans: Transaction, b: Book): void&#xa;+returnBook(trans: Transaction, b: Book): void&#xa;+getBookUnderPrice(price: double): ArrayList&lt;Book&gt;&#xa;+getBookWithGenre(genre: String[]): ArrayList&lt;Book&gt;&#xa;+getBookWithAuthors(authors: String[]): ArrayList&lt;Book&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="TsD7KGuhZZwzooAPxN2N-37">
+          <mxGeometry y="128" width="320" height="252" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="2AiCVBxs3gdMHf_LcmU-" name="Page-2">
+    <mxGraphModel dx="1038" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="eyPpyXQFM7SO8htJzzJF-0" />
+        <mxCell id="eyPpyXQFM7SO8htJzzJF-1" parent="eyPpyXQFM7SO8htJzzJF-0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
