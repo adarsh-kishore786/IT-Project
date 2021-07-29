@@ -12,6 +12,7 @@ public class Customer extends Person {
   ArrayList<Book> booksBorrowed; //initialized in constructor
   ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
+//TODO set up file change listener
 
   Customer(String name,int age,String userName,String password){
     super(name,age,userName,password);
@@ -34,12 +35,12 @@ public class Customer extends Person {
   }
 
   void buyBook(Book book){
-    //currently no restriction on buying
-    //Date purchaseDate=new Date(); //returns current date
+    currently no restriction on buying
+    Date purchaseDate=new Date(); //returns current date
 
-    //reduce number of copies of book
-    // int n=book.getNumCopies();
-    // book.setNumCopies(n-1);
+    reduce number of copies of book
+    int n=book.getNumCopies();
+    book.setNumCopies(n-1);
 
     if(admin.sellBook(transaction,book)){
 
@@ -82,7 +83,6 @@ public class Customer extends Person {
       //remove book from list
       booksBorrowed.remove(book);
       numBooksBorrowed=booksBorrowed.size();
-
       //update history(has to be changed)
       history+=book.getTitle()+" ";
     }
@@ -103,7 +103,7 @@ public class Customer extends Person {
 
    ObjectOutputStream os=null; //stream that writes object to file
 
-   try {
+   try(os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
 
      if(customerList.contains(this))
      {
@@ -111,30 +111,36 @@ public class Customer extends Person {
        customerList.set(index,this); //update customer object to list
      }else customerList.add(this); //add customer object to list
 
-     os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"));
      os.writeObject(customerList); //write array list to file
      os.flush();
 
      System.out.println("Saved!");
-
+     initCustomerList();
    }catch(IOException e){
      System.err.println(e);
      //customerList.remove(this);
-   } finally{
-     if(os!=null) {
-       try {
-         os.close();
-       } catch(IOException e) {
-         System.err.println(e);
-       }
-
-     }
    }
  }
 
   //get customer object from list
-  static Customer getCustomer(int n){
+  static Customer getCustomer(int n) throws IOException{
+    initCustomerList();
     return customerList.get(n);
+  }
+
+  private static void initCustomerList(){
+      ObjectInputStream in=null;
+      //try with resources block doesnt need resource closing
+      try(in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+
+        this.customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
+        isInitialized=true;
+
+      }catch(IOException e){
+        System.err.println(e);
+      } catch(ClassNotFoundException e){
+        System.err.println(e);
+      }
   }
 
   //following functions assume a books.dat file in /src/books.dat
@@ -148,10 +154,10 @@ public class Customer extends Person {
       if(b.getPrice()<price)
         filteredList.add(b);
     }
-    print(filteredList);
     return filteredList;
   }
 
+  //TODO trim author parameter
   ArrayList<Book> getBookWithAuthor(String[] authors){
     ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
@@ -160,20 +166,26 @@ public class Customer extends Person {
       if(authorList.contains(b.getAuthor()))
         filteredList.add(b);
     }
-    print(filteredList);
     return filteredList;
   }
 
-  ArrayList<Book> getBookWithGenre(String[] genre){
+  ArrayList<Book> getBookWithGenre(String[] genres){
     ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    List<String> genreList=Arrays.asList(genre);
+    List<String> genreList=Arrays.asList(genres);
 
+    //TODO genre is an array list so it needs to be split
     for(Book b:books){
-      if(genreList.contains(b.getGenre()))
-        filteredList.add(b);
+
+      ArrayList<String> bookGenreList=b.getGenre();
+
+      for(String genre:genreList){
+        if(bookGenreList.contains(genre)){
+          filteredList.add(b);
+          break;
+        }
+      }
     }
-    print(filteredList);
     return filteredList;
   }
 
@@ -185,16 +197,17 @@ public class Customer extends Person {
       if(b.isAvailable())
         filteredList.add(b);
     }
-    print(filteredList);
     return filteredList;
   }
 
-  void print(ArrayList<Book> filteredList){
-    for(Book b:filteredList){
-      String genre="";
-      for(String g:b.getGenre())
-        genre+=g+",";
-      System.out.println("Title: "+b.getTitle()+"\nAuthor: "+b.getAuthor()+"\nPrice: "+b.getPrice()+"\nGenre: "+genre+"\nISBN: "+b.getISBN()+"\n");
+  ArrayList<Book> searchByISBN(String[] ISBN){
+    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
+    List<String> isbnList=Arrays.asList(ISBN);
+    for(Book b:books){
+      if(isbnList.contains(b.getISBN()))
+        filteredList.add(b);
     }
+    return filteredList;
   }
 }
