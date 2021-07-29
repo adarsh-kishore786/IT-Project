@@ -12,7 +12,6 @@ public class Customer extends Person {
   ArrayList<Book> booksBorrowed; //initialized in constructor
   ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
-//TODO set up file change listener
 
   Customer(String name,int age,String userName,String password){
     super(name,age,userName,password);
@@ -35,10 +34,10 @@ public class Customer extends Person {
   }
 
   void buyBook(Book book){
-    currently no restriction on buying
-    Date purchaseDate=new Date(); //returns current date
+    //currently no restriction on buying
+    //Date purchaseDate=new Date(); //returns current date
 
-    reduce number of copies of book
+    //reduce number of copies of book
     int n=book.getNumCopies();
     book.setNumCopies(n-1);
 
@@ -66,7 +65,7 @@ public class Customer extends Person {
 
       if(admin.rentBook(transaction,book)){
         book.setBorrowers(this);
-        Book.saveBook(); //this can be called inside setBorrowers method to make customer's work less
+        Book.saveBooks(); //this can be called inside setBorrowers method to make customer's work less
 
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
@@ -101,9 +100,9 @@ public class Customer extends Person {
   //write customer object to dat file
   void saveCustomer() throws IOException{
 
-   ObjectOutputStream os=null; //stream that writes object to file
+   //ObjectOutputStream os=null; //stream that writes object to file
 
-   try(os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
 
      if(customerList.contains(this))
      {
@@ -129,12 +128,11 @@ public class Customer extends Person {
   }
 
   private static void initCustomerList(){
-      ObjectInputStream in=null;
+      //ObjectInputStream in=null;
       //try with resources block doesnt need resource closing
-      try(in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
 
-        this.customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
-        isInitialized=true;
+        customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
 
       }catch(IOException e){
         System.err.println(e);
@@ -174,7 +172,6 @@ public class Customer extends Person {
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> genreList=Arrays.asList(genres);
 
-    //TODO genre is an array list so it needs to be split
     for(Book b:books){
 
       ArrayList<String> bookGenreList=b.getGenre();
