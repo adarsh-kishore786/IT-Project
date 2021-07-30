@@ -15,7 +15,13 @@ public class Admin extends Person
     private double m_revenue;
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
-    private static final String m_url = "src/admin.dat";
+    private static final String m_url = "Library/src/admin.dat";
+    private static final int m_maxBorrowDays=14;
+
+    public static int getMaxBorrowDays()
+    {
+        return m_maxBorrowDays;
+    }
 
     public Admin(String name, int age, String username, String password)
     {
@@ -94,66 +100,71 @@ public class Admin extends Person
         return str;
     }
 
-    // public boolean sellBook(Transaction trans, Book b) 
-    // {
-    //     int numCopies = getNumCopiesAvailable(b);
-    //     if (numCopies == 0) // if no copies, then return
-    //     {
-    //         System.out.println("Sorry, this book has no copies!");
-    //         return false;
-    //     }
+    public boolean sellBook(Transaction trans, Book b) 
+    {
+        int numCopies = getNumCopiesAvailable(b);
+        if (numCopies == 0) // if no copies, then return
+        {
+            System.out.println("Sorry, this book has no copies!");
+            return false;
+        }
 
-    //     if (!trans.sellBookTransaction(b))
-    //         return false;
-    //     return true;
-    // }
+        if (!trans.sellBookTransaction(b))
+            return false;
+     m_revenue+=b.getPrice();
+        return true;
+    }
 
-    // public boolean rentBook(Transaction trans, Book b) 
-    // {
-    //     int numCopies = getNumCopiesAvailable(b);
-    //     if (numCopies == 0)
-    //     {
-    //         System.out.println("Sorry, this book has no copies!");
-    //         return false;
-    //     }
+    public boolean rentBook(Transaction trans, Book b) 
+    {
+        int numCopies = getNumCopiesAvailable(b);
+        if (numCopies == 0)
+        {
+            System.out.println("Sorry, this book has no copies!");
+            return false;
+        }
 
-    //     // If customer has 1 copy already, then transaction fails
-    //     if (!trans.rentBookTransaction(b))
-    //     {
-    //         System.out.println("You have borrowed this book already." + 
-    //                     " Return that copy to borrow another one.");
-    //         return false;
-    //     }
-    //     return true;
-    // }
+        // If customer has 1 copy already, then transaction fails
+        if (!trans.rentBookTransaction(b))
+        {
+            System.out.println("You have borrowed this book already." + 
+                        " Return that copy to borrow another one.");
+            return false;
+        }
+        return true;
+    }
 
-    // public boolean getBackBook(Transaction trans, Book book)
-    // {
-    //     int index = -1;
-    //     ArrayList<Book> books = trans.getBorrowedBooks();
+    public boolean getBackBook(Transaction trans, Book book)
+    {
+        int index = -1;
+        ArrayList<Book> books = trans.getBorrowedBooks();
 
-    //     // checks the index of book in borrowed list
-    //     for (int i = 1; i < books.size(); i++)
-    //     {
-    //         if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
-    //         {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-    //     if (index == -1)
-    //     {
-    //         System.out.println("Customer never borrowed the book.");
-    //         return false;
-    //     }
+        // checks the index of book in borrowed list
+        for (int i = 1; i < books.size(); i++)
+        {
+            if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
+            {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1)
+        {
+            System.out.println("Customer never borrowed the book.");
+            return false;
+        }
         
-    //     double fine = trans.getFine(index);
-    //     if (fine != 0)
-    //          System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
+        double fine = trans.returnBookTransaction(index);
+        if (fine == -1) 
+         {
+         System.out.println("Transaction failed, exiting!!!");
+           return false;
+         }
+             
 
-    //     m_revenue += fine;
-    //     return true;
-    // }
+        m_revenue += fine;
+         return true;
+     } 
 
     public String getHistory(Customer cust) 
     {
@@ -177,14 +188,15 @@ public class Admin extends Person
         // How many copies Customer wants to buy
         System.out.println("Take 1 copy? (Y/N)");
         Scanner sc = new Scanner(System.in);
-        char c = sc.nextLine().charAt(0);
+        char c = sc.next().charAt(0);
         sc.close();
 
         if (c != 'y' && c != 'Y') numCopies = 0;
         return numCopies;
     }
+}
 
-    private void listOfBooks()
+    /*private void listOfBooks()
     {
         ArrayList<Book> books = new ArrayList<>();
         ArrayList<String> genre = new ArrayList<>();
@@ -232,4 +244,4 @@ public class Admin extends Person
         books.add(new Book("The End of Eternity", "Isaac Asimov",
                     genre, 195.00, "9780449237045"));
     }
-} 
+} */
