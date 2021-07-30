@@ -183,16 +183,18 @@ public class Admin extends Person
         }
         // How many copies are there
         System.out.println("There are " + b.getNumCopies() + " copies of this book available.");
-        int numCopies = 1;
+        //int numCopies = 1;
 
         // How many copies Customer wants to buy
         System.out.println("Take 1 copy? (Y/N 1/2)");
         Scanner sc = new Scanner(System.in);
         int c = sc.nextInt();
+        
+
+        //if (c != 1) numCopies = 0;
         sc.close();
 
-        if (c != 1) numCopies = 0;
-        return numCopies;
+        return c;
     }
 }
 

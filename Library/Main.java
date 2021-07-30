@@ -39,14 +39,23 @@ public class Main
          //System.out.println(c1.getBookWithAuthor(new String[] { "J K Rowling", "Cassandra Clare"}));
          //System.out.println(c1.getBookWithGenre(new String[] { "Fiction" } ));
          //System.out.println(c1.getIfAvailable());
-         
+         String s = new String();
+         Scanner check = new Scanner(System.in);
+         s= check.nextLine();
          Book b=null;
-            b = Book.getBookWithTitle("Angels and Demons");        
-        
+         try {
+            Book.saveBooks();
+            b = Book.getBookWithTitle(s);
+            //System.out.println(Book.getBooks());
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+                   
         c1.buyBook(b);
         c1.saveCustomer();
         System.out.println(c1.getTransaction().getBoughtBooks());
-
+        check.close();
         
     }   
 }
