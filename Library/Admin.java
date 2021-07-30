@@ -15,7 +15,7 @@ public class Admin extends Person
     private double m_revenue;
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
-    private static final String m_url = "src/admin.dat";
+    private static final String m_url = "Library/src/admin.dat";
     private static final int m_maxBorrowDays=14;
 
     public static int getMaxBorrowDays()
@@ -188,7 +188,7 @@ public class Admin extends Person
         // How many copies Customer wants to buy
         System.out.println("Take 1 copy? (Y/N)");
         Scanner sc = new Scanner(System.in);
-        char c = sc.nextLine().charAt(0);
+        char c = sc.next().charAt(0);
         sc.close();
 
         if (c != 'y' && c != 'Y') numCopies = 0;

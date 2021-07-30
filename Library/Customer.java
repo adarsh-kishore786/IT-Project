@@ -21,6 +21,9 @@ public class Customer extends Person {
     // this.booksBought=new Book[numBooksBought];
   }
 
+  public Customer() {
+  }
+
   int getBorrowLimit(){
     return borrowLimit;
   }
@@ -113,7 +116,7 @@ public class Customer extends Person {
 
    //ObjectOutputStream os=null; //stream that writes object to file
 
-   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("Library/src/customer.dat"))) {
 
      if(customerList.contains(this))
      {
@@ -141,7 +144,7 @@ public class Customer extends Person {
   private static void initCustomerList(){
       //ObjectInputStream in=null;
       //try with resources block doesnt need resource closing
-      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("Library/src/customer.dat")))) {
 
         customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
 
