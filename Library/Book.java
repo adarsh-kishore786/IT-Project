@@ -202,9 +202,9 @@ public class Book implements Serializable
             // }
             
         }
-        catch (EOFException eofe)
+        catch(EOFException eofe)
         {
-            System.err.println(eofe);
+            System.out.println(eofe);
         }
         catch (FileNotFoundException fnfe) 
         { 
@@ -214,8 +214,6 @@ public class Book implements Serializable
         { 
             System.err.println(ie); 
         }
-        finally
-        {
         catch(Exception e)
         {
             System.err.println(e);
