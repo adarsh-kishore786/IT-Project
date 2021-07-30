@@ -202,9 +202,9 @@ public class Book implements Serializable
             // }
             
         }
-        catch(EOFException eofe)
+        catch (EOFException eofe)
         {
-            System.out.println(eofe);
+            System.err.println(eofe);
         }
         catch (FileNotFoundException fnfe) 
         { 
