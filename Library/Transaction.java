@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Transaction {
+public class Transaction implements Serializable{
 
     ArrayList<LocalDate> dateOfBorrow= new ArrayList<LocalDate>();
     ArrayList<LocalDate> dateOfReturn= new ArrayList<LocalDate>();
@@ -14,7 +15,8 @@ public class Transaction {
     private boolean payment(double amount) {
         Scanner details= new Scanner(System.in); 
         boolean status=false;
-        long cardNumber, n;
+        //long cardNumber, n;
+        String cardNumber;
         int count=0, CVV; 
         char choice='Y';
         String expiryDate= new String();
@@ -22,13 +24,13 @@ public class Transaction {
         do
         {
             System.out.println("Enter debit/credit card number: ");
-            cardNumber=details.nextLong();
-            n=cardNumber;
-            while (n>0)
+            cardNumber=details.nextLine();
+            /*while (n>0)
             {
                 ++count;
                 n/=10;
-            }
+            }*/
+            count= cardNumber.length();
             if (count!=16)
             System.out.println("Invalid card number!");
             else
@@ -55,6 +57,10 @@ public class Transaction {
     public ArrayList<Boolean> getIsReturned()
     {
         return isReturned;
+    }
+    public ArrayList<Book> getBoughtBooks()
+    {
+        return boughtBooks;
     }
 
     public boolean rentBookTransaction(Book b)
