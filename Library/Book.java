@@ -178,6 +178,15 @@ public class Book implements Serializable
         return booksList;
     }
 
+    //returns a book object with the argument as its title
+    public static Book getBookWithTitle(String title)
+    {
+        for(int i=0;i<booksList.size();i++)
+            if(booksList.get(i).m_title.equalsIgnoreCase(title.trim()))
+                return booksList.get(i);
+        return null;
+    }
+
     //initializes the books list with all the books in the file
     private static void initBooks() throws IOException, ClassNotFoundException
     {
