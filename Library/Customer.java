@@ -5,7 +5,7 @@ public class Customer extends Person {
 
   //private static Admin admin=Admin.getAdmin();
   private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
-  //private static int borrowLimit=admin.getNumBooksBorrowLimit();
+  private static int borrowLimit=Admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
   String history=""; //planning to make hisory an array list at a later stage

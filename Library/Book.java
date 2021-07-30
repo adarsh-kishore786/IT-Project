@@ -37,9 +37,9 @@ public class Book implements Serializable
         m_borrowersList=new ArrayList<Customer>(); 
     }
 
-    private static void booksInfo() throws IOException
-    {
-    }
+    // private static void booksInfo() throws IOException
+    // {
+    // }    
         
     public String toString()
     {
