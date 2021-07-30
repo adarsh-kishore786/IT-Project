@@ -161,6 +161,9 @@ public class Customer extends Person {
       books=Book.getBooks();
     } catch(ClassNotFoundException e) {
       System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
@@ -177,6 +180,9 @@ public class Customer extends Person {
       books=Book.getBooks();
     } catch(ClassNotFoundException e) {
       System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> authorList=Arrays.asList(authors);
@@ -198,6 +204,9 @@ public class Customer extends Person {
       books=Book.getBooks();
     } catch(ClassNotFoundException e) {
       System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> genreList=Arrays.asList(genres);
@@ -222,6 +231,9 @@ public class Customer extends Person {
       books=Book.getBooks();
     } catch(ClassNotFoundException e) {
       System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
@@ -237,6 +249,9 @@ public class Customer extends Person {
       books=Book.getBooks();
     } catch(ClassNotFoundException e) {
       System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> isbnList=Arrays.asList(ISBN);
