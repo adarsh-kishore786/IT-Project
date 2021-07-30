@@ -108,6 +108,7 @@ public class Admin extends Person
 
         if (!trans.sellBookTransaction(b))
             return false;
+        m_numBooksSold++;
         return true;
     }
 
@@ -127,6 +128,8 @@ public class Admin extends Person
                         " Return that copy to borrow another one.");
             return false;
         }
+
+        m_numBooksOnRent++;
         return true;
     }
 
@@ -155,6 +158,7 @@ public class Admin extends Person
              System.out.format("You'll have to pay a fine of Rs. %.2f%n", fine);
 
         m_revenue += fine;
+        m_numBooksOnRent--;
         return true;
     }
 
