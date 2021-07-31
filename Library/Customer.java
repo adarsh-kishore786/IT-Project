@@ -13,6 +13,8 @@ public class Customer extends Person {
   ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
 
+  public Customer() {}
+
   Customer(String name,int age,String userName,String password){
     super(name,age,userName,password);
     this.booksBorrowed=new ArrayList<Book>();
@@ -85,7 +87,7 @@ public class Customer extends Person {
       //update history(has to be changed)
       history+=book.getTitle()+" ";
     }
-    //initializeReturnTransaction(returnDate);
+    //initializeReturnTransaction(return  Date);
   }
 
   String getHistory(){
@@ -98,7 +100,8 @@ public class Customer extends Person {
   }
 
   //write customer object to dat file
-  void saveCustomer() throws IOException{
+  void saveCustomer()
+  {
 
    //ObjectOutputStream os=null; //stream that writes object to file
 
@@ -122,7 +125,8 @@ public class Customer extends Person {
  }
 
   //get customer object from list
-  static Customer getCustomer(int n) throws IOException{
+  static Customer getCustomer(int n)
+  {
     initCustomerList();
     return customerList.get(n);
   }
