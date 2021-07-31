@@ -44,13 +44,19 @@ public class Main
          s= check.nextLine();
          Book b=null;
          try {
-            Book.saveBooks();
             b = Book.getBookWithTitle(s);
-            //System.out.println(Book.getBooks());
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        //  try {
+        //     //Book.saveBooks();
+            
+        //     //System.out.println(Book.getBooks());
+        // } catch (ClassNotFoundException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
                    
         c1.buyBook(b);
         c1.saveCustomer();
