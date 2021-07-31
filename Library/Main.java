@@ -22,17 +22,42 @@ public class Main
         new Customer();
         // for (int i = 0; i < 4; i++)
         //     System.out.println(Customer.getCustomer(i));
-        // Customer c1=  new Customer("Harry", 19, "hg@gmail.com", "Hero");
-        // c1.saveCustomer();
-        // System.out.println(c1);
-        new Book();
 
-        Customer c1 = Customer.getCustomer(0);
+        Customer c1=  new Customer("Harry", 19, "hg@gmail.com", "Hero");
+        c1.saveCustomer();
         System.out.println(c1);
-        //System.out.println(c1.getBookUnderPrice(400));
-        //System.out.println(c1.getBookWithAuthor(new String[] { "J K Rowling", "Cassandra Clare"}));
-        System.out.println(c1.getBookWithGenre(new String[] { "Fiction" } ));
-        //System.out.println(c1.getIfAvailable());      
+        try {
+            Book.saveBooks();
+        } catch (ClassNotFoundException e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        } catch (IOException e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }
+        //Customer c1 = Customer.getCustomer(0);
+        //System.out.println(c1);
+         //System.out.println(c1.getBookUnderPrice(400));
+         //System.out.println(c1.getBookWithAuthor(new String[] { "J K Rowling", "Cassandra Clare"}));
+         //System.out.println(c1.getBookWithGenre(new String[] { "Fiction" } ));
+         //System.out.println(c1.getIfAvailable());
+         String s = new String();
+         Scanner check = new Scanner(System.in);
+         s= check.nextLine();
+         Book b=null;
+         try {
+            Book.saveBooks();
+            b = Book.getBookWithTitle(s);
+            //System.out.println(Book.getBooks());
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+                   
+        c1.buyBook(b);
+        c1.saveCustomer();
+        System.out.println(c1.getTransaction().getBoughtBooks());
+        check.close();
         
         // c1.buyBook(b);
         // c1.saveCustomer();

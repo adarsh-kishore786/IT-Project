@@ -40,11 +40,11 @@ public class Customer extends Person {
     //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
-    int n=book.getNumCopies();
-    book.setNumCopies(n-1);
+    
 
     if(admin.sellBook(transaction,book)){
-
+      int n=book.getNumCopies();
+      book.setNumCopies(n-1);
       booksBought.add(book); //update array list
       numBooksBought=booksBought.size(); //update number of books bought
 

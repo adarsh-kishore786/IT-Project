@@ -244,7 +244,8 @@ public class Book implements Serializable
         //streams objects required
         FileOutputStream fos=null;
         ObjectOutputStream oos=null;
-
+        if(booksList==null)
+            initBooks();
         //writing the booksList into the file with all the updated information
         try
         {
@@ -285,7 +286,7 @@ public class Book implements Serializable
         saveBooks();
     }
 
-    private static void booksInfo()
+    private static void booksInfo() throws IOException, ClassNotFoundException
     {
         ArrayList<Book> books=new ArrayList<Book>();
         ArrayList<String> genre=new ArrayList<String>();
