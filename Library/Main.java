@@ -26,15 +26,8 @@ public class Main
         Customer c1=  new Customer("Harry", 19, "hg@gmail.com", "Hero");
         c1.saveCustomer();
         System.out.println(c1);
-        try {
-            Book.saveBooks();
-        } catch (ClassNotFoundException e) {
-            //TODO: handle exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO: handle exception
-            e.printStackTrace();
-        }
+
+        Book.saveBooks();
         //Customer c1 = Customer.getCustomer(0);
         //System.out.println(c1);
          //System.out.println(c1.getBookUnderPrice(400));
@@ -45,14 +38,9 @@ public class Main
          Scanner check = new Scanner(System.in);
          s= check.nextLine();
          Book b=null;
-         try {
-            Book.saveBooks();
-            b = Book.getBookWithTitle(s);
-            //System.out.println(Book.getBooks());
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Book.saveBooks();
+        b = Book.getBookWithTitle(s);
+        //System.out.println(Book.getBooks());
                    
         c1.buyBook(b);
         c1.saveCustomer();

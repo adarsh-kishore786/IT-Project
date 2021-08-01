@@ -16,7 +16,12 @@ public class Book implements Serializable
     //default constructor with null/default values
     public Book()
     {
-        Book.booksInfo();
+        try 
+        {
+            Book.booksInfo();
+        }
+        catch (IOException ie) { System.err.println(ie); }
+        catch (ClassNotFoundException cnfe) { System.err.println(cnfe); }
     }
 
     //constructor taking in 5 characteristic inputs; others are updated with time
