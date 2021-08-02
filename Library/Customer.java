@@ -47,7 +47,13 @@ public class Customer extends Person {
       numBooksBought=booksBought.size(); //update number of books bought
 
       //updating book list
-      book.setBuyers(this);
+      try {
+        book.setBuyers(this);
+      } catch(IOException e) {
+        System.err.println(e);
+      }catch (ClassNotFoundException e) {
+        System.err.println(e);
+      }
       //Book.saveBook(); already called in Book.java
 
       System.out.println("Bought Successfully!");
@@ -64,9 +70,14 @@ public class Customer extends Person {
     if(booksBorrowed.size()<borrowLimit){
 
       if(admin.rentBook(transaction,book)){
-        book.setBorrowers(this);
-        Book.saveBooks(); //this can be called inside setBorrowers method to make customer's work less
-
+        try {
+          book.setBorrowers(this);
+        } catch(IOException e) {
+          System.err.println(e);
+        }catch (ClassNotFoundException e) {
+          System.err.println(e);
+        }
+        //Book.saveBooks(); //this can be called inside setBorrowers method to make customer's work less
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();
@@ -145,8 +156,15 @@ public class Customer extends Person {
 
   //TODO format returned book list
   ArrayList<Book> getBookUnderPrice(double price){
-
-    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> books=null;
+    try {
+      books=Book.getBooks();
+    } catch(ClassNotFoundException e) {
+      System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.getPrice()<price)
@@ -157,18 +175,39 @@ public class Customer extends Person {
 
   //TODO trim author parameter
   ArrayList<Book> getBookWithAuthor(String[] authors){
-    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> books=null;
+    try {
+      books=Book.getBooks();
+    } catch(ClassNotFoundException e) {
+      System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> authorList=Arrays.asList(authors);
     for(Book b:books){
-      if(authorList.contains(b.getAuthor()))
-        filteredList.add(b);
+        ArrayList<String> bookAuthorList=b.getAuthor();
+        for(String author:authorList){
+          if(bookAuthorList.contains(author)){
+            filteredList.add(b);
+            break;
+          }
+        }
     }
     return filteredList;
   }
 
   ArrayList<Book> getBookWithGenre(String[] genres){
-    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> books=null;
+    try {
+      books=Book.getBooks();
+    } catch(ClassNotFoundException e) {
+      System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> genreList=Arrays.asList(genres);
 
@@ -187,8 +226,15 @@ public class Customer extends Person {
   }
 
   ArrayList<Book> getIfAvailable(){
-    //file url can be changed
-    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> books=null;
+    try {
+      books=Book.getBooks();
+    } catch(ClassNotFoundException e) {
+      System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     for(Book b:books){
       if(b.isAvailable())
@@ -198,7 +244,15 @@ public class Customer extends Person {
   }
 
   ArrayList<Book> searchByISBN(String[] ISBN){
-    ArrayList<Book> books=Book.getBooks();
+    ArrayList<Book> books=null;
+    try {
+      books=Book.getBooks();
+    } catch(ClassNotFoundException e) {
+      System.err.println(e);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
     List<String> isbnList=Arrays.asList(ISBN);
     for(Book b:books){
