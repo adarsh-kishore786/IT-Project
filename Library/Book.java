@@ -16,7 +16,7 @@ public class Book implements Serializable
     //default constructor with null/default values
     public Book()
     {
-        try 
+        try
         {
             Book.booksInfo();
         }
@@ -32,12 +32,12 @@ public class Book implements Serializable
         m_genre=new ArrayList<>(genre);
         m_price=price;
         m_ISBN=ISBN;
-        //10 copies of each book 
+        //10 copies of each book
         m_numCopies=10;
         m_buyersList=new ArrayList<Customer>();
-        m_borrowersList=new ArrayList<Customer>(); 
+        m_borrowersList=new ArrayList<Customer>();
     }
-        
+
     public String toString()
     {
         //String representation of the book object with all of its characteristic details
@@ -139,15 +139,7 @@ public class Book implements Serializable
     public void setNumCopies(int numCopies)
     {
         m_numCopies=numCopies;
-        try {
-            saveBooks();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        saveBooks();
     }
 
     public void setBorrowers(Customer borrower)
@@ -166,7 +158,7 @@ public class Book implements Serializable
     {
         ISBN=ISBN.trim();
 
-        //length of book ISBNs is 13 
+        //length of book ISBNs is 13
         if(ISBN.length()!=13)
             return false;
 
@@ -180,14 +172,14 @@ public class Book implements Serializable
             else
                 sum=sum+(3*(Character.valueOf(ISBN.charAt(i))));
         }
-        
+
         if(sum%10==0)
             return true;
         return false;
     }
 
     //returns an arraylist of all the books
-    public static ArrayList<Book> getBooks() 
+    public static ArrayList<Book> getBooks()
     {
         initBooks();
         return booksList;
@@ -218,26 +210,26 @@ public class Book implements Serializable
             //if(o instanceof ArrayList<?> )
                 booksList = (ArrayList<Book>) o;
             // while ((object =  ois.readObject()) instanceof Book)
-            // { 
-            //     if(object instanceof Book) 
+            // {
+            //     if(object instanceof Book)
             //     {
             //         Book book = (Book) object;
             //         booksList.add(book);
             //     }
             // }
-            
+
         }
         catch(EOFException eofe)
         {
             System.out.println(eofe);
         }
-        catch (FileNotFoundException fnfe) 
-        { 
-            System.err.println(fnfe); 
+        catch (FileNotFoundException fnfe)
+        {
+            System.err.println(fnfe);
         }
-        catch (IOException ie) 
-        { 
-            System.err.println(ie); 
+        catch (IOException ie)
+        {
+            System.err.println(ie);
         }
         catch(Exception e)
         {
@@ -269,15 +261,15 @@ public class Book implements Serializable
             oos=new ObjectOutputStream(fos);
             oos.writeObject(booksList);
         }
-        catch (FileNotFoundException fnfe) 
-        { 
-            System.err.println(fnfe); 
+        catch (FileNotFoundException fnfe)
+        {
+            System.err.println(fnfe);
         }
-        catch (IOException ie) 
-        { 
-            System.err.println(ie); 
+        catch (IOException ie)
+        {
+            System.err.println(ie);
         }
-        finally 
+        finally
         {
             if(fos!=null)
                 try { fos.close(); }
@@ -286,7 +278,7 @@ public class Book implements Serializable
                 try { oos.close(); }
                 catch (IOException ie) { System.err.println(ie); }
         }
-        
+
     }
 
     public static void saveBooks(ArrayList<Book> books)
@@ -311,12 +303,12 @@ public class Book implements Serializable
         genre.add("Thriller");
         genre.add("Romance");
         author.add("Dan Brown");
-        
+
         Book obj1=new Book("Angels and Demons",author , genre, 258.00, "9781416524793");
-        
+
         Book obj2=new Book("The Da Vinci Code", author, genre, 246.00, "9780375432309");
-        
-        
+
+
         genre.clear();
         author.clear();
         books.add(obj1);
@@ -324,7 +316,7 @@ public class Book implements Serializable
         genre.add("Fiction");
         genre.add("Historical");
         author.add("Kristin Harmel");
-        books.add(new Book("The Forest of Vanishing Stars", author, 
+        books.add(new Book("The Forest of Vanishing Stars", author,
                     genre, 450.0, "9781982158934"));
 
         genre.clear();
@@ -411,6 +403,3 @@ public class Book implements Serializable
         Book.saveBooks(books);
     }
 }
-    
-
-    

@@ -1,7 +1,7 @@
 /**
- * Will handle the functions of the admin of 
- * the library. 
- * 
+ * Will handle the functions of the admin of
+ * the library.
+ *
  * It is a child class from Person.java
  */
 import java.util.*;
@@ -9,7 +9,7 @@ import java.io.*;
 
 public class Admin extends Person
 {
-    // These are pretty self-explanatory names    
+    // These are pretty self-explanatory names
     private int m_numBooksOnRent;
     private int m_numBooksSold;
     private double m_revenue;
@@ -26,7 +26,7 @@ public class Admin extends Person
     public Admin(String name, int age, String username, String password)
     {
         // All this is handled by the Person constructor
-        super(name, age, username, password); 
+        super(name, age, username, password);
 
         // Initially, set everything to 0 when library opens up
         m_numBooksOnRent = 0;
@@ -39,16 +39,16 @@ public class Admin extends Person
         ObjectInput in = null;
         Admin admin = null;
 
-        try 
+        try
         {
-            in = new ObjectInputStream(new 
+            in = new ObjectInputStream(new
                     BufferedInputStream(new FileInputStream(m_url)));
             admin = (Admin) in.readObject();
         }
         catch (ClassNotFoundException cnfe) { System.err.println(cnfe); }
         catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
         catch (IOException ie) { System.err.println(ie); }
-        finally 
+        finally
         {
             if (in != null)
             {
@@ -63,7 +63,7 @@ public class Admin extends Person
     {
         ObjectOutputStream out = null;
 
-        try 
+        try
         {
             out = new ObjectOutputStream(new
                     BufferedOutputStream(new FileOutputStream(m_url)));
@@ -73,7 +73,7 @@ public class Admin extends Person
         }
         catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
         catch (IOException ie) { System.err.println(ie); }
-        finally 
+        finally
         {
             if (out != null)
             {
@@ -100,7 +100,7 @@ public class Admin extends Person
         return str;
     }
 
-    public boolean sellBook(Transaction trans, Book b) 
+    public boolean sellBook(Transaction trans, Book b)
     {
         int numCopies = getNumCopiesAvailable(b);
         if (numCopies == 0) // if no copies, then return
@@ -115,7 +115,7 @@ public class Admin extends Person
         return true;
     }
 
-    public boolean rentBook(Transaction trans, Book b) 
+    public boolean rentBook(Transaction trans, Book b)
     {
         int numCopies = getNumCopiesAvailable(b);
         if (numCopies == 0)
@@ -127,7 +127,7 @@ public class Admin extends Person
         // If customer has 1 copy already, then transaction fails
         if (!trans.rentBookTransaction(b))
         {
-            System.out.println("You have borrowed this book already." + 
+            System.out.println("You have borrowed this book already." +
                         " Return that copy to borrow another one.");
             return false;
         }
@@ -153,20 +153,20 @@ public class Admin extends Person
             System.out.println("Customer never borrowed the book.");
             return false;
         }
-        
+
         double fine = trans.returnBookTransaction(index);
-        if (fine == -1) 
+        if (fine == -1)
          {
          System.out.println("Transaction failed, exiting!!!");
            return false;
          }
-             
+
 
         m_revenue += fine;
          return true;
-     } 
+     }
 
-    public String getHistory(Customer cust) 
+    public String getHistory(Customer cust)
     {
         return cust.getHistory();
     }
@@ -207,7 +207,7 @@ public class Admin extends Person
         genre.add("Fiction");
         genre.add("Historical");
 
-        books.add(new Book("The Forest of Vanishing Stars", "Kristin Harmel", 
+        books.add(new Book("The Forest of Vanishing Stars", "Kristin Harmel",
                     genre, 450.0, "9781982158934"));
 
         genre.clear();
@@ -237,7 +237,7 @@ public class Admin extends Person
         genre.clear();
         genre.add("Non-fiction");
         genre.add("Mathematics");
-        
+
         books.add(new Book("Contemporary Abstract Algebra", "Joseph Gallian",
                     genre, 490.00, "9789353502522"));
 

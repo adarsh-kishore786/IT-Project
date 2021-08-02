@@ -1,6 +1,6 @@
 import java.io.*;
 
-public abstract class Person implements Serializable 
+public abstract class Person implements Serializable
 {
     protected String m_name;
     protected int m_age;
@@ -8,7 +8,7 @@ public abstract class Person implements Serializable
     protected String m_password;
 
     Person() {}
-    
+
     Person(String name, int age, String username, String password) {
         m_name = name;
         m_age = age;
@@ -24,7 +24,10 @@ public abstract class Person implements Serializable
     public String getUsername() {
         return m_username;
     }
-    
+    public String getPassword() {
+        return m_password;
+    }
+
     @Override
     public String toString() {
         return ("\nName     : " + m_name + "\nAge      : " + m_age +

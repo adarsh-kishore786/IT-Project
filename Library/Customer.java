@@ -4,7 +4,8 @@ import java.io.*;
 public class Customer extends Person {
 
   private static Admin admin=Admin.getAdmin();
-  private static ArrayList<Customer> customerList=new ArrayList<Customer>(); //contains all customer objects; note that it is static
+  private static ArrayList<Customer> customerList=new ArrayList<>(); //contains all customer objects; note that it is static
+
   private static int borrowLimit=Admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
@@ -13,7 +14,22 @@ public class Customer extends Person {
   ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
-  public Customer() {}
+  public Customer()
+  {
+      // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
+      // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
+      // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
+      // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org", "B1n@ry-M");
+      //
+      // customerList.add(c1);
+      // customerList.add(c2);
+      // customerList.add(c3);
+      // customerList.add(c4);
+      // // System.out.println("!" + customerList.size());
+      //
+      // saveCustomer();
+      initCustomerList();
+  }
 
   Customer(String name,int age,String userName,String password){
     super(name,age,userName,password);
@@ -36,12 +52,32 @@ public class Customer extends Person {
     return this.numBooksBought;
   }
 
+  ArrayList<Customer> getCustomers()
+  {
+      return customerList;
+  }
+
+  boolean addCustomer(Customer c)
+  {
+      for (Customer c1 : customerList)
+      {
+          if (c1.getUsername().equals(c.getUsername()))
+          {
+              System.out.println("This username is already taken. Try another\n");
+              return false;
+          }
+      }
+      customerList.add(c);
+      saveCustomer();
+      return true;
+  }
+
   void buyBook(Book book){
     //currently no restriction on buying
     //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
-    
+
 
     if(admin.sellBook(transaction,book)){
       int n=book.getNumCopies();
@@ -108,16 +144,14 @@ public class Customer extends Person {
 
    try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
 
-     if(customerList.contains(this))
-     {
-       int index=customerList.indexOf(this);
-       customerList.set(index,this); //update customer object to list
-     }else customerList.add(this); //add customer object to list
+     // if(customerList.contains(this) && this != null)
+     // {
+     //   int index=customerList.indexOf(this);
+     //   customerList.set(index,this); //update customer object to list
+     // }else if (this != null) customerList.add(this); //add customer object to list
 
      os.writeObject(customerList); //write array list to file
-     os.flush();
 
-     System.out.println("Saved!");
      initCustomerList();
    }catch(IOException e){
      System.err.println(e);
@@ -128,7 +162,7 @@ public class Customer extends Person {
   //get customer object from list
   static Customer getCustomer(int n)
   {
-    initCustomerList();
+    //initCustomerList();
     return customerList.get(n);
   }
 
