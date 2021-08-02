@@ -173,7 +173,7 @@ public class Book implements Serializable
     //returns an arraylist of all the books
     public static ArrayList<Book> getBooks() throws IOException, ClassNotFoundException
     {
-        booksInfo();
+        //booksInfo();
         initBooks();
         return booksList;
     }
@@ -281,116 +281,116 @@ public class Book implements Serializable
         saveBooks();
     }
 
-    private static void booksInfo() throws IOException, ClassNotFoundException
-    {
-        ArrayList<Book> books=new ArrayList<Book>();
-        ArrayList<String> genre=new ArrayList<String>();
-        ArrayList<String> author=new ArrayList<String>();
-        genre.add("Fiction");
-        genre.add("Suspense");
-        genre.add("Thriller");
-        genre.add("Romance");
-        author.add("Dan Brown");
+    // private static void booksInfo() throws IOException, ClassNotFoundException
+    // {
+    //     ArrayList<Book> books=new ArrayList<Book>();
+    //     ArrayList<String> genre=new ArrayList<String>();
+    //     ArrayList<String> author=new ArrayList<String>();
+    //     genre.add("Fiction");
+    //     genre.add("Suspense");
+    //     genre.add("Thriller");
+    //     genre.add("Romance");
+    //     author.add("Dan Brown");
         
         
-        Book obj1=new Book("Angels and Demons",author , genre, 258.00, "9781416524793");
+    //     Book obj1=new Book("Angels and Demons",author , genre, 258.00, "9781416524793");
         
-        Book obj2=new Book("The Da Vinci Code", author, genre, 246.00, "9780375432309");
+    //     Book obj2=new Book("The Da Vinci Code", author, genre, 246.00, "9780375432309");
         
         
-        genre.clear();
-        author.clear();
-        books.add(obj1);
-        books.add(obj2);
-        genre.add("Fiction");
-        genre.add("Historical");
-        author.add("Kristin Harmel");
-        books.add(new Book("The Forest of Vanishing Stars", author, 
-                    genre, 450.0, "9781982158934"));
+    //     genre.clear();
+    //     author.clear();
+    //     books.add(obj1);
+    //     books.add(obj2);
+    //     genre.add("Fiction");
+    //     genre.add("Historical");
+    //     author.add("Kristin Harmel");
+    //     books.add(new Book("The Forest of Vanishing Stars", author, 
+    //                 genre, 450.0, "9781982158934"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Mystery");
-        genre.add("Detective");
-        genre.add("Fiction");
-        genre.add("Historical");
-        author.add("Stuart Turton");
-        books.add(new Book("The Devil and the Dark Water", author,
-                    genre, 548.48, "9781728234298"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Mystery");
+    //     genre.add("Detective");
+    //     genre.add("Fiction");
+    //     genre.add("Historical");
+    //     author.add("Stuart Turton");
+    //     books.add(new Book("The Devil and the Dark Water", author,
+    //                 genre, 548.48, "9781728234298"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Non-Fiction");
-        genre.add("Contemporary");
-        genre.add("Spiritual");
-        author.add("Yaa Gyasi");
-        books.add(new Book("Transcedental Kingdom", author,
-                    genre, 767.36, "9781984899767"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Non-Fiction");
+    //     genre.add("Contemporary");
+    //     genre.add("Spiritual");
+    //     author.add("Yaa Gyasi");
+    //     books.add(new Book("Transcedental Kingdom", author,
+    //                 genre, 767.36, "9781984899767"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Historical");
-        genre.add("Fiction");
-        author.add("Christina Baker Kline");
-        books.add(new Book("The Exiles", author,
-                    genre, 815.40, "9780062356338"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Historical");
+    //     genre.add("Fiction");
+    //     author.add("Christina Baker Kline");
+    //     books.add(new Book("The Exiles", author,
+    //                 genre, 815.40, "9780062356338"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Non-fiction");
-        genre.add("Mathematics");
-        author.add("Joseph Gallian");
-        books.add(new Book("Contemporary Abstract Algebra",author ,
-                    genre, 490.00, "9789353502522"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Non-fiction");
+    //     genre.add("Mathematics");
+    //     author.add("Joseph Gallian");
+    //     books.add(new Book("Contemporary Abstract Algebra",author ,
+    //                 genre, 490.00, "9789353502522"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Fiction");
-        genre.add("Science Fiction");
-        author.add("Isaac Asimov");
-        books.add(new Book("The End of Eternity", author,
-                    genre, 195.00, "9780449237045"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Fiction");
+    //     genre.add("Science Fiction");
+    //     author.add("Isaac Asimov");
+    //     books.add(new Book("The End of Eternity", author,
+    //                 genre, 195.00, "9780449237045"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Fiction");
-        genre.add("Fantasy");
-        genre.add("Young Adult Fiction");
-        genre.add("Drama");
-        genre.add("Mystery");
-        author.add("J K Rowling");
-        books.add(new Book("Harry Potter and the Philosopher's Stone",author,genre,284.00,"9780439362139"));
-        books.add(new Book("Harry Potter and the Chamber of Secrets",author,genre,285.00,"9780439064873"));
-        books.add(new Book("Harry Potter and the Prisoner of Azkaban",author,genre,300.00,"9780545582933"));
-        books.add(new Book("Harry Potter and the Goblet of Fire",author,genre,320.00,"9781338299175"));
-        books.add(new Book("Harry Potter and the Order of the Phoenix",author,genre,340.00,"9781439520024"));
-        books.add(new Book("Harry Potter and the Half-Blood Prince",author,genre,330.00,"9780439785969"));
-        books.add(new Book("Harry Potter and the Deathly Hallows",author,genre,350.00,"9780545010221"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Fiction");
+    //     genre.add("Fantasy");
+    //     genre.add("Young Adult Fiction");
+    //     genre.add("Drama");
+    //     genre.add("Mystery");
+    //     author.add("J K Rowling");
+    //     books.add(new Book("Harry Potter and the Philosopher's Stone",author,genre,284.00,"9780439362139"));
+    //     books.add(new Book("Harry Potter and the Chamber of Secrets",author,genre,285.00,"9780439064873"));
+    //     books.add(new Book("Harry Potter and the Prisoner of Azkaban",author,genre,300.00,"9780545582933"));
+    //     books.add(new Book("Harry Potter and the Goblet of Fire",author,genre,320.00,"9781338299175"));
+    //     books.add(new Book("Harry Potter and the Order of the Phoenix",author,genre,340.00,"9781439520024"));
+    //     books.add(new Book("Harry Potter and the Half-Blood Prince",author,genre,330.00,"9780439785969"));
+    //     books.add(new Book("Harry Potter and the Deathly Hallows",author,genre,350.00,"9780545010221"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Fiction");
-        genre.add("Young Adult Fantasy");
-        genre.add("Contemporary Fantasy");
-        genre.add("Urban Fantasy");
-        author.add("Cassandra Clare");
-        author.add("Joshua Lewis");
-        books.add(new Book("The Mortal Instruments: City of Bones",author,genre,310.00,"9781534406254"));
-        books.add(new Book("The Mortal Instruments: City of Ashes",author,genre,320.00,"9780606106405"));
-        books.add(new Book("The Mortal Instruments: City of Glass",author,genre,323.00,"9780606107235"));
-        books.add(new Book("The Mortal Instruments: City of Fallen Angels",author,genre,320.00,"9780606269087"));
-        books.add(new Book("The Mortal Instruments: City of Lost Souls",author,genre,340.00,"9781406332940"));
-        books.add(new Book("The Mortal Instruments: City of Heavenly Fire",author,genre,350.00,"9780606371384"));
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Fiction");
+    //     genre.add("Young Adult Fantasy");
+    //     genre.add("Contemporary Fantasy");
+    //     genre.add("Urban Fantasy");
+    //     author.add("Cassandra Clare");
+    //     author.add("Joshua Lewis");
+    //     books.add(new Book("The Mortal Instruments: City of Bones",author,genre,310.00,"9781534406254"));
+    //     books.add(new Book("The Mortal Instruments: City of Ashes",author,genre,320.00,"9780606106405"));
+    //     books.add(new Book("The Mortal Instruments: City of Glass",author,genre,323.00,"9780606107235"));
+    //     books.add(new Book("The Mortal Instruments: City of Fallen Angels",author,genre,320.00,"9780606269087"));
+    //     books.add(new Book("The Mortal Instruments: City of Lost Souls",author,genre,340.00,"9781406332940"));
+    //     books.add(new Book("The Mortal Instruments: City of Heavenly Fire",author,genre,350.00,"9780606371384"));
 
-        genre.clear();
-        author.clear();
-        genre.add("Fiction");
-        genre.add("Science Fiction");
-        author.add("Brandon Sanderson");
-        books.add(new Book("Skyward",author,genre,290.00,"9780399555770"));
-        books.add(new Book("Starsight",author,genre,290.00,"9780399555817"));
-        Book.saveBooks(books);
-    }
+    //     genre.clear();
+    //     author.clear();
+    //     genre.add("Fiction");
+    //     genre.add("Science Fiction");
+    //     author.add("Brandon Sanderson");
+    //     books.add(new Book("Skyward",author,genre,290.00,"9780399555770"));
+    //     books.add(new Book("Starsight",author,genre,290.00,"9780399555817"));
+    //     Book.saveBooks(books);
+    // }
 }
     
 
