@@ -132,6 +132,15 @@ public class Book implements Serializable
     public void setNumCopies(int numCopies)
     {
         m_numCopies=numCopies;
+        try {
+            saveBooks();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void setBorrowers(Customer borrower) throws IOException, ClassNotFoundException
@@ -179,11 +188,12 @@ public class Book implements Serializable
     }
 
     //returns a book object with the argument as its title
-    public static Book getBookWithTitle(String title)
+    public static Book getBookWithTitle(String title) throws ClassNotFoundException, IOException
     {
-        for(int i=0;i<booksList.size();i++)
-            if(booksList.get(i).m_title.equalsIgnoreCase(title.trim()))
-                return booksList.get(i);
+        ArrayList<Book> booksTitle = new ArrayList<>(getBooks());
+        for(int i=0;i<booksTitle.size();i++)
+            if(booksTitle.get(i).m_title.equalsIgnoreCase(title.trim()))
+                return booksTitle.get(i);
         return null;
     }
 

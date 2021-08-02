@@ -5,13 +5,22 @@ import java.time.LocalDate;
 
 public class Transaction implements Serializable {
 
-    ArrayList<LocalDate> dateOfBorrow = new ArrayList<LocalDate>();
-    ArrayList<LocalDate> dateOfReturn = new ArrayList<LocalDate>();
-    ArrayList<LocalDate> dateOfPurchase = new ArrayList<LocalDate>();
-    ArrayList<Book> borrowedBooks = new ArrayList<Book>();
-    ArrayList<Book> boughtBooks = new ArrayList<Book>();
-    ArrayList<Boolean> isReturned = new ArrayList<Boolean>(); // So it will have isReturned one to one map to
-                                                              // borrowedBooks
+    ArrayList<LocalDate> dateOfBorrow;
+    ArrayList<LocalDate> dateOfReturn;
+    ArrayList<LocalDate> dateOfPurchase;
+    ArrayList<Book> borrowedBooks;
+    ArrayList<Book> boughtBooks;
+    ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to
+                                   // borrowedBooks
+
+    Transaction() {
+        dateOfBorrow = new ArrayList<LocalDate>();
+        dateOfReturn = new ArrayList<LocalDate>();
+        dateOfPurchase = new ArrayList<LocalDate>();
+        borrowedBooks = new ArrayList<Book>();
+        boughtBooks = new ArrayList<Book>();
+        isReturned = new ArrayList<Boolean>();
+    }
 
     private boolean payment(double amount) {
         Scanner details = new Scanner(System.in);
@@ -44,6 +53,7 @@ public class Transaction implements Serializable {
             }
             System.out.println("Do you want to continue in payment section? Enter Y if yes else enter N: ");
             choice = details.next().charAt(0);
+            details.nextLine();
         } while (choice == 'Y');
         details.close();
         return status;
