@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.time.LocalDate;
-public class Main 
+public class Main
 {
-    
+
     public static void main(String[] args)
     {
-        //Testing Commands: 
+        //Testing Commands:
         // Admin a = new Admin("Andrew", 35, "al.andrew@vivlio.org",
         //         "Adm1n_paSs");
         // a.saveAdminDetails();
@@ -38,11 +38,6 @@ public class Main
          Scanner check = new Scanner(System.in);
          s= check.nextLine();
          Book b=null;
-<<<<<<< HEAD
-        Book.saveBooks();
-        b = Book.getBookWithTitle(s);
-        //System.out.println(Book.getBooks());
-=======
          try {
             b = Book.getBookWithTitle(s);
         } catch (ClassNotFoundException e) {
@@ -51,26 +46,25 @@ public class Main
         }
         //  try {
         //     //Book.saveBooks();
-            
+
         //     //System.out.println(Book.getBooks());
         // } catch (ClassNotFoundException e) {
         //     // TODO Auto-generated catch block
         //     e.printStackTrace();
         // }
->>>>>>> d2aa46e86a2ddab8ddf8365c6e9d4f99a113f0c7
-                   
+
         c1.buyBook(b);
         c1.saveCustomer();
         System.out.println(c1.getTransaction().getBoughtBooks());
         check.close();
-        
+
         // c1.buyBook(b);
         // c1.saveCustomer();
-        // System.out.println(c1.getTransaction().getBoughtBooks());        
-    }   
+        // System.out.println(c1.getTransaction().getBoughtBooks());
+    }
 }
 
-//Testing Commands: 
+//Testing Commands:
 // Admin a = new Admin("Andrew", 35, "al.andrew@vivlio.org",
         //         "Adm1n_paSs");
         // a.saveAdminDetails();

@@ -135,10 +135,5 @@ public class Transaction implements Serializable {
             dateOfReturn.add(index, calculateDate); // A test here too?
         }
         return fine;
-<<<<<<< HEAD
-    } 
-}
-=======
     }
 }
->>>>>>> d2aa46e86a2ddab8ddf8365c6e9d4f99a113f0c7
