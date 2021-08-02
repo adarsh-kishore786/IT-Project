@@ -38,9 +38,26 @@ public class Main
          Scanner check = new Scanner(System.in);
          s= check.nextLine();
          Book b=null;
+<<<<<<< HEAD
         Book.saveBooks();
         b = Book.getBookWithTitle(s);
         //System.out.println(Book.getBooks());
+=======
+         try {
+            b = Book.getBookWithTitle(s);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //  try {
+        //     //Book.saveBooks();
+            
+        //     //System.out.println(Book.getBooks());
+        // } catch (ClassNotFoundException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
+>>>>>>> d2aa46e86a2ddab8ddf8365c6e9d4f99a113f0c7
                    
         c1.buyBook(b);
         c1.saveCustomer();

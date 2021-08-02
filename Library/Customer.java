@@ -11,7 +11,7 @@ public class Customer extends Person {
   String history=""; //planning to make hisory an array list at a later stage
   ArrayList<Book> booksBorrowed; //initialized in constructor
   ArrayList<Book> booksBought; //initialized in constructor
-  Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
+  Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
   public Customer() {}
 
@@ -19,6 +19,7 @@ public class Customer extends Person {
     super(name,age,userName,password);
     this.booksBorrowed=new ArrayList<Book>();
     this.booksBought=new ArrayList<Book>();
+    transaction=new Transaction();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
   }
