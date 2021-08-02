@@ -11,14 +11,18 @@ public class Customer extends Person {
   String history=""; //planning to make hisory an array list at a later stage
   ArrayList<Book> booksBorrowed; //initialized in constructor
   ArrayList<Book> booksBought; //initialized in constructor
-  Transaction transaction=new Transaction(); //contains history of borrow/return dates with fine; unique to every customer
+  Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
   Customer(String name,int age,String userName,String password){
     super(name,age,userName,password);
     this.booksBorrowed=new ArrayList<Book>();
     this.booksBought=new ArrayList<Book>();
+    transaction=new Transaction();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
+  }
+
+  public Customer() {
   }
 
   int getBorrowLimit(){
@@ -38,11 +42,11 @@ public class Customer extends Person {
     //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
-    int n=book.getNumCopies();
-    book.setNumCopies(n-1);
+
 
     if(admin.sellBook(transaction,book)){
-
+      int n=book.getNumCopies();
+      book.setNumCopies(n-1);
       booksBought.add(book); //update array list
       numBooksBought=booksBought.size(); //update number of books bought
 
@@ -113,7 +117,7 @@ public class Customer extends Person {
 
    //ObjectOutputStream os=null; //stream that writes object to file
 
-   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("Library/src/customer.dat"))) {
 
      if(customerList.contains(this))
      {
@@ -141,7 +145,7 @@ public class Customer extends Person {
   private static void initCustomerList(){
       //ObjectInputStream in=null;
       //try with resources block doesnt need resource closing
-      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("Library/src/customer.dat")))) {
 
         customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
 
