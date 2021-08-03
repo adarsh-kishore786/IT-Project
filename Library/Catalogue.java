@@ -1,13 +1,13 @@
 import java.io.*;
 import java.util.*;
 
-public class Catalogue 
+public class Catalogue
 {
     // static variable containing a list of all the books in the library
     private static ArrayList<Book> booksList = new ArrayList<Book>();
-    static String booksFile="booksFile.dat";
+    static String booksFile="./src/booksFile.dat";
 
-    public static boolean checkISBN(String ISBN) 
+    public static boolean checkISBN(String ISBN)
     {
         ISBN = ISBN.trim();
 
@@ -18,7 +18,7 @@ public class Catalogue
         // weighted sum must be divisible by 10
         // digits are multiplied with 1 and 3 alternatively
         int sum = 0;
-        for (int i = 0; i < 13; i++) 
+        for (int i = 0; i < 13; i++)
         {
             if (i % 2 == 0)
                 sum += Character.valueOf(ISBN.charAt(i));
@@ -32,7 +32,7 @@ public class Catalogue
     }
 
     // returns an arraylist of all the books
-    public static ArrayList<Book> getBooks() throws IOException, ClassNotFoundException 
+    public static ArrayList<Book> getBooks() throws IOException, ClassNotFoundException
     {
         //booksInfo();
         initBooks();
@@ -40,7 +40,7 @@ public class Catalogue
     }
 
     // returns a book object with the argument as its title
-    public static Book getBookWithTitle(String title) throws ClassNotFoundException, IOException 
+    public static Book getBookWithTitle(String title) throws ClassNotFoundException, IOException
     {
         initBooks();
 
@@ -52,7 +52,7 @@ public class Catalogue
     }
 
     // initializes the books list with all the books in the file
-    private static void initBooks() throws IOException, ClassNotFoundException 
+    private static void initBooks() throws IOException, ClassNotFoundException
     {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -73,19 +73,19 @@ public class Catalogue
             // }
             // }
 
-        } 
+        }
         catch (EOFException eofe) {
             System.out.println(eofe);
-        } 
+        }
         catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
-        } 
+        }
         catch (IOException ie) {
             System.err.println(ie);
-        } 
+        }
         catch (Exception e) {
             System.err.println(e);
-        } 
+        }
         finally {
             if (fis != null)
                 fis.close();
@@ -94,7 +94,7 @@ public class Catalogue
         }
     }
 
-    public static void saveBooks() throws IOException, ClassNotFoundException 
+    public static void saveBooks() throws IOException, ClassNotFoundException
     {
         // streams objects required
         FileOutputStream fos = null;
@@ -109,13 +109,13 @@ public class Catalogue
             fos = new FileOutputStream(booksFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(booksList);
-        } 
+        }
         catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
-        } 
+        }
         catch (IOException ie) {
             System.err.println(ie);
-        } 
+        }
         finally {
             if (fos != null)
                 fos.close();
@@ -125,7 +125,7 @@ public class Catalogue
 
     }
 
-    public static void saveBooks(ArrayList<Book> books) throws IOException, ClassNotFoundException 
+    public static void saveBooks(ArrayList<Book> books) throws IOException, ClassNotFoundException
     {
         // if the arraylist is null, then all the books already in the file are stored
         // in the list
@@ -138,9 +138,9 @@ public class Catalogue
         saveBooks();
     }
 
-    
+
     // TODO format returned book list
-    static ArrayList<Book> getBookUnderPrice(double price) 
+    static ArrayList<Book> getBookUnderPrice(double price)
     {
         try {
             initBooks();
@@ -243,13 +243,13 @@ public class Catalogue
     //     genre.add("Thriller");
     //     genre.add("Romance");
     //     author.add("Dan Brown");
-
+    //
     //     Book obj1=new Book("Angels and Demons",author , genre, 258.00,
     //     "9781416524793");
-
+    //
     //     Book obj2=new Book("The Da Vinci Code", author, genre, 246.00,
     //     "9780375432309");
-
+    //
     //     genre.clear();
     //     author.clear();
     //     books.add(obj1);
@@ -259,7 +259,7 @@ public class Catalogue
     //     author.add("Kristin Harmel");
     //     books.add(new Book("The Forest of Vanishing Stars", author,
     //     genre, 450.0, "9781982158934"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Mystery");
@@ -269,7 +269,7 @@ public class Catalogue
     //     author.add("Stuart Turton");
     //     books.add(new Book("The Devil and the Dark Water", author,
     //     genre, 548.48, "9781728234298"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Non-Fiction");
@@ -278,7 +278,7 @@ public class Catalogue
     //     author.add("Yaa Gyasi");
     //     books.add(new Book("Transcedental Kingdom", author,
     //     genre, 767.36, "9781984899767"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Historical");
@@ -286,7 +286,7 @@ public class Catalogue
     //     author.add("Christina Baker Kline");
     //     books.add(new Book("The Exiles", author,
     //     genre, 815.40, "9780062356338"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Non-fiction");
@@ -294,7 +294,7 @@ public class Catalogue
     //     author.add("Joseph Gallian");
     //     books.add(new Book("Contemporary Abstract Algebra",author ,
     //     genre, 490.00, "9789353502522"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Fiction");
@@ -302,7 +302,7 @@ public class Catalogue
     //     author.add("Isaac Asimov");
     //     books.add(new Book("The End of Eternity", author,
     //     genre, 195.00, "9780449237045"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Fiction");
@@ -318,7 +318,7 @@ public class Catalogue
     //     books.add(new Book("Harry Potter and the Order of the Phoenix",author,genre,340.00,"9781439520024"));
     //     books.add(new Book("Harry Potter and the Half-Blood Prince",author,genre,330.00,"9780439785969"));
     //     books.add(new Book("Harry Potter and the Deathly Hallows",author,genre,350.00,"9780545010221"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Fiction");
@@ -333,7 +333,7 @@ public class Catalogue
     //     books.add(new Book("The Mortal Instruments: City of Fallen Angels",author,genre,320.00,"9780606269087"));
     //     books.add(new Book("The Mortal Instruments: City of Lost Souls",author,genre,340.00,"9781406332940"));
     //     books.add(new Book("The Mortal Instruments: City of Heavenly Fire",author,genre,350.00,"9780606371384"));
-
+    //
     //     genre.clear();
     //     author.clear();
     //     genre.add("Fiction");

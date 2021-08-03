@@ -104,7 +104,7 @@ public class CustomerOptions {
       System.out.print("Enter price: ");
         try {
           price=Double.parseDouble(sc.nextLine());
-          ArrayList<Book> booklist=c.getBookUnderPrice(price);
+          ArrayList<Book> booklist=Catalogue.getBookUnderPrice(price);
           showBooks(booklist);
           selectedBook = selectBook(booklist);
           confirmBook(selectedBook);
@@ -135,7 +135,7 @@ public class CustomerOptions {
     } while(!author.equals("exit"));
     authorList.remove(authorList.size()-1);
     String[] authorArray=new String[authorList.size()-1];
-    ArrayList<Book> booklist=c.getBookWithAuthor(authorList.toArray(authorArray));
+    ArrayList<Book> booklist=Catalogue.getBookWithAuthor(authorList.toArray(authorArray));
     if(booklist.isEmpty()){
       System.out.println("\nNo Book Found!");
       return;
@@ -183,7 +183,13 @@ public class CustomerOptions {
                     break;
             case 2: c.returnBook(book);
                     break;
-            case 3: c.buyBook(book);
+            case 3: try {
+                      c.buyBook(book);
+                    } catch(IOException e) {
+                      System.err.println(e);
+                    }catch (ClassNotFoundException e){
+                      System.err.println(e);
+                    }
                     break;
           }
         }
