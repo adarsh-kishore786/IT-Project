@@ -71,6 +71,18 @@ public class Transaction implements Serializable {
         return boughtBooks;
     }
 
+    public LocalDate getDateOfBorrow(Book b){
+      return this.dateOfBorrow.get(this.borrowedBooks.indexOf(b));
+    }
+
+    public LocalDate getDateOfPurchase(Book b){
+      return this.dateOfPurchase.get(this.boughtBooks.indexOf(b));
+    }
+
+    public LocalDate getDateOfReturn(Book b){
+      return this.dateOfReturn.get(this.boughtBooks.indexOf(b));
+    }
+
     public boolean rentBookTransaction(Book b) {
         boolean status = true;
         int newNumberCopies;

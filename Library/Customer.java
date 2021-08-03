@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.util.HashMap;
+import java.time.LocalDate;
 
 public class Customer extends Person {
 
@@ -9,13 +11,12 @@ public class Customer extends Person {
   private static int borrowLimit=Admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
-  String history=""; //planning to make hisory an array list at a later stage
+  HashMap<Book,ArrayList<LocalDate>> history; //planning to make hisory an array list at a later stage
   ArrayList<Book> booksBorrowed; //initialized in constructor
   ArrayList<Book> booksBought; //initialized in constructor
   Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
-  public Customer()
-  {
+  public Customer(){
       // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
       // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
       // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
@@ -35,7 +36,8 @@ public class Customer extends Person {
     super(name,age,userName,password);
     this.booksBorrowed=new ArrayList<Book>();
     this.booksBought=new ArrayList<Book>();
-    transaction=new Transaction();
+    this.transaction=new Transaction();
+    this.history=new HashMap();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
   }
@@ -52,13 +54,11 @@ public class Customer extends Person {
     return this.numBooksBought;
   }
 
-  ArrayList<Customer> getCustomers()
-  {
+  ArrayList<Customer> getCustomers(){
       return customerList;
   }
 
-  boolean addCustomer(Customer c)
-  {
+  boolean addCustomer(Customer c){
       for (Customer c1 : customerList)
       {
           if (c1.getUsername().equals(c.getUsername()))
@@ -77,7 +77,6 @@ public class Customer extends Person {
     //Date purchaseDate=new Date(); //returns current date
 
     //reduce number of copies of book
-
 
     if(admin.sellBook(transaction,book)){
       int n=book.getNumCopies();
@@ -121,14 +120,20 @@ public class Customer extends Person {
       //remove book from list
       booksBorrowed.remove(book);
       numBooksBorrowed=booksBorrowed.size();
+
+      //update history by adding the book and list of dates to hashmap
+      ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
+      dates.add(this.getTransaction().getDateOfBorrow(book));
+      dates.add(this.getTransaction().getDateOfReturn(book));
+      history.put(book,dates);
       //update history(has to be changed)
-      history+=book.getTitle()+" ";
+      //history+=book.getTitle()+" ";
     }
     //initializeReturnTransaction(return  Date);
   }
 
-  String getHistory(){
-    return history;
+  HashMap getHistory(){
+    return this.history;
   }
 
   //return transaction object
