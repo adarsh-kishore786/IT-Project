@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.time.*;
 
 public class Main
@@ -11,7 +12,7 @@ public class Main
         System.out.println("That's an invalid input. Please try again.\n");
     }
 
-    public static void welcome(Customer cust)
+    public static void welcome()
     {
         System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("                 WELCOME TO VIVLIO LIBRARY!                   ");
@@ -21,19 +22,21 @@ public class Main
         String ch = null;
         do
         {
-            System.out.print("(L)ogin, or (S)ign up: ");
+            System.out.print("(L)ogin, (S)ign up or (E)xit: ");
             ch = sc.nextLine();
 
-            if (!ch.equalsIgnoreCase("l") && !ch.equalsIgnoreCase("s"))
-                error();
 
             if (ch.equalsIgnoreCase("l"))
                 login();
+            else if (ch.equalsIgnoreCase("s"))
+                create_account(new Customer());
+            else if (ch.equalsIgnoreCase("e"))
+                System.exit(0);
             else
-                create_account(cust);
+                error();
 
             ch = "";
-        } while (!ch.equalsIgnoreCase("l") && !ch.equalsIgnoreCase("s"));
+        } while (!ch.equalsIgnoreCase("l") && !ch.equalsIgnoreCase("s") && !ch.equalsIgnoreCase("e"));
         sc.close();
     }
 
@@ -72,6 +75,8 @@ public class Main
         }
 
         System.out.println("Welcome administrator " + admin.getName() + ", logging you in...\n");
+        sleep(1);
+        adminFunctions(admin);
     }
 
     public static void cust_login(String username)
@@ -89,6 +94,7 @@ public class Main
         {
             Customer c = cust.getCustomer(index);
             System.out.println("Welcome customer " + c.getName() + ", logging you in...\n");
+            sleep(1);
         }
     }
 
@@ -116,7 +122,10 @@ public class Main
             }
 
             System.out.print("Enter username (without the @vivlio.org): ");
-            username = sc.nextLine() + "" + age + "@vivlio.org";
+            username = sc.nextLine();
+            if (!intersects(username, "0123456789"))
+                username += age;
+            username += "@vivlio.org";
 
             System.out.print("Enter password: ");
             String password = sc.nextLine();
@@ -127,18 +136,49 @@ public class Main
                 break;
         }
         while (true);
+        sleep(1);
 
         System.out.println("\nNew user created:");
         System.out.println(c);
     }
 
+    public static void adminFunctions(Admin admin)
+    {
+        while (true)
+        {
+            System.out.println(admin + "\n");
+            System.out.println("What would you like to do?");
+            System.out.println("1. See list of all customers");
+            System.out.println("2. Log out");
+            int choice = 0;
+            try
+            {
+                choice = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e)
+            {
+                error();
+                continue;
+            }
+
+            switch (choice)
+            {
+                case 1: showCustomers();
+                        break;
+                case 2: System.out.println();
+                        return;
+                default: System.out.println("That's an invalid option. Try again.\n");
+            }
+        }
+    }
+
     public static void main(String[] args)
     {
-        Customer cust = new Customer();
+        // Customer cust = new Customer();
         // saveCust(cust);
-        for (Customer c : cust.getCustomers())
-            System.out.println(c);
-        welcome(cust);
+        // for (Customer c : cust.getCustomers())
+        //     System.out.println(c);
+        welcome();
         sc.close();
     }
 
@@ -181,5 +221,25 @@ public class Main
         }
 
         return -1;
+    }
+
+    private static void sleep(int seconds)
+    {
+        try
+        {
+            TimeUnit.SECONDS.sleep(seconds);
+        }
+        catch (InterruptedException ie)
+        {
+            System.out.println(ie);
+        }
+    }
+
+    private static void showCustomers()
+    {
+        Customer cust = new Customer();
+        for (Customer c : cust.getCustomers())
+            System.out.println(c);
+        System.out.println("---------------------------------");
     }
 }

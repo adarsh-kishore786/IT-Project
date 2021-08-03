@@ -95,7 +95,7 @@ public class Admin extends Person
 
         str += "Number of books on rent: " + m_numBooksOnRent + "\n";
         str += "Number of books sold   : " + m_numBooksSold + "\n";
-        str += "Total revenue earned   : Rs. " + m_revenue + "\n";
+        str += "Total revenue earned   : Rs. " + String.format("%.2f", m_revenue) + "\n";
 
         return str;
     }
