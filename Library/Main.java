@@ -5,8 +5,6 @@ import java.time.*;
 
 public class Main
 {
-    static Scanner sc = new Scanner(System.in);
-
     public static void error()
     {
         System.out.println("That's an invalid input. Please try again.\n");
@@ -43,11 +41,10 @@ public class Main
     public static void main(String[] args)
     {
         // Customer cust = new Customer();
-        // cust.saveCustomer();
+        // // cust.saveCustomer();
         // for (Customer c : cust.getCustomers())
         //     System.out.println(c);
         welcome();
-        sc.close();
     }
 
     public static void sleep(int seconds)

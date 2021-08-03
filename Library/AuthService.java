@@ -123,6 +123,7 @@ public class AuthService {
             System.out.println("What would you like to do?");
             System.out.println("1. See list of all customers");
             System.out.println("2. Log out");
+            System.out.print("Enter option number: ");
             int choice = 0;
             try
             {

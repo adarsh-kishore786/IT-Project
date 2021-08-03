@@ -17,6 +17,8 @@ public class Customer extends Person {
   Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
   public Customer(){
+      // if (customerList.size() > 0)
+      //   return;
       // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
       // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
       // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
@@ -196,5 +198,5 @@ public class Customer extends Person {
   }
 
 
-  
+
 }
