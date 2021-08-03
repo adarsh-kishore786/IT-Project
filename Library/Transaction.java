@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.io.*;
+
 
 public class Transaction implements Serializable {
 
@@ -101,7 +103,13 @@ public class Transaction implements Serializable {
             dateOfBorrow.add(newDate);
             newNumberCopies = b.getNumCopies();
             --newNumberCopies; // Decrease number of copies
-            b.setNumCopies(newNumberCopies);
+            try {
+              b.setNumCopies(newNumberCopies);
+            } catch(ClassNotFoundException e) {
+              System.err.println(e);
+            }catch (IOException e) {
+              System.err.println(e);
+            }
         }
         return status;
     }
@@ -115,7 +123,13 @@ public class Transaction implements Serializable {
             status = true;
             newNumberCopies = b.getNumCopies();
             --newNumberCopies; // Decrease number of copies
-            b.setNumCopies(newNumberCopies);
+            try {
+              b.setNumCopies(newNumberCopies);
+            } catch(ClassNotFoundException e) {
+              System.err.println(e);
+            }catch (IOException e) {
+              System.err.println(e);
+            }
             boughtBooks.add(b);
             dateOfPurchase.add(LocalDate.now());
         }
@@ -140,10 +154,17 @@ public class Transaction implements Serializable {
             isReturned.set(index, true);
             newNumberCopies = borrowedBooks.get(index).getNumCopies();
             ++newNumberCopies;
-            borrowedBooks.get(index).setNumCopies(newNumberCopies); // I am a little doubtful about this, need to test
-                                                                    // with data, does it update for the book as such or
-                                                                    // just update and keep in my array list? Is it
-                                                                    // synchronized basically?
+            try {
+              borrowedBooks.get(index).setNumCopies(newNumberCopies); // I am a little doubtful about this, need to test
+                                                                      // with data, does it update for the book as such or
+                                                                      // just update and keep in my array list? Is it
+                                                                      // synchronized basically?
+            } catch(ClassNotFoundException e) {
+              System.err.println(e);
+            }catch (IOException e) {
+              System.err.println(e);
+            }
+
             dateOfReturn.add(index, calculateDate); // A test here too?
         }
         return fine;
