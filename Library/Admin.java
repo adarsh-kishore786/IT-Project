@@ -6,6 +6,8 @@
  */
 import java.util.*;
 import java.io.*;
+import java.util.HashMap;
+import java.time.LocalDate;
 
 public class Admin extends Person
 {
@@ -166,7 +168,7 @@ public class Admin extends Person
          return true;
      }
 
-    public String getHistory(Customer cust)
+    public HashMap<Book,ArrayList<LocalDate>> getHistory(Customer cust)
     {
         return cust.getHistory();
     }

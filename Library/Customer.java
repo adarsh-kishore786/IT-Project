@@ -132,7 +132,7 @@ public class Customer extends Person {
     //initializeReturnTransaction(return  Date);
   }
 
-  HashMap getHistory(){
+  HashMap<Book,ArrayList<LocalDate>> getHistory(){
     return this.history;
   }
 
@@ -187,7 +187,7 @@ public class Customer extends Person {
 
   //following functions assume a books.dat file in /src/books.dat
 
-  //TODO format returned book list
+  //TODO: format returned book list
   ArrayList<Book> getBookUnderPrice(double price){
 
     ArrayList<Book> books=Book.getBooks();
@@ -199,7 +199,6 @@ public class Customer extends Person {
     return filteredList;
   }
 
-  //TODO trim author parameter
   ArrayList<Book> getBookWithAuthor(String[] authors){
     ArrayList<Book> books=Book.getBooks();
     ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
