@@ -37,7 +37,7 @@ public class Customer extends Person {
     this.booksBorrowed=new ArrayList<Book>();
     this.booksBought=new ArrayList<Book>();
     this.transaction=new Transaction();
-    this.history=new HashMap();
+    this.history=new HashMap<Book,ArrayList<LocalDate>>();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
   }
@@ -72,7 +72,7 @@ public class Customer extends Person {
       return true;
   }
 
-  void buyBook(Book book){
+  void buyBook(Book book) throws ClassNotFoundException, IOException{
     //currently no restriction on buying
     //Date purchaseDate=new Date(); //returns current date
 
@@ -102,8 +102,18 @@ public class Customer extends Person {
     if(booksBorrowed.size()<borrowLimit){
 
       if(admin.rentBook(transaction,book)){
-        book.setBorrowers(this);
-        Book.saveBooks(); //this can be called inside setBorrowers method to make customer's work less
+        try {
+          book.setBorrowers(this);
+        } catch (ClassNotFoundException | IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        try {
+          Catalogue.saveBooks();
+        } catch (ClassNotFoundException | IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } //this can be called inside setBorrowers method to make customer's work less
 
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
@@ -185,69 +195,6 @@ public class Customer extends Person {
       }
   }
 
-  //following functions assume a books.dat file in /src/books.dat
 
-  //TODO: format returned book list
-  ArrayList<Book> getBookUnderPrice(double price){
-
-    ArrayList<Book> books=Book.getBooks();
-    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    for(Book b:books){
-      if(b.getPrice()<price)
-        filteredList.add(b);
-    }
-    return filteredList;
-  }
-
-  ArrayList<Book> getBookWithAuthor(String[] authors){
-    ArrayList<Book> books=Book.getBooks();
-    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    List<String> authorList=Arrays.asList(authors);
-    for(Book b:books){
-      if(authorList.contains(b.getAuthor()))
-        filteredList.add(b);
-    }
-    return filteredList;
-  }
-
-  ArrayList<Book> getBookWithGenre(String[] genres){
-    ArrayList<Book> books=Book.getBooks();
-    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    List<String> genreList=Arrays.asList(genres);
-
-    for(Book b:books){
-
-      ArrayList<String> bookGenreList=b.getGenre();
-
-      for(String genre:genreList){
-        if(bookGenreList.contains(genre)){
-          filteredList.add(b);
-          break;
-        }
-      }
-    }
-    return filteredList;
-  }
-
-  ArrayList<Book> getIfAvailable(){
-    //file url can be changed
-    ArrayList<Book> books=Book.getBooks();
-    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    for(Book b:books){
-      if(b.isAvailable())
-        filteredList.add(b);
-    }
-    return filteredList;
-  }
-
-  ArrayList<Book> searchByISBN(String[] ISBN){
-    ArrayList<Book> books=Book.getBooks();
-    ArrayList<Book> filteredList=new ArrayList<Book>(); //contains req list
-    List<String> isbnList=Arrays.asList(ISBN);
-    for(Book b:books){
-      if(isbnList.contains(b.getISBN()))
-        filteredList.add(b);
-    }
-    return filteredList;
-  }
+  
 }
