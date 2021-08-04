@@ -143,7 +143,7 @@ public class Customer extends Person {
   }
 
   //write customer object to dat file
-  void saveCustomer()
+  static void saveCustomer()
   {
 
    //ObjectOutputStream os=null; //stream that writes object to file

@@ -184,23 +184,6 @@ public class Catalogue
             }
         }
 
-        // bookLoopLabel:
-        // for(Book b : booksList)
-        // {
-        //     ArrayList<String> bookAuthorList = booksList.get(i).getAuthor();
-        //     for(int j=0;j<bookAuthorList.size();j++)
-        //     {
-        //         for(int k=0;k<authorSearchList.size();k++)
-        //         {
-        //             if(bookAuthorList.get(j).equalsIgnoreCase(authorSearchList.get(k)))
-        //             {    
-        //                 filteredList.add(b);
-        //                 continue bookLoopLabel;
-        //             }
-        //         }
-        //     }
-
-        // }
         return filteredList;
     }
 

@@ -11,10 +11,10 @@ public class CustomerOptions {
   private AuthService auth=null;
   private int transaction;
 
-  CustomerOptions(Customer cust,AuthService auth,Scanner sc){
+  CustomerOptions(Customer cust,AuthService auth,Scanner sc1){
     this.c=cust;
     this.auth=auth;
-    this.sc=sc;
+    sc=sc1;
     transaction=0;
   }
 

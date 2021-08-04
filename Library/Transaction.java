@@ -133,7 +133,8 @@ public class Transaction implements Serializable {
       dateOfBorrow.add(newDate);
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
-        b.setNumCopies(newNumberCopies);
+      b.setNumCopies(newNumberCopies);
+      Customer.saveCustomer();
       
     }
     return status;

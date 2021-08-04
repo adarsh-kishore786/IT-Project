@@ -8,8 +8,8 @@ public class AuthService {
   private Customer c=null;
   private CustomerOptions custOptions=null;
 
-  AuthService(Scanner sc){
-    this.sc=sc;
+  AuthService(Scanner sc1){
+    sc=sc1;
   }
 
   public void error(){
