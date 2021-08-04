@@ -65,7 +65,7 @@ public class AuthService {
           System.out.println("Invalid username/password.\n");
       else
       {
-          c = cust.getCustomer(index);
+          c = Customer.getCustomer(index);
           System.out.println("Welcome customer " + c.getName() + ", logging you in...\n");
           sleep(1);
           custOptions=new CustomerOptions(c,this,sc);
@@ -147,7 +147,7 @@ public class AuthService {
     }
 
   public void logout(){
-      System.out.println("Logging you out..."); 
+      System.out.println("Logging you out...");
       custOptions=null;
       c=null;
       Main.main(null);
@@ -178,7 +178,7 @@ public class AuthService {
   private static int getCustIndex(Customer cust, String username, String passwd){
       for (int i = 0; i < cust.getCustomers().size(); i++)
       {
-          Customer c = cust.getCustomer(i);
+          Customer c = Customer.getCustomer(i);
           // System.out.println(c);
           if (c.getUsername().equals(username))
               if (c.getPassword().equals(passwd))
