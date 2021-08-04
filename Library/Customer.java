@@ -183,6 +183,7 @@ public class Customer extends Person {
     return customerList.get(n);
   }
 
+  @SuppressWarnings("unchecked")
   private static void initCustomerList(){
       //ObjectInputStream in=null;
       //try with resources block doesnt need resource closing
