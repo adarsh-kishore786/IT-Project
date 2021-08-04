@@ -142,7 +142,7 @@ public class Admin extends Person
         ArrayList<Book> books = trans.getBorrowedBooks();
 
         // checks the index of book in borrowed list
-        for (int i = 1; i < books.size(); i++)
+        for (int i = 0; i < books.size(); i++)
         {
             if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
             {

@@ -32,7 +32,7 @@ public class Catalogue
     }
 
     // returns an arraylist of all the books
-    public static ArrayList<Book> getBooks() 
+    public static ArrayList<Book> getBooks()
     {
         //booksInfo();
         initBooks();
@@ -42,7 +42,7 @@ public class Catalogue
 
     // initializes the books list with all the books in the file
     @SuppressWarnings("unchecked")
-    private static void initBooks() 
+    private static void initBooks()
     {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -92,7 +92,7 @@ public class Catalogue
         }
     }
 
-    public static void saveBooks() 
+    public static void saveBooks()
     {
         // streams objects required
         FileOutputStream fos = null;
@@ -101,7 +101,7 @@ public class Catalogue
         // writing the booksList into the file with all the updated information
         if (booksList == null)
             initBooks();
-            
+
         try {
             // file containing books arraylist-booksFile.dat passed to the stream
             fos = new FileOutputStream(booksFile);
@@ -131,7 +131,7 @@ public class Catalogue
 
     }
 
-    public static void saveBooks(ArrayList<Book> books) 
+    public static void saveBooks(ArrayList<Book> books)
     {
         // if the arraylist is null, then all the books already in the file are stored
         // in the list
@@ -168,10 +168,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getBookWithAuthor(String[] authors) 
+    static ArrayList<Book> getBookWithAuthor(String[] authors)
     {
         initBooks();
-        
+
         ArrayList<Book> filteredList=new ArrayList<Book>();// contains req list
         List<String> authorSearchList = Arrays.asList(authors);
         for (Book b : booksList) {
@@ -187,10 +187,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getBookWithGenre(String[] genres) 
+    static ArrayList<Book> getBookWithGenre(String[] genres)
     {
         initBooks();
-        
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> genreList = Arrays.asList(genres);
 
@@ -208,10 +208,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getIfAvailable() 
+    static ArrayList<Book> getIfAvailable()
     {
         initBooks();
-        
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList) {
             if (b.isAvailable())
@@ -220,10 +220,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> searchByISBN(String[] ISBN) 
+    static ArrayList<Book> searchByISBN(String[] ISBN)
     {
         initBooks();
-        
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> isbnList = Arrays.asList(ISBN);
         for (Book b : booksList) {
@@ -233,7 +233,7 @@ public class Catalogue
         return filteredList;
     }
 
-    private static void booksInfo() 
+    private static void booksInfo()
     {
         ArrayList<Book> books=new ArrayList<Book>();
         ArrayList<String> genre=new ArrayList<String>();

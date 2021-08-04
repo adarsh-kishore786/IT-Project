@@ -104,15 +104,27 @@ public class Transaction implements Serializable {
   }
 
   public LocalDate getDateOfBorrow(Book b) {
-    return this.dateOfBorrow.get(this.borrowedBooks.indexOf(b));
+    int index=-1;
+    for(Book book:borrowedBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    }
+    return this.dateOfBorrow.get(index);
   }
 
   public LocalDate getDateOfPurchase(Book b) {
-    return this.dateOfPurchase.get(this.boughtBooks.indexOf(b));
+    int index=-1;
+    for(Book book:boughtBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.boughtBooks.indexOf(book);
+    }
+    return this.dateOfPurchase.get(index);
   }
 
   public LocalDate getDateOfReturn(Book b) {
-    return this.dateOfReturn.get(this.boughtBooks.indexOf(b));
+    int index=-1;
+    for(Book book:borrowedBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    }
+    return this.dateOfReturn.get(index);
   }
 
   public boolean rentBookTransaction(Book b) {
@@ -134,8 +146,8 @@ public class Transaction implements Serializable {
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
       b.setNumCopies(newNumberCopies);
-      Customer.saveCustomer();
-      
+      //Customer.saveCustomer();
+
     }
     return status;
   }
@@ -178,7 +190,7 @@ public class Transaction implements Serializable {
                                                                 // with data, does it update for the book as such or
                                                                 // just update and keep in my array list? Is it
                                                                 // synchronized basically?
-      
+
 
       dateOfReturn.add(index, calculateDate); // A test here too?
     }

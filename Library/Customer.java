@@ -28,8 +28,8 @@ public class Customer extends Person {
       // customerList.add(c2);
       // customerList.add(c3);
       // customerList.add(c4);
-      // // System.out.println("!" + customerList.size());
       //
+      // //System.out.println("!" + customerList.size());
       // saveCustomer();
       initCustomerList();
   }
@@ -70,7 +70,7 @@ public class Customer extends Person {
           }
       }
       customerList.add(c);
-      saveCustomer();
+      Customer.saveCustomer();
       return true;
   }
 
@@ -90,6 +90,9 @@ public class Customer extends Person {
       book.setBuyers(this);
       //Book.saveBook(); already called in Book.java
 
+      //update dat file
+      Customer.saveCustomer(this);
+
       System.out.println("Bought Successfully!");
     }
       //set transaction purchase date
@@ -105,10 +108,13 @@ public class Customer extends Person {
 
       if(admin.rentBook(transaction,book)){
         book.setBorrowers(this);
-        Catalogue.saveBooks(); 
+        Catalogue.saveBooks();
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();
+
+        //update dat file
+        Customer.saveCustomer(this);
 
         System.out.println("Congrats! You have borrowed a new book!");
       }
@@ -118,17 +124,25 @@ public class Customer extends Person {
 
   void returnBook(Book book){
     if(admin.getBackBook(transaction,book)){
-      //remove book from list
-      booksBorrowed.remove(book);
-      numBooksBorrowed=booksBorrowed.size();
 
       //update history by adding the book and list of dates to hashmap
       ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
       dates.add(this.getTransaction().getDateOfBorrow(book));
       dates.add(this.getTransaction().getDateOfReturn(book));
       history.put(book,dates);
-      //update history(has to be changed)
-      //history+=book.getTitle()+" ";
+
+      //remove book from list
+      for (Book b:booksBorrowed) {
+        if(b.getTitle().equals(book.getTitle())) {
+          booksBorrowed.remove(b);
+          numBooksBorrowed=booksBorrowed.size();
+          break;
+        }
+      }
+
+      //update dat file
+      Customer.saveCustomer(this);
+      System.out.println("Successfully Returned!");
     }
     //initializeReturnTransaction(return  Date);
   }
@@ -143,27 +157,40 @@ public class Customer extends Person {
   }
 
   //write customer object to dat file
-  static void saveCustomer()
-  {
+  static void saveCustomer(){
 
    //ObjectOutputStream os=null; //stream that writes object to file
-
    try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
-
-     // if(customerList.contains(this) && this != null)
-     // {
-     //   int index=customerList.indexOf(this);
-     //   customerList.set(index,this); //update customer object to list
-     // }else if (this != null) customerList.add(this); //add customer object to list
-
      os.writeObject(customerList); //write array list to file
-
      initCustomerList();
+
    }catch(IOException e){
      System.err.println(e);
      //customerList.remove(this);
    }
  }
+
+  static void saveCustomer(Customer cust){
+
+   //ObjectOutputStream os=null; //stream that writes object to file
+   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+      if(cust != null){
+       for (Customer c: customerList) {
+           if(c.getUsername().equals(cust.getUsername())) {
+             int index=customerList.indexOf(c);
+             customerList.set(index,cust); //update customer object to list
+             break;
+           }
+         }
+      }
+       os.writeObject(customerList); //write array list to file
+       initCustomerList();
+
+     } catch(IOException e){
+        System.err.println(e);
+       //customerList.remove(this);
+     }
+  }
 
   //get customer object from list
   static Customer getCustomer(int n)
@@ -186,7 +213,4 @@ public class Customer extends Person {
         System.err.println(e);
       }
   }
-
-
-
 }

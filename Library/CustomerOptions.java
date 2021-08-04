@@ -147,16 +147,6 @@ public class CustomerOptions {
     confirmBook(selectedBook);
   }
 
-  // private void equals(String s1, String s2)
-  // {
-  //   if (s1.length() != s2.length())
-  //       return false;
-  //   for (int i = 0; i < s1.length(); i++)
-  //       if (s1.charAt(i) != s2.charAt(i))
-  //           return false;
-  //   return true;
-  // }
-
   private void filterByGenre(){
 
       ArrayList<String> genreList=new ArrayList<String>();
@@ -258,6 +248,7 @@ public class CustomerOptions {
   }
 
   //display history
+  //ALERT! Book not being printed for some reason
   private void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -274,8 +265,8 @@ public class CustomerOptions {
       String returnDate = dates.get(1).format(formatter);
 
       System.out.println(book);
-      System.out.println("Borrow Date: "+borrowDate);
-      System.out.println("Return Date: "+returnDate);
+      System.out.println("Borrow Date  : "+borrowDate);
+      System.out.println("Return Date  : "+returnDate+"\n");
     }
   }
 
@@ -331,8 +322,8 @@ public class CustomerOptions {
       } catch (NumberFormatException e) {
         System.out.println("Invalid index, try again");
         continue;
-      } 
-      
+      }
+
     }
   }
 
