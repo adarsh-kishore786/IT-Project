@@ -118,7 +118,6 @@ public class CustomerOptions {
     }
   }
 
-  //TODO: search for authors regardless of case
   private void filterByAuthors(){
     ArrayList<String> authorList=new ArrayList<String>();
     Book selectedBook;
@@ -158,7 +157,6 @@ public class CustomerOptions {
   //   return true;
   // }
 
-  //TODO: search for genres regardless of case
   private void filterByGenre(){
 
       ArrayList<String> genreList=new ArrayList<String>();
@@ -218,7 +216,7 @@ public class CustomerOptions {
     showBooks(booklist);
     selectedBook = selectBook(booklist);
     confirmBook(selectedBook);
-    }
+  }
 
   private void filterByAvailability(){
     int choice=0;

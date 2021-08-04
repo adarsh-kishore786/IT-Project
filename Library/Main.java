@@ -44,14 +44,8 @@ public class Main
         // // cust.saveCustomer();
         // for (Customer c : cust.getCustomers())
         //     System.out.println(c);
-        try
-        {
-            Catalogue.getBooks();
-        }
-        catch (ClassNotFoundException | IOException ie)
-        {
-            ie.printStackTrace();
-        }
+        //Catalogue.getBooks();
+        
         welcome();
     }
 
