@@ -72,6 +72,7 @@ public class Transaction implements Serializable {
 
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction... ");
+            Main.sleep(1);
             System.out.println("Transaction Successful!");
             status = true;
           } else
