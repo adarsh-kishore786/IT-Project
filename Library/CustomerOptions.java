@@ -127,7 +127,7 @@ public class CustomerOptions {
     String author;
 
     do {
-      author=null;
+        author = null;
       try {
           author=sc.nextLine().trim();
           authorList.add(author);
@@ -147,6 +147,16 @@ public class CustomerOptions {
     selectedBook = selectBook(booklist);
     confirmBook(selectedBook);
   }
+
+  // private void equals(String s1, String s2)
+  // {
+  //   if (s1.length() != s2.length())
+  //       return false;
+  //   for (int i = 0; i < s1.length(); i++)
+  //       if (s1.charAt(i) != s2.charAt(i))
+  //           return false;
+  //   return true;
+  // }
 
   //TODO: search for genres regardless of case
   private void filterByGenre(){

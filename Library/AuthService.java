@@ -147,8 +147,7 @@ public class AuthService {
     }
 
   public void logout(){
-      System.out.println("Logging you out...");
-      sleep(1);
+      System.out.println("Logging you out..."); 
       custOptions=null;
       c=null;
       Main.main(null);
