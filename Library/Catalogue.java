@@ -34,9 +34,21 @@ public class Catalogue
     // returns an arraylist of all the books
     public static ArrayList<Book> getBooks() throws IOException, ClassNotFoundException
     {
-        booksInfo();
-        initBooks();
+        try
+        {
+            //booksInfo();
+            initBooks();
+        }
+        catch(IOException ioe)
+        {
+            System.err.println(ioe);
+        }
+        catch(ClassNotFoundException cnfe)
+        {
+            System.out.println(cnfe);
+        }
         return booksList;
+
     }
 
     // returns a book object with the argument as its title

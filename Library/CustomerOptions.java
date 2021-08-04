@@ -18,6 +18,7 @@ public class CustomerOptions {
     transaction=0;
   }
 
+  //borrow,buy,return,view history,logout
   public void showOptions(){
     while (true) {
       System.out.println("\nWhat do you want to do?");
@@ -59,6 +60,7 @@ public class CustomerOptions {
     }
   }
 
+  //filter based on price,author,genre,availability,isbn
   private void showCatalogue(){
 
     while(true){
@@ -83,11 +85,11 @@ public class CustomerOptions {
                   return;
           case 2: filterByAuthors();
                   return;
-          case 3: System.out.println("Enter Genre");
+          case 3: filterByGenre();
                   return;
-          case 4: System.out.println("availability");
+          case 4: filterByAvailability();
                   return;
-          case 5: System.out.println("ISBN");
+          case 5: filterByISBN();
                   return;
           case 6: System.out.println();
                   return;
@@ -116,6 +118,7 @@ public class CustomerOptions {
     }
   }
 
+  //TODO: search for authors regardless of case
   private void filterByAuthors(){
     ArrayList<String> authorList=new ArrayList<String>();
     Book selectedBook;
@@ -145,6 +148,108 @@ public class CustomerOptions {
     confirmBook(selectedBook);
   }
 
+  //TODO: search for genres regardless of case
+  private void filterByGenre(){
+
+      ArrayList<String> genreList=new ArrayList<String>();
+      Book selectedBook;
+
+      System.out.print("\nEnter Genres(type \"exit\" when done): ");
+      String genre;
+
+      do {
+        genre=null;
+        try {
+            genre=sc.nextLine().trim();
+            genreList.add(genre);
+        } catch (NoSuchElementException e){
+            System.out.println("That's an invalid input. Try again.\n");
+            continue;
+        }
+      } while(!genre.equals("exit"));
+      genreList.remove(genreList.size()-1);
+      String[] genreArray=new String[genreList.size()-1];
+      ArrayList<Book> booklist=Catalogue.getBookWithGenre(genreList.toArray(genreArray));
+      if(booklist.isEmpty()){
+        System.out.println("\nNo Book Found!");
+        return;
+      }
+      showBooks(booklist);
+      selectedBook = selectBook(booklist);
+      confirmBook(selectedBook);
+  }
+
+  //TODO:check ISBN after entering
+  private void filterByISBN(){
+
+    ArrayList<String> ISBNList=new ArrayList<String>();
+    Book selectedBook;
+
+    System.out.print("\nEnter ISBNs(type \"exit\" when done): ");
+    String ISBN;
+
+    do {
+      ISBN=null;
+      try {
+          ISBN=sc.nextLine().trim();
+          ISBNList.add(ISBN);
+      } catch (NoSuchElementException e){
+          System.out.println("That's an invalid input. Try again.\n");
+          continue;
+      }
+    } while(!ISBN.equals("exit"));
+    ISBNList.remove(ISBNList.size()-1);
+    String[] ISBNArray=new String[ISBNList.size()-1];
+    ArrayList<Book> booklist=Catalogue.searchByISBN(ISBNList.toArray(ISBNArray));
+    if(booklist.isEmpty()){
+      System.out.println("\nNo Book Found!");
+      return;
+    }
+    showBooks(booklist);
+    selectedBook = selectBook(booklist);
+    confirmBook(selectedBook);
+    }
+
+  private void filterByAvailability(){
+    int choice=0;
+    while(true) {
+      System.out.println("1.Show Available Books");
+      System.out.println("2.Show Borrowed Books");
+      System.out.print("Enter option number: ");
+      try {
+        choice=Integer.parseInt(sc.nextLine());
+      } catch(NumberFormatException e) {
+        System.err.println(e);
+      }
+      switch (choice) {
+        case 1: showAvailableBooks();
+                return;
+        case 2: showUnavailableBooks();
+                return;
+        default:  System.out.println("That's an invalid option. Try again.\n");
+      }
+    }
+  }
+
+  //show unborrowed books
+  private void showAvailableBooks(){
+
+        ArrayList<Book> booklist=Catalogue.getIfAvailable();
+        if(booklist.isEmpty()){
+          System.out.println("\nNo Book Found!");
+          return;
+        }
+        showBooks(booklist);
+        Book selectedBook = selectBook(booklist);
+        confirmBook(selectedBook);
+  }
+
+  //TODO: showUnavailableBooks()
+  private void showUnavailableBooks(){
+
+  }
+
+  //display history
   private void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -166,10 +271,18 @@ public class CustomerOptions {
     }
   }
 
+  //show currently borrowed books(used for returning books)
   private void showBorrowedBooks(){
-
+    if(c.booksBorrowed.isEmpty()){
+      System.out.println("\nNo Book Found!");
+      return;
+    }
+    showBooks(c.booksBorrowed);
+    Book selectedBook=selectBook(c.booksBorrowed);
+    confirmBook(selectedBook);
   }
 
+  //confirm index of book
   private void confirmBook(Book book){
     String ch = null;
     do
@@ -180,9 +293,9 @@ public class CustomerOptions {
         if (ch.equalsIgnoreCase("c")){
           switch (transaction) {
             case 1: c.borrowBook(book);
-                    break;
+                    return;
             case 2: c.returnBook(book);
-                    break;
+                    return;
             case 3: try {
                       c.buyBook(book);
                     } catch(IOException e) {
@@ -190,7 +303,7 @@ public class CustomerOptions {
                     }catch (ClassNotFoundException e){
                       System.err.println(e);
                     }
-                    break;
+                    return;
           }
         }
         else if (ch.equalsIgnoreCase("b")){
@@ -204,25 +317,32 @@ public class CustomerOptions {
     } while (!ch.equalsIgnoreCase("c") && !ch.equalsIgnoreCase("b"));
   }
 
+  //select index of book
+  //TODO: get book with getBookwithTitle()
   private Book selectBook(ArrayList<Book> booklist){
     int index=0;
     while(true) {
       System.out.print("Enter index: ");
       try {
         index=Integer.parseInt(sc.nextLine());
-        return booklist.get(index-1);
-      } catch(NumberFormatException e) {
+        return Catalogue.getBookWithTitle(booklist.get(index-1).getTitle());
+      } catch (NumberFormatException e) {
         System.out.println("Invalid index, try again");
         continue;
+      } catch (ClassNotFoundException e) {
+        System.err.println(e);
+      } catch (IOException e) {
+        System.err.println(e);
       }
     }
   }
 
+  //show books based on filteredList
   private void showBooks(ArrayList<Book> booklist){
     int i=1;
 
     for(Book b:booklist){
-      System.out.println(b+"Index: "+i);
+      System.out.println(b+"Index  : "+i);
       i++;
     }
   }
