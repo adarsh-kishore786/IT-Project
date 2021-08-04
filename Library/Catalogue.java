@@ -41,6 +41,7 @@ public class Catalogue
     }
 
     // initializes the books list with all the books in the file
+    @SuppressWarnings("unchecked")
     private static void initBooks() 
     {
         FileInputStream fis = null;
