@@ -101,19 +101,19 @@ public class Book implements Serializable
     }
 
     //setter functions
-    public void setTitle(String title) throws ClassNotFoundException, IOException
+    public void setTitle(String title) 
     {
         m_title=title;
         Catalogue.saveBooks();
     }
 
-    public void setAuthor(ArrayList<String> author) throws ClassNotFoundException, IOException
+    public void setAuthor(ArrayList<String> author)
     {
         m_author.addAll(author);
         Catalogue.saveBooks();
     }
 
-    public void setISBN(String ISBN) throws ClassNotFoundException, IOException
+    public void setISBN(String ISBN) 
     {
         if(Catalogue.checkISBN(ISBN))
         {
@@ -125,31 +125,31 @@ public class Book implements Serializable
         Catalogue.saveBooks();
     }
 
-    public void setPrice(double price) throws ClassNotFoundException, IOException
+    public void setPrice(double price)
     {
         m_price=price;
         Catalogue.saveBooks();
     }
 
-    public void setGenre(ArrayList<String> genre) throws ClassNotFoundException, IOException
+    public void setGenre(ArrayList<String> genre)
     {
         m_genre.addAll(genre);
         Catalogue.saveBooks();
     }
 
-    public void setNumCopies(int numCopies) throws ClassNotFoundException, IOException
+    public void setNumCopies(int numCopies)
     {
         m_numCopies=numCopies;
         Catalogue.saveBooks();
     }
 
-    public void setBorrowers(Customer borrower) throws IOException, ClassNotFoundException
+    public void setBorrowers(Customer borrower)
     {
         m_borrowersList.add(borrower);
         Catalogue.saveBooks();
     }
 
-    public void setBuyers(Customer buyer) throws IOException, ClassNotFoundException
+    public void setBuyers(Customer buyer)
     {
         m_buyersList.add(buyer);
         Catalogue.saveBooks();

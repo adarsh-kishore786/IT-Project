@@ -296,13 +296,7 @@ public class CustomerOptions {
                     return;
             case 2: c.returnBook(book);
                     return;
-            case 3: try {
-                      c.buyBook(book);
-                    } catch(IOException e) {
-                      System.err.println(e);
-                    }catch (ClassNotFoundException e){
-                      System.err.println(e);
-                    }
+            case 3: c.buyBook(book);
                     return;
           }
         }
@@ -329,11 +323,8 @@ public class CustomerOptions {
       } catch (NumberFormatException e) {
         System.out.println("Invalid index, try again");
         continue;
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
-      }
+      } 
+      
     }
   }
 

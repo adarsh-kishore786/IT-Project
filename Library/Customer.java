@@ -74,7 +74,7 @@ public class Customer extends Person {
       return true;
   }
 
-  void buyBook(Book book) throws ClassNotFoundException, IOException{
+  void buyBook(Book book) {
     //currently no restriction on buying
     //Date purchaseDate=new Date(); //returns current date
 
@@ -104,19 +104,8 @@ public class Customer extends Person {
     if(booksBorrowed.size()<borrowLimit){
 
       if(admin.rentBook(transaction,book)){
-        try {
-          book.setBorrowers(this);
-        } catch (ClassNotFoundException | IOException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
-        try {
-          Catalogue.saveBooks();
-        } catch (ClassNotFoundException | IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } //this can be called inside setBorrowers method to make customer's work less
-
+        book.setBorrowers(this);
+        Catalogue.saveBooks(); 
 
         booksBorrowed.add(book); //add book to customer list of borrowed books
         numBooksBorrowed=booksBorrowed.size();

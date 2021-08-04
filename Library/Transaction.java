@@ -132,13 +132,8 @@ public class Transaction implements Serializable {
       dateOfBorrow.add(newDate);
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
-      try {
         b.setNumCopies(newNumberCopies);
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
-      }
+      
     }
     return status;
   }
