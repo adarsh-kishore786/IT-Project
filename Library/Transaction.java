@@ -6,14 +6,15 @@ import java.io.*;
 
 public class Transaction implements Serializable {
 
-  ArrayList<LocalDate> dateOfBorrow;
-  ArrayList<LocalDate> dateOfReturn;
-  ArrayList<LocalDate> dateOfPurchase;
-  ArrayList<Book> borrowedBooks;
-  ArrayList<Book> boughtBooks;
-  ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to
-                                 // borrowedBooks
 
+  private ArrayList<LocalDate> dateOfBorrow;
+  private ArrayList<LocalDate> dateOfReturn;
+  private ArrayList<LocalDate> dateOfPurchase;
+  private ArrayList<Book> borrowedBooks;
+  private ArrayList<Book> boughtBooks;
+  private ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to
+                                        // borrowedBooks
+  //public static Scanner details = new Scanner(System.in);
   Transaction() {
     dateOfBorrow = new ArrayList<LocalDate>();
     dateOfReturn = new ArrayList<LocalDate>();
@@ -26,7 +27,7 @@ public class Transaction implements Serializable {
   private boolean checkStringIsANumber(String s) {
     boolean check = true;
     for (int i = 0; i < s.length(); i++)
-      if (Character.isDigit(s.charAt(i))) {
+      if (!Character.isDigit(s.charAt(i))) {
         check = false;
         break;
       }
@@ -34,12 +35,11 @@ public class Transaction implements Serializable {
   }
 
   private boolean payment(double amount) {
-    Scanner details = new Scanner(System.in);
     boolean status = false;
     // long cardNumber, n;
     String cardNumber, CVV;
     int count = 0;
-    char choice = 'Y';
+    char choice = 'N';
     String expiryDate = new String();
     LocalDate nowDate = LocalDate.now();
     int m = nowDate.getMonthValue();
@@ -50,14 +50,14 @@ public class Transaction implements Serializable {
     // kept it that way so that we can update our program
     do {
       System.out.println("Enter debit/credit card number: ");
-      cardNumber = details.nextLine();
+      cardNumber = Main.sc.nextLine();
       count = cardNumber.length();
       if (count != 16 || !checkStringIsANumber(cardNumber))
         System.out.println("Invalid card number!");
       else {
         count = 0;
         System.out.println("Enter Expiry Date in MM/YY format: ");
-        expiryDate = details.nextLine();
+        expiryDate = Main.sc.nextLine();
         String temp1 = expiryDate.substring(0, 2);
         String temp2 = expiryDate.substring(3, 5);
         if (Integer.parseInt(temp2) < y)
@@ -68,7 +68,7 @@ public class Transaction implements Serializable {
         } else {
           // Try checking if it is beyond today's date? (A possible expansion)
           System.out.println("Enter CVV/CVC: ");
-          CVV = details.nextLine(); // Later check if 3 digits or not (A possible exapansion)
+          CVV = Main.sc.nextLine(); // Later check if 3 digits or not (A possible exapansion)
 
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction... ");
@@ -82,12 +82,14 @@ public class Transaction implements Serializable {
       }
       if (status == false) {
         System.out.println("Do you want to continue in payment section? Enter Y if yes else enter N: ");
-        choice = details.next().charAt(0);
-        details.nextLine();
+        choice = Main.sc.next().charAt(0);
+        Main.sc.nextLine();
       }
+      else
+      break;
 
     } while (choice == 'Y');
-    details.close();
+    //details.close();
     return status;
   }
 

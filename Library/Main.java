@@ -5,6 +5,7 @@ import java.time.*;
 
 public class Main
 {
+    public static Scanner sc = new Scanner(System.in);
     public static void error()
     {
         System.out.println("That's an invalid input. Please try again.\n");
@@ -16,7 +17,7 @@ public class Main
         System.out.println("                 WELCOME TO VIVLIO LIBRARY!                   ");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-        Scanner sc = new Scanner(System.in);
+        
         AuthService auth=new AuthService(sc);
         String ch = null;
         do
@@ -40,11 +41,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        // Customer cust = new Customer();
-        // // Customer.saveCustomer();
+        //Customer cust = new Customer();
+         //Customer.saveCustomer();
         // for (Customer c : cust.getCustomers())
         //     System.out.println(c);
-        // Catalogue.getBooks();
+        //Catalogue.getBooks();
 
         welcome();
     }

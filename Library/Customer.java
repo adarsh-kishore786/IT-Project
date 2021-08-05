@@ -23,12 +23,12 @@ public class Customer extends Person {
       // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
       // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
       // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org", "B1n@ry-M");
-      //
+      
       // customerList.add(c1);
       // customerList.add(c2);
       // customerList.add(c3);
       // customerList.add(c4);
-      //
+      
       // //System.out.println("!" + customerList.size());
       // saveCustomer();
       initCustomerList();
@@ -81,8 +81,8 @@ public class Customer extends Person {
     //reduce number of copies of book
 
     if(admin.sellBook(transaction,book)){
-      int n=book.getNumCopies();
-      book.setNumCopies(n-1);
+      //int n=book.getNumCopies();
+      //book.setNumCopies(n-1);
       booksBought.add(book); //update array list
       numBooksBought=booksBought.size(); //update number of books bought
 
