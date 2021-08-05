@@ -173,14 +173,14 @@ public class Transaction implements Serializable {
   public double returnBookTransaction(int index) {
     boolean statusPayment = true;
     int numberOfDays, check, newNumberCopies;
-    double fine = 0;
+    double fine = 0.0;
     LocalDate calculateDate = LocalDate.now();
     numberOfDays = calculateDate.compareTo(dateOfBorrow.get(index));
     check = numberOfDays - Admin.getMaxBorrowDays();
-    if (true) {//check >= 0) {
+    if (check>0) {
       System.out.println("Number of days borrowed exceeds limit! You need to pay a fine!");
-      fine = Admin.getFineRate() + check;
-      System.out.println("The amount you need to pay is: Rs. " + check + " ");
+      fine = Admin.getFineRate() * check;
+      System.out.println("The amount you need to pay is: Rs. " + fine + " ");
       statusPayment = payment(fine);
 
       if (!statusPayment)
