@@ -41,17 +41,11 @@ public class Main
     public static void main(String[] args)
     {
         // Customer cust = new Customer();
-        // // cust.saveCustomer();
+        // // Customer.saveCustomer();
         // for (Customer c : cust.getCustomers())
         //     System.out.println(c);
-        try
-        {
-            Catalogue.getBooks();
-        }
-        catch (ClassNotFoundException | IOException ie)
-        {
-            ie.printStackTrace();
-        }
+        // Catalogue.getBooks();
+
         welcome();
     }
 

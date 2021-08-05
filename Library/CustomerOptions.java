@@ -11,10 +11,10 @@ public class CustomerOptions {
   private AuthService auth=null;
   private int transaction;
 
-  CustomerOptions(Customer cust,AuthService auth,Scanner sc){
+  CustomerOptions(Customer cust,AuthService auth,Scanner sc1){
     this.c=cust;
     this.auth=auth;
-    this.sc=sc;
+    sc=sc1;
     transaction=0;
   }
 
@@ -118,7 +118,6 @@ public class CustomerOptions {
     }
   }
 
-  //TODO: search for authors regardless of case
   private void filterByAuthors(){
     ArrayList<String> authorList=new ArrayList<String>();
     Book selectedBook;
@@ -148,17 +147,6 @@ public class CustomerOptions {
     confirmBook(selectedBook);
   }
 
-  // private void equals(String s1, String s2)
-  // {
-  //   if (s1.length() != s2.length())
-  //       return false;
-  //   for (int i = 0; i < s1.length(); i++)
-  //       if (s1.charAt(i) != s2.charAt(i))
-  //           return false;
-  //   return true;
-  // }
-
-  //TODO: search for genres regardless of case
   private void filterByGenre(){
 
       ArrayList<String> genreList=new ArrayList<String>();
@@ -218,7 +206,7 @@ public class CustomerOptions {
     showBooks(booklist);
     selectedBook = selectBook(booklist);
     confirmBook(selectedBook);
-    }
+  }
 
   private void filterByAvailability(){
     int choice=0;
@@ -260,6 +248,7 @@ public class CustomerOptions {
   }
 
   //display history
+  //ALERT! Book not being printed for some reason
   private void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -276,8 +265,8 @@ public class CustomerOptions {
       String returnDate = dates.get(1).format(formatter);
 
       System.out.println(book);
-      System.out.println("Borrow Date: "+borrowDate);
-      System.out.println("Return Date: "+returnDate);
+      System.out.println("Borrow Date  : "+borrowDate);
+      System.out.println("Return Date  : "+returnDate+"\n");
     }
   }
 
@@ -306,13 +295,7 @@ public class CustomerOptions {
                     return;
             case 2: c.returnBook(book);
                     return;
-            case 3: try {
-                      c.buyBook(book);
-                    } catch(IOException e) {
-                      System.err.println(e);
-                    }catch (ClassNotFoundException e){
-                      System.err.println(e);
-                    }
+            case 3: c.buyBook(book);
                     return;
           }
         }
@@ -339,16 +322,8 @@ public class CustomerOptions {
       } catch (NumberFormatException e) {
         System.out.println("Invalid index, try again");
         continue;
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
       }
-      catch (IndexOutOfBoundsException e)
-      {
-          System.out.println("Invalid index. Try again.\n");
-          continue;
-      }
+
     }
   }
 

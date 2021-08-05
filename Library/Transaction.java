@@ -72,6 +72,7 @@ public class Transaction implements Serializable {
 
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction... ");
+            Main.sleep(1);
             System.out.println("Transaction Successful!");
             status = true;
           } else
@@ -103,15 +104,27 @@ public class Transaction implements Serializable {
   }
 
   public LocalDate getDateOfBorrow(Book b) {
-    return this.dateOfBorrow.get(this.borrowedBooks.indexOf(b));
+    int index=-1;
+    for(Book book:borrowedBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    }
+    return this.dateOfBorrow.get(index);
   }
 
   public LocalDate getDateOfPurchase(Book b) {
-    return this.dateOfPurchase.get(this.boughtBooks.indexOf(b));
+    int index=-1;
+    for(Book book:boughtBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.boughtBooks.indexOf(book);
+    }
+    return this.dateOfPurchase.get(index);
   }
 
   public LocalDate getDateOfReturn(Book b) {
-    return this.dateOfReturn.get(this.boughtBooks.indexOf(b));
+    int index=-1;
+    for(Book book:borrowedBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    }
+    return this.dateOfReturn.get(index);
   }
 
   public boolean rentBookTransaction(Book b) {
@@ -132,13 +145,9 @@ public class Transaction implements Serializable {
       dateOfBorrow.add(newDate);
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
-      try {
-        b.setNumCopies(newNumberCopies);
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
-      }
+      b.setNumCopies(newNumberCopies);
+      //Customer.saveCustomer();
+
     }
     return status;
   }
@@ -152,13 +161,7 @@ public class Transaction implements Serializable {
       status = true;
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
-      try {
-        b.setNumCopies(newNumberCopies);
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
-      }
+      b.setNumCopies(newNumberCopies);
       boughtBooks.add(b);
       dateOfPurchase.add(LocalDate.now());
     }
@@ -183,16 +186,11 @@ public class Transaction implements Serializable {
       isReturned.set(index, true);
       newNumberCopies = borrowedBooks.get(index).getNumCopies();
       ++newNumberCopies;
-      try {
-        borrowedBooks.get(index).setNumCopies(newNumberCopies); // I am a little doubtful about this, need to test
+      borrowedBooks.get(index).setNumCopies(newNumberCopies); // I am a little doubtful about this, need to test
                                                                 // with data, does it update for the book as such or
                                                                 // just update and keep in my array list? Is it
                                                                 // synchronized basically?
-      } catch (ClassNotFoundException e) {
-        System.err.println(e);
-      } catch (IOException e) {
-        System.err.println(e);
-      }
+
 
       dateOfReturn.add(index, calculateDate); // A test here too?
     }

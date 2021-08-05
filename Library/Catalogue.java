@@ -32,39 +32,17 @@ public class Catalogue
     }
 
     // returns an arraylist of all the books
-    public static ArrayList<Book> getBooks() throws IOException, ClassNotFoundException
+    public static ArrayList<Book> getBooks()
     {
-        try
-        {
-            //booksInfo();
-            initBooks();
-        }
-        catch(IOException ioe)
-        {
-            System.err.println(ioe);
-        }
-        catch(ClassNotFoundException cnfe)
-        {
-            System.out.println(cnfe);
-        }
+        //booksInfo();
+        initBooks();
         return booksList;
 
     }
 
-    // returns a book object with the argument as its title
-    public static Book getBookWithTitle(String title) throws ClassNotFoundException, IOException
-    {
-        initBooks();
-
-        for (int i = 0; i < booksList.size(); i++)
-            if (booksList.get(i).getTitle().equalsIgnoreCase(title.trim()))
-                return booksList.get(i);
-
-        return null;
-    }
-
     // initializes the books list with all the books in the file
-    private static void initBooks() throws IOException, ClassNotFoundException
+    @SuppressWarnings("unchecked")
+    private static void initBooks()
     {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -100,13 +78,21 @@ public class Catalogue
         }
         finally {
             if (fis != null)
-                fis.close();
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             if (ois != null)
-                ois.close();
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
-    public static void saveBooks() throws IOException, ClassNotFoundException
+    public static void saveBooks()
     {
         // streams objects required
         FileOutputStream fos = null;
@@ -130,14 +116,22 @@ public class Catalogue
         }
         finally {
             if (fos != null)
-                fos.close();
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             if (oos != null)
-                oos.close();
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
 
     }
 
-    public static void saveBooks(ArrayList<Book> books) throws IOException, ClassNotFoundException
+    public static void saveBooks(ArrayList<Book> books)
     {
         // if the arraylist is null, then all the books already in the file are stored
         // in the list
@@ -150,16 +144,22 @@ public class Catalogue
         saveBooks();
     }
 
+    // returns a book object with the argument as its title
+    public static Book getBookWithTitle(String title)
+    {
+        initBooks();
 
-    // TODO format returned book list
+        for (int i = 0; i < booksList.size(); i++)
+            if (booksList.get(i).getTitle().equalsIgnoreCase(title.trim()))
+                return booksList.get(i);
+
+        return null;
+    }
+
+
     static ArrayList<Book> getBookUnderPrice(double price)
     {
-        try {
-            initBooks();
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        initBooks();
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList) {
             if (b.getPrice() < price)
@@ -168,35 +168,29 @@ public class Catalogue
         return filteredList;
     }
 
-    // TODO trim author parameter
-    static ArrayList<Book> getBookWithAuthor(String[] authors) {
-        try {
-            initBooks();
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
-        List<String> authorList = Arrays.asList(authors);
+    static ArrayList<Book> getBookWithAuthor(String[] authors)
+    {
+        initBooks();
+
+        ArrayList<Book> filteredList=new ArrayList<Book>();// contains req list
+        List<String> authorSearchList = Arrays.asList(authors);
         for (Book b : booksList) {
             ArrayList<String> bookAuthorList = b.getAuthor();
-            for (String author : authorList) {
-                if (bookAuthorList.contains(author)) {
+            for (String author : authorSearchList) {
+                if (bookAuthorList.stream().anyMatch(author.trim()::equalsIgnoreCase)) {
                     filteredList.add(b);
                     break;
                 }
             }
         }
+
         return filteredList;
     }
 
-    static ArrayList<Book> getBookWithGenre(String[] genres) {
-        try {
-            initBooks();
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    static ArrayList<Book> getBookWithGenre(String[] genres)
+    {
+        initBooks();
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> genreList = Arrays.asList(genres);
 
@@ -205,7 +199,7 @@ public class Catalogue
             ArrayList<String> bookGenreList = b.getGenre();
 
             for (String genre : genreList) {
-                if (bookGenreList.contains(genre)) {
+                if (bookGenreList.stream().anyMatch(genre.trim()::equalsIgnoreCase)) {
                     filteredList.add(b);
                     break;
                 }
@@ -214,13 +208,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getIfAvailable() {
-        try {
-            initBooks();
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    static ArrayList<Book> getIfAvailable()
+    {
+        initBooks();
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList) {
             if (b.isAvailable())
@@ -229,13 +220,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> searchByISBN(String[] ISBN) {
-        try {
-            initBooks();
-        } catch (ClassNotFoundException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    static ArrayList<Book> searchByISBN(String[] ISBN)
+    {
+        initBooks();
+
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> isbnList = Arrays.asList(ISBN);
         for (Book b : booksList) {
@@ -245,7 +233,7 @@ public class Catalogue
         return filteredList;
     }
 
-    private static void booksInfo() throws IOException, ClassNotFoundException
+    private static void booksInfo()
     {
         ArrayList<Book> books=new ArrayList<Book>();
         ArrayList<String> genre=new ArrayList<String>();
