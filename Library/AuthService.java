@@ -122,7 +122,8 @@ public class AuthService {
             System.out.println(admin + "\n");
             System.out.println("What would you like to do?");
             System.out.println("1. See list of all customers");
-            System.out.println("2. Log out");
+            System.out.println("2. See list of all books along with their copies");
+            System.out.println("3. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -139,19 +140,34 @@ public class AuthService {
             {
                 case 1: showCustomers();
                         break;
-                case 2: System.out.println();
+                case 2: seeBookList();
+                        break;
+                case 3: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
         }
     }
 
-  public void logout(){
-      System.out.println("Logging you out..."); 
+  public void logout()
+  {
+      System.out.println("Logging you out...");
       custOptions=null;
       c=null;
       Main.main(null);
-    }
+  }
+
+  public void seeBookList()
+  {
+      ArrayList<Book> bookList = null;
+      try { bookList = Catalogue.getBooks(); }
+      catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
+      for (Book b : bookList)
+      {
+          System.out.println(b + "Copies : " + b.getNumCopies());
+      }
+      System.out.println("---------------------------------");
+  }
 
   private static boolean intersects(String s1, String s2){
       for (int i = 0; i < s2.length(); i++)
