@@ -173,28 +173,38 @@ public class Transaction implements Serializable {
   public double returnBookTransaction(int index) {
     boolean statusPayment = true;
     int numberOfDays, check, newNumberCopies;
-    double fine = -1, amount = 0.0;
+    double fine = 0;
     LocalDate calculateDate = LocalDate.now();
     numberOfDays = calculateDate.compareTo(dateOfBorrow.get(index));
     check = numberOfDays - Admin.getMaxBorrowDays();
-    if (check > 0) {
+    if (true) {//check >= 0) {
       System.out.println("Number of days borrowed exceeds limit! You need to pay a fine!");
-      amount = Admin.getFineRate() * check;
+      fine = Admin.getFineRate() + check;
       System.out.println("The amount you need to pay is: Rs. " + check + " ");
-      statusPayment = payment(amount);
+      statusPayment = payment(fine);
+
+      if (!statusPayment)
+          fine = -1;
     }
     if (statusPayment == true) {
-      fine = check;
+      // fine = check;
       isReturned.set(index, true);
-      newNumberCopies = borrowedBooks.get(index).getNumCopies();
-      ++newNumberCopies;
-      borrowedBooks.get(index).setNumCopies(newNumberCopies); // I am a little doubtful about this, need to test
-                                                                // with data, does it update for the book as such or
-                                                                // just update and keep in my array list? Is it
-                                                                // synchronized basically?
-
+      // newNumberCopies = borrowedBooks.get(index).getNumCopies();
+      // ++newNumberCopies;
+      // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
       dateOfReturn.add(index, calculateDate); // A test here too?
+
+      ArrayList<Book> books = Catalogue.getBooks();
+     for (Book b : books)
+     {
+         if (b.getISBN().equals(borrowedBooks.get(index).getISBN()))
+         {
+            newNumberCopies = b.getNumCopies();
+            b.setNumCopies(++newNumberCopies);
+            break;
+        }
+     }
     }
     return fine;
   }
