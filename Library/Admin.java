@@ -114,6 +114,8 @@ public class Admin extends Person
         if (!trans.sellBookTransaction(b))
             return false;
      m_revenue+=b.getPrice();
+     m_numBooksSold++;
+     saveAdminDetails();
         return true;
     }
 
@@ -133,6 +135,8 @@ public class Admin extends Person
                         " Return that copy to borrow another one.");
             return false;
         }
+        m_numBooksOnRent++;
+        saveAdminDetails();
         return true;
     }
 
@@ -165,6 +169,8 @@ public class Admin extends Person
 
 
         m_revenue += fine;
+        m_numBooksOnRent--;
+        saveAdminDetails();
          return true;
      }
 
