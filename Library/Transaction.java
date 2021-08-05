@@ -62,8 +62,7 @@ public class Transaction implements Serializable {
         String temp2 = expiryDate.substring(3, 5);
         if (Integer.parseInt(temp2) < y)
           System.out.println("Invalid expiry date!");
-        else if (Integer.parseInt(temp2) == y) {
-          if ((Integer.parseInt(temp1) <= m))
+        else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
             System.out.println("Invalid expiry date!");
         } else {
           // Try checking if it is beyond today's date? (A possible expansion)
