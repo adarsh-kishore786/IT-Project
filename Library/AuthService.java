@@ -123,7 +123,8 @@ public class AuthService {
             System.out.println("What would you like to do?");
             System.out.println("1. See list of all customers");
             System.out.println("2. See list of all books along with their copies");
-            System.out.println("3. Log out");
+            System.out.println("3. Modify the details of a book or add a book");
+            System.out.println("4. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -142,7 +143,9 @@ public class AuthService {
                         break;
                 case 2: seeBookList();
                         break;
-                case 3: System.out.println();
+                case 3: modifyDetails();
+                        break;
+                case 4: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
@@ -157,16 +160,118 @@ public class AuthService {
       Main.main(null);
   }
 
-  public void seeBookList()
+  private void seeBookList()
   {
-      ArrayList<Book> bookList = null;
-      try { bookList = Catalogue.getBooks(); }
-      catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
+      ArrayList<Book> bookList = Catalogue.getBooks();
       for (Book b : bookList)
       {
           System.out.println(b + "Copies : " + b.getNumCopies());
       }
+      System.out.println("\n---------------------------------");
+  }
+
+  private void modifyDetails()
+  {
+      System.out.print("\nEnter title: ");
+      String title = sc.nextLine().trim();
+
+      System.out.println("Enter authors (write \"exit\" when done):");
+      ArrayList<String> authorList = new ArrayList<>();
+      CustomerOptions.addToList(authorList, sc);
+      System.out.println("Authors: " + authorList + "\n");
+
+      System.out.println("Enter genre (write \"exit\" when done):");
+      ArrayList<String> genreList = new ArrayList<>();
+      CustomerOptions.addToList(genreList, sc);
+      System.out.println("Genre: " + genreList + "\n");
+
+      double price = 0;
+      do
+      {
+          try
+          {
+              System.out.print("Enter price: ");
+              price = Double.parseDouble(sc.nextLine());
+          }
+          catch (NumberFormatException e)
+          {
+              System.out.println("That's an invalid price. Try again.\n");
+              continue;
+          }
+          break;
+      } while (true);
+
+      String ISBN = "";
+      do
+      {
+          System.out.print("Enter ISBN: ");
+          ISBN = sc.nextLine();
+          if (!Catalogue.checkISBN(ISBN))
+          {
+            System.out.println("Invalid ISBN. Try again.\n");
+            continue;
+          }
+          break;
+      }
+      while (true);
+
+      sleep(1);
+      Book b = new Book(title, authorList, genreList, price, ISBN);
+      System.out.println("Book:\n" + b);
+      if (hasBook(ISBN))
+      {
+          String choice;
+          do
+          {
+              System.out.print("This ISBN already exists in the database. Update book (Y/N)? ");
+              choice = sc.nextLine().trim();
+              if (choice.equalsIgnoreCase("y"))
+              {
+                  addBook(b);
+                  break;
+              }
+              else if (choice.equalsIgnoreCase("n"))
+                return;
+              else
+                System.out.println("Invalid input. Try again.\n");
+          } while (true);
+      }
+      else addBook(b);
+
       System.out.println("---------------------------------");
+  }
+
+  private boolean hasBook(String ISBN)
+  {
+      for (Book b : Catalogue.getBooks())
+        if (b.getISBN().equals(ISBN))
+            return true;
+      return false;
+  }
+
+  private void addBook(Book book)
+  {
+      boolean found = false;
+      ArrayList<Book> booksList = Catalogue.getBooks();
+      for (int i = 0; i < booksList.size(); i++)
+      {
+          Book b = booksList.get(i);
+          if (b.getISBN().equals(book.getISBN()))
+          {
+            sleep(1);
+            found = true;
+            booksList.set(i, book);
+            System.out.println("Updated!\n");
+            break;
+          }
+      }
+      if (!found)
+      {
+        sleep(1);
+        booksList.add(book);
+        System.out.println("Added new book!\n");
+      }
+      Catalogue.saveBooks(booksList);
   }
 
   private static boolean intersects(String s1, String s2){

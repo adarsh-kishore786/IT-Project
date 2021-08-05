@@ -133,14 +133,7 @@ public class Catalogue
 
     public static void saveBooks(ArrayList<Book> books)
     {
-        // if the arraylist is null, then all the books already in the file are stored
-        // in the list
-        if (booksList == null)
-            initBooks();
-
-        // updating the static books list with the new books in the arraylist
-        booksList.addAll(books);
-
+        booksList = books;
         saveBooks();
     }
 

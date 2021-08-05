@@ -122,19 +122,9 @@ public class CustomerOptions {
     ArrayList<String> authorList=new ArrayList<String>();
     Book selectedBook;
 
-    System.out.print("\nEnter Authors(type \"exit\" when done): ");
-    String author;
+    System.out.println("\nEnter Authors(type \"exit\" when done): ");
+    addToList(authorList, sc);
 
-    do {
-        author = null;
-      try {
-          author=sc.nextLine().trim();
-          authorList.add(author);
-      } catch (NoSuchElementException e){
-          System.out.println("That's an invalid input. Try again.\n");
-          continue;
-      }
-    } while(!author.equals("exit"));
     authorList.remove(authorList.size()-1);
     String[] authorArray=new String[authorList.size()-1];
     ArrayList<Book> booklist=Catalogue.getBookWithAuthor(authorList.toArray(authorArray));
@@ -152,20 +142,8 @@ public class CustomerOptions {
       ArrayList<String> genreList=new ArrayList<String>();
       Book selectedBook;
 
-      System.out.print("\nEnter Genres(type \"exit\" when done): ");
-      String genre;
-
-      do {
-        genre=null;
-        try {
-            genre=sc.nextLine().trim();
-            genreList.add(genre);
-        } catch (NoSuchElementException e){
-            System.out.println("That's an invalid input. Try again.\n");
-            continue;
-        }
-      } while(!genre.equals("exit"));
-      genreList.remove(genreList.size()-1);
+      System.out.println("\nEnter Genres(type \"exit\" when done): ");
+      addToList(genreList, sc);
       String[] genreArray=new String[genreList.size()-1];
       ArrayList<Book> booklist=Catalogue.getBookWithGenre(genreList.toArray(genreArray));
       if(booklist.isEmpty()){
@@ -183,20 +161,8 @@ public class CustomerOptions {
     ArrayList<String> ISBNList=new ArrayList<String>();
     Book selectedBook;
 
-    System.out.print("\nEnter ISBNs(type \"exit\" when done): ");
-    String ISBN;
-
-    do {
-      ISBN=null;
-      try {
-          ISBN=sc.nextLine().trim();
-          ISBNList.add(ISBN);
-      } catch (NoSuchElementException e){
-          System.out.println("That's an invalid input. Try again.\n");
-          continue;
-      }
-    } while(!ISBN.equals("exit"));
-    ISBNList.remove(ISBNList.size()-1);
+    System.out.println("\nEnter ISBNs(type \"exit\" when done): ");
+    addToList(ISBNList, sc);
     String[] ISBNArray=new String[ISBNList.size()-1];
     ArrayList<Book> booklist=Catalogue.searchByISBN(ISBNList.toArray(ISBNArray));
     if(booklist.isEmpty()){
@@ -319,11 +285,10 @@ public class CustomerOptions {
       try {
         index=Integer.parseInt(sc.nextLine());
         return Catalogue.getBookWithTitle(booklist.get(index-1).getTitle());
-      } catch (NumberFormatException e) {
-        System.out.println("Invalid index, try again");
+    } catch (IndexOutOfBoundsException | NumberFormatException e) {
+        System.out.println("Invalid index, try again.\n");
         continue;
       }
-
     }
   }
 
@@ -335,5 +300,21 @@ public class CustomerOptions {
       System.out.println(b+"Index  : "+i);
       i++;
     }
+  }
+
+  public static void addToList(ArrayList<String> arList, Scanner sc)
+  {
+      String val = "";
+      do
+      {
+          try {
+              val = sc.nextLine().trim();
+              arList.add(val);
+          } catch (NoSuchElementException e){
+              System.out.println("That's an invalid input. Try again.\n");
+              continue;
+          }
+      }  while (!val.equalsIgnoreCase("exit"));
+      arList.remove(arList.size() - 1);
   }
 }

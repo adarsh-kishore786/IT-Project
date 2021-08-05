@@ -22,16 +22,16 @@ public class Book implements Serializable
         m_genre=new ArrayList<>(genre);
         m_price=price;
         m_ISBN=ISBN;
-        //10 copies of each book 
+        //10 copies of each book
         m_numCopies=10;
         m_buyersList=new ArrayList<Customer>();
-        m_borrowersList=new ArrayList<Customer>(); 
+        m_borrowersList=new ArrayList<Customer>();
     }
-        
+
     public String toString()
     {
         //String representation of the book object with all of its characteristic details
-        String s="\nTitle  : "+m_title+"\nAuthor : "+showAuthor()+"\nGenre  : "+showGenre()+"\nPrice  : "+m_price+"\nISBN   : "+m_ISBN
+        String s="\nTitle  : "+m_title+"\nAuthor : "+showAuthor()+"\nGenre  : "+showGenre()+"\nPrice  : "+String.format("%.2f", m_price)+"\nISBN   : "+m_ISBN
             + "\n";
         return s;
     }
@@ -101,7 +101,7 @@ public class Book implements Serializable
     }
 
     //setter functions
-    public void setTitle(String title) 
+    public void setTitle(String title)
     {
         m_title=title;
         Catalogue.saveBooks();
@@ -113,7 +113,7 @@ public class Book implements Serializable
         Catalogue.saveBooks();
     }
 
-    public void setISBN(String ISBN) 
+    public void setISBN(String ISBN)
     {
         if(Catalogue.checkISBN(ISBN))
         {
@@ -156,5 +156,3 @@ public class Book implements Serializable
     }
 
 }
-
-    
