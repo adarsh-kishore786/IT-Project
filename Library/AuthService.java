@@ -269,7 +269,7 @@ public class AuthService {
         System.out.println("No books match these ISBN values!\n");
       else
       {
-          System.out.println("Removed books:");
+          System.out.println("Removed books:\n");
           for (Book b : removeBooksList)
             System.out.println(b);
           Catalogue.saveBooks(booksList);

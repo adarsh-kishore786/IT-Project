@@ -18,7 +18,7 @@ public class Admin extends Person
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
     private static final String m_url = "src/admin.dat";
-    private static final int m_maxBorrowDays=14;
+    private static final int m_maxBorrowDays=1;
 
     public static int getMaxBorrowDays()
     {

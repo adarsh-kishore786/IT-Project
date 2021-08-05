@@ -17,7 +17,7 @@ public class Main
         System.out.println("                 WELCOME TO VIVLIO LIBRARY!                   ");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-        
+
         AuthService auth=new AuthService(sc);
         String ch = null;
         do
@@ -41,11 +41,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        //Customer cust = new Customer();
-         //Customer.saveCustomer();
+        // Customer cust = new Customer();
+        //  Customer.saveCustomer();
         // for (Customer c : cust.getCustomers())
         //     System.out.println(c);
-        //Catalogue.getBooks();
+        // Catalogue.getBooks();
 
         welcome();
     }

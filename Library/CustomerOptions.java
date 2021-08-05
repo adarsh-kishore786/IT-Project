@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.HashMap;
 import java.util.Map.Entry;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -64,12 +63,12 @@ public class CustomerOptions {
   private void showCatalogue(){
 
     while(true){
-      System.out.println("\n1.Filter Books based on price");
-      System.out.println("2.Filter Books based on authors");
-      System.out.println("3.Filter Books based on genre");
-      System.out.println("4.Filter Books based on availability");
-      System.out.println("5.Search for Books with ISBN");
-      System.out.println("6.Back");
+      System.out.println("\n1. Filter Books based on price");
+      System.out.println("2. Filter Books based on authors");
+      System.out.println("3. Filter Books based on genre");
+      System.out.println("4. Filter Books based on availability");
+      System.out.println("5. Search for Books with ISBN");
+      System.out.println("6. Back");
       System.out.print("Enter the option number: ");
 
       int choice=0;
@@ -157,10 +156,25 @@ public class CustomerOptions {
   private void filterByISBN(){
 
     ArrayList<String> ISBNList=new ArrayList<String>();
-    Book selectedBook;
+    Book selectedBook = null;
 
+    String val = "";
     System.out.println("\nEnter ISBNs(type \"exit\" when done): ");
-    addToList(ISBNList, sc);
+    do
+    {
+        try {
+            val = sc.nextLine().trim();
+            if (Catalogue.checkISBN(val) || val.equalsIgnoreCase("exit"))
+                ISBNList.add(val);
+            else
+                throw new NoSuchElementException();
+        } catch (NoSuchElementException e){
+            System.out.println("That's an invalid input. Try again.\n");
+            continue;
+        }
+    }  while (!val.equalsIgnoreCase("exit"));
+    ISBNList.remove(ISBNList.size() - 1);
+
     String[] ISBNArray=new String[ISBNList.size()];
     ArrayList<Book> booklist=Catalogue.searchByISBN(ISBNList.toArray(ISBNArray));
     if(booklist.isEmpty()){
