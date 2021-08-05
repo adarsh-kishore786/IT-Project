@@ -124,7 +124,8 @@ public class AuthService {
             System.out.println("1. See list of all customers");
             System.out.println("2. See list of all books along with their copies");
             System.out.println("3. Modify the details of a book or add a book");
-            System.out.println("4. Log out");
+            System.out.println("4. Remove a book");
+            System.out.println("5. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -145,7 +146,9 @@ public class AuthService {
                         break;
                 case 3: modifyDetails();
                         break;
-                case 4: System.out.println();
+                case 4: removeBook();
+                        break;
+                case 5: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
@@ -238,6 +241,39 @@ public class AuthService {
       }
       else addBook(b);
 
+      System.out.println("---------------------------------");
+  }
+
+  private void removeBook()
+  {
+      ArrayList<String> isbnList = new ArrayList<>();
+      System.out.println("Enter ISBNs of books to remove (\"exit\" to stop):");
+      CustomerOptions.addToList(isbnList, sc);
+
+      ArrayList<Book> removeBooksList = new ArrayList<>();
+
+      ArrayList<Book> booksList = Catalogue.getBooks();
+      Iterator itr = booksList.iterator();
+      while (itr.hasNext())
+      {
+          Book b = (Book)itr.next();
+          for (String ISBN : isbnList)
+            if (b.getISBN().equals(ISBN))
+            {
+                itr.remove();
+                removeBooksList.add(b);
+            }
+      }
+
+      if (removeBooksList.size() == 0)
+        System.out.println("No books match these ISBN values!\n");
+      else
+      {
+          System.out.println("Removed books:");
+          for (Book b : removeBooksList)
+            System.out.println(b);
+          Catalogue.saveBooks(booksList);
+      }
       System.out.println("---------------------------------");
   }
 

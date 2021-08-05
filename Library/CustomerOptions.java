@@ -22,11 +22,11 @@ public class CustomerOptions {
   public void showOptions(){
     while (true) {
       System.out.println("\nWhat do you want to do?");
-      System.out.println("1.Borrow A Book");
-      System.out.println("2.Return A Book");
-      System.out.println("3.Buy A Book");
-      System.out.println("4.View History");
-      System.out.println("5.Log Out");
+      System.out.println("1. Borrow A Book");
+      System.out.println("2. Return A Book");
+      System.out.println("3. Buy A Book");
+      System.out.println("4. View History");
+      System.out.println("5. Log Out");
       System.out.print("Enter the option number: ");
       int choice = 0;
 
@@ -124,9 +124,7 @@ public class CustomerOptions {
 
     System.out.println("\nEnter Authors(type \"exit\" when done): ");
     addToList(authorList, sc);
-
-    authorList.remove(authorList.size()-1);
-    String[] authorArray=new String[authorList.size()-1];
+    String[] authorArray=new String[authorList.size()];
     ArrayList<Book> booklist=Catalogue.getBookWithAuthor(authorList.toArray(authorArray));
     if(booklist.isEmpty()){
       System.out.println("\nNo Book Found!");
@@ -144,7 +142,7 @@ public class CustomerOptions {
 
       System.out.println("\nEnter Genres(type \"exit\" when done): ");
       addToList(genreList, sc);
-      String[] genreArray=new String[genreList.size()-1];
+      String[] genreArray=new String[genreList.size()];
       ArrayList<Book> booklist=Catalogue.getBookWithGenre(genreList.toArray(genreArray));
       if(booklist.isEmpty()){
         System.out.println("\nNo Book Found!");
@@ -163,7 +161,7 @@ public class CustomerOptions {
 
     System.out.println("\nEnter ISBNs(type \"exit\" when done): ");
     addToList(ISBNList, sc);
-    String[] ISBNArray=new String[ISBNList.size()-1];
+    String[] ISBNArray=new String[ISBNList.size()];
     ArrayList<Book> booklist=Catalogue.searchByISBN(ISBNList.toArray(ISBNArray));
     if(booklist.isEmpty()){
       System.out.println("\nNo Book Found!");
@@ -224,15 +222,20 @@ public class CustomerOptions {
       return;
     }
 
+    int index = 1;
+    System.out.println("\nYOUR HISTORY:");
     for (Map.Entry<Book,ArrayList<LocalDate>> entry : map.entrySet()) {
       Book book=(Book) entry.getKey();
       ArrayList<LocalDate> dates=(ArrayList<LocalDate>) entry.getValue();
       String borrowDate = dates.get(0).format(formatter);
       String returnDate = dates.get(1).format(formatter);
 
+      System.out.println("\n" + index++);
       System.out.println(book);
+      System.out.println("Transaction Details: ");
       System.out.println("Borrow Date  : "+borrowDate);
       System.out.println("Return Date  : "+returnDate+"\n");
+      System.out.println("---------------------------------");
     }
   }
 
