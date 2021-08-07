@@ -152,7 +152,6 @@ public class CustomerOptions {
       confirmBook(selectedBook);
   }
 
-  //TODO:check ISBN after entering
   private void filterByISBN(){
 
     ArrayList<String> ISBNList=new ArrayList<String>();
@@ -226,7 +225,6 @@ public class CustomerOptions {
   }
 
   //display history
-  //ALERT! Book not being printed for some reason
   private void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -294,7 +292,6 @@ public class CustomerOptions {
   }
 
   //select index of book
-  //TODO: get book with getBookwithTitle()
   private Book selectBook(ArrayList<Book> booklist){
     int index=0;
     while(true) {
@@ -319,8 +316,7 @@ public class CustomerOptions {
     }
   }
 
-  public static void addToList(ArrayList<String> arList, Scanner sc)
-  {
+  public static void addToList(ArrayList<String> arList, Scanner sc){
       String val = "";
       do
       {
