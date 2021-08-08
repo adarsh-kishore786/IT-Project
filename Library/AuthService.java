@@ -5,7 +5,7 @@ import java.time.*;
 
 public class AuthService {
   private static Scanner sc=null;
-  private Customer c=null;
+  private static Customer c= new Customer();
   private CustomerOptions custOptions=null;
 
   AuthService(Scanner sc1){
@@ -126,7 +126,8 @@ public class AuthService {
             System.out.println("3. Modify the details of a book or add a book");
             System.out.println("4. Remove a book");
             System.out.println("5. See the history of a customer");
-            System.out.println("6. Log out");
+            System.out.println("6. Delete an account of a customer");
+            System.out.println("7. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -151,12 +152,49 @@ public class AuthService {
                         break;
                 case 5: seeHistory();
                         break;
-                case 6: System.out.println();
+                case 6: removeAcc();
+                        break;
+                case 7: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
         }
     }
+
+  public void removeAcc()
+  {
+      Customer cust = null;
+      do
+      {
+            System.out.print("\nEnter the username of customer: ");
+            String uname = sc.nextLine();
+
+            cust = findCustomer(uname);
+            if (cust == null)
+                System.out.println("No such customer exists! Try again.");
+                continue;
+      } while (cust == null);
+      System.out.println(cust);
+      String ch;
+      do
+      {
+          System.out.print("Delete this account? (Y/N): ");
+          ch = sc.nextLine();
+          if (ch.equalsIgnoreCase("Y"))
+          {
+              c.getCustomers().remove(cust);
+
+              Customer.saveCustomer();
+
+              System.out.println("Account deleted successfully!\n");
+              return;
+          }
+          else if (ch.equalsIgnoreCase("N"))
+              return;
+          else
+              System.out.println("That's an invalid option. Try again.\n");
+      } while (true);
+  }
 
   public void seeHistory()
   {
@@ -181,7 +219,6 @@ public class AuthService {
 
   public Customer findCustomer(String uname)
   {
-      c = new Customer();
       for (Customer customer : c.getCustomers())
         if (customer.getUsername().equals(uname))
             return customer;
@@ -392,9 +429,8 @@ public class AuthService {
   }
 
   private static void showCustomers(){
-      Customer cust = new Customer();
-      for (Customer c : cust.getCustomers())
-          System.out.println(c);
+      for (Customer cust : c.getCustomers())
+          System.out.println(cust);
       System.out.println("---------------------------------");
   }
 }
