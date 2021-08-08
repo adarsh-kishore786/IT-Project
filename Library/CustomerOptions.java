@@ -225,7 +225,7 @@ public class CustomerOptions {
   }
 
   //display history
-  private void showHistory(){
+  public void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     if(map.isEmpty()){
@@ -235,7 +235,7 @@ public class CustomerOptions {
     }
 
     int index = 1;
-    System.out.println("\nYOUR HISTORY:");
+    System.out.println("\nHISTORY:");
     for (Map.Entry<Book,ArrayList<LocalDate>> entry : map.entrySet()) {
       Book book=(Book) entry.getKey();
       ArrayList<LocalDate> dates=(ArrayList<LocalDate>) entry.getValue();
@@ -265,8 +265,17 @@ public class CustomerOptions {
   //confirm index of book
   private void confirmBook(Book book){
     String ch = null;
+    if (book.getNumCopies() == 0)
+    {
+        System.out.println("No copies of this book!");
+        AuthService.sleep(1);
+        return;
+    }
     do
     {
+        if (transaction != 2)
+            System.out.println("There are " + book.getNumCopies() + " copies of this book available.");
+
         System.out.print("(C)onfirm, (B)ack : ");
         ch = sc.nextLine();
 

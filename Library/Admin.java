@@ -171,7 +171,7 @@ public class Admin extends Person
         m_revenue += fine;
         m_numBooksOnRent--;
         saveAdminDetails();
-         return true;
+        return true;
      }
 
     public HashMap<Book,ArrayList<LocalDate>> getHistory(Customer cust)
@@ -184,13 +184,8 @@ public class Admin extends Person
     private int getNumCopiesAvailable(Book b)
     {
         // Check if book is available
-        if (!b.isAvailable())
-        {
-            System.out.println("This book is not available currently.");
-            return 0;
-        }
         // How many copies are there
-        System.out.println("There are " + b.getNumCopies() + " copies of this book available.");
+        // System.out.println("There are " + b.getNumCopies() + " copies of this book available.");
         int numCopies = 1;
 
         // How many copies Customer wants to buy

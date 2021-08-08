@@ -125,7 +125,8 @@ public class AuthService {
             System.out.println("2. See list of all books along with their copies");
             System.out.println("3. Modify the details of a book or add a book");
             System.out.println("4. Remove a book");
-            System.out.println("5. Log out");
+            System.out.println("5. See the history of a customer");
+            System.out.println("6. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -148,12 +149,44 @@ public class AuthService {
                         break;
                 case 4: removeBook();
                         break;
-                case 5: System.out.println();
+                case 5: seeHistory();
+                        break;
+                case 6: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
         }
     }
+
+  public void seeHistory()
+  {
+      Customer cust = null;
+      do
+      {
+            System.out.print("\nEnter the username of customer: ");
+            String uname = sc.nextLine();
+
+            cust = findCustomer(uname);
+            if (cust == null)
+            {
+                System.out.println("No such customer exists! Try again.");
+                continue;
+            }
+      } while (cust == null);
+
+      custOptions=new CustomerOptions(cust,this,sc);
+      System.out.println(cust);
+      custOptions.showHistory();
+  }
+
+  public Customer findCustomer(String uname)
+  {
+      c = new Customer();
+      for (Customer customer : c.getCustomers())
+        if (customer.getUsername().equals(uname))
+            return customer;
+      return null;
+  }
 
   public void logout()
   {
@@ -347,7 +380,7 @@ public class AuthService {
       return -1;
   }
 
-  private static void sleep(int seconds){
+  public static void sleep(int seconds){
       try
       {
           TimeUnit.SECONDS.sleep(seconds);
