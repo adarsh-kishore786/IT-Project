@@ -128,6 +128,14 @@ public class Transaction implements Serializable {
     return this.dateOfReturn.get(index);
   }
 
+  public boolean isReturned(Book b){
+    int index=-1;
+    for(Book book:borrowedBooks){
+      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    }
+    return this.getIsReturned().get(index);
+  }
+
   public boolean rentBookTransaction(Book b) {
     boolean status = true;
     int newNumberCopies;

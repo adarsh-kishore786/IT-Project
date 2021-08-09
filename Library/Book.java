@@ -93,11 +93,25 @@ public class Book implements Serializable
     {
         String s="";
         int i=1;
-        for(Customer c:m_borrowersList)
+        for(Customer cust:m_borrowersList)
         {
-            s=s+"\n"+i+"\n"+c.toString();
+            s=s+"\n"+i+"\n"+cust.toString();
+            s=s+"Returned :";
+            for(Customer c:cust.getCustomers())
+            {
+                if(cust.m_username.equalsIgnoreCase(c.m_username))
+                {
+                    if(c.transaction.isReturned(this))
+                        s+=" Yes"+"\n";
+                    else
+                        s+=" No"+"\n";
+                break;        
+                }
+            }
             i++;
         }
+        if(s.equalsIgnoreCase(""))
+            s="No Borrowers!";
         return s;
     }
 
@@ -110,6 +124,8 @@ public class Book implements Serializable
             s=s+"\n"+i+"\n"+c.toString();
             i++;
         }
+        if(s.equalsIgnoreCase(""))
+            s="No Buyers!";
         return s;
     }
 
