@@ -63,12 +63,13 @@ public class CustomerOptions {
   private void showCatalogue(){
 
     while(true){
-      System.out.println("\n1. Filter Books based on price");
-      System.out.println("2. Filter Books based on authors");
-      System.out.println("3. Filter Books based on genre");
-      System.out.println("4. Filter Books based on availability");
-      System.out.println("5. Search for Books with ISBN");
-      System.out.println("6. Back");
+      System.out.println("\n1. Get book by its title");
+      System.out.println("2. Filter Books based on price");
+      System.out.println("3. Filter Books based on authors");
+      System.out.println("4. Filter Books based on genre");
+      System.out.println("5. Filter Books based on availability");
+      System.out.println("6. Search for Books with ISBN");
+      System.out.println("7. Back");
       System.out.print("Enter the option number: ");
 
       int choice=0;
@@ -80,22 +81,46 @@ public class CustomerOptions {
           continue;
       }
       switch(choice){
-          case 1: filterByPrice();
+          case 1: filterByTitle();
                   return;
-          case 2: filterByAuthors();
+          case 2: filterByPrice();
                   return;
-          case 3: filterByGenre();
+          case 3: filterByAuthors();
                   return;
-          case 4: filterByAvailability();
+          case 4: filterByGenre();
                   return;
-          case 5: filterByISBN();
+          case 5: filterByAvailability();
                   return;
-          case 6: System.out.println();
+          case 6: filterByISBN();
+                  return;
+          case 7: System.out.println();
                   return;
 
           default: System.out.println("That's an invalid option. Try again.\n");
       }
     }
+  }
+
+  private void filterByTitle(){
+    Book selectedBook=null;
+    String title;
+    ArrayList<Book> books=Catalogue.getBooks();
+    System.out.println("Enter the title of the book: ");
+    title=sc.nextLine().trim();
+    for(Book b:books)
+      if(b.getTitle().equalsIgnoreCase(title))
+      {
+        selectedBook=b;
+        break;
+      }  
+    if(selectedBook==null)
+    {
+      System.out.println("\nNo Book Found!");
+      return;
+    }  
+    System.out.println(selectedBook);
+    confirmBook(selectedBook);
+    return;
   }
 
   private void filterByPrice(){
