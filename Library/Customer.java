@@ -17,20 +17,20 @@ public class Customer extends Person {
   Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
 
   public Customer(){
-      // if (customerList.size() > 0)
-      //   return;
-      // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
-      // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
-      // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
-      // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org", "B1n@ry-M");
+      if (customerList.size() > 0)
+        return;
+      Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
+      Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
+      Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
+      Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org", "B1n@ry-M");
       
-      // customerList.add(c1);
-      // customerList.add(c2);
-      // customerList.add(c3);
-      // customerList.add(c4);
+      customerList.add(c1);
+      customerList.add(c2);
+      customerList.add(c3);
+      customerList.add(c4);
       
-      // //System.out.println("!" + customerList.size());
-      // saveCustomer();
+      //System.out.println("!" + customerList.size());
+      saveCustomer();
       initCustomerList();
   }
 

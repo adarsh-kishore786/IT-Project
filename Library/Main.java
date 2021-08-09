@@ -41,11 +41,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        // Customer cust = new Customer();
-        //  Customer.saveCustomer();
-        // // for (Customer c : cust.getCustomers())
-        // //     System.out.println(c);
-        // Catalogue.getBooks();
+        Customer cust = new Customer();
+         Customer.saveCustomer();
+        // for (Customer c : cust.getCustomers())
+        //     System.out.println(c);
+        Catalogue.getBooks();
 
         welcome();
     }
@@ -62,11 +62,4 @@ public class Main
         }
     }
 
-    private static void showCustomers()
-    {
-        Customer cust = new Customer();
-        for (Customer c : cust.getCustomers())
-            System.out.println(c);
-        System.out.println("---------------------------------");
-    }
 }
