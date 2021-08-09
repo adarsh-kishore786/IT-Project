@@ -36,6 +36,13 @@ public class Book implements Serializable
         return s;
     }
 
+    public String display()
+    {
+        String s="\nTitle  : "+m_title+"\nAuthor : "+showAuthor()+"\nGenre  : "+showGenre()+"\nPrice  : "+String.format("%.2f", m_price)+"\nISBN   : "+m_ISBN+ "\n";
+        s+="\nNumber of Copies: "+m_numCopies+"\nBorrowers: \n"+showBorrowers()+"\nBuyers: \n"+showBuyers()+"\n";
+        return s;
+    }
+
     //getter functions
     public String getTitle()
     {
@@ -80,6 +87,30 @@ public class Book implements Serializable
     public ArrayList<Customer> getBuyers()
     {
         return m_buyersList;
+    }
+
+    private String showBorrowers()
+    {
+        String s="";
+        int i=1;
+        for(Customer c:m_borrowersList)
+        {
+            s=s+"\n"+i+"\n"+c.toString();
+            i++;
+        }
+        return s;
+    }
+
+    private String showBuyers()
+    {
+        String s="";
+        int i=1;
+        for(Customer c:m_buyersList)
+        {
+            s=s+"\n"+i+"\n"+c.toString();
+            i++;
+        }
+        return s;
     }
 
     //private function to print genre in a nice manner

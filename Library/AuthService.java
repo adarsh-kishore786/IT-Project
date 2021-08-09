@@ -123,11 +123,12 @@ public class AuthService {
             System.out.println("What would you like to do?");
             System.out.println("1. See list of all customers");
             System.out.println("2. See list of all books along with their copies");
-            System.out.println("3. Modify the details of a book or add a book");
-            System.out.println("4. Remove a book");
-            System.out.println("5. See the history of a customer");
-            System.out.println("6. Delete an account of a customer");
-            System.out.println("7. Log out");
+            System.out.println("3. See the complete details of a book");
+            System.out.println("4. Modify the details of a book or add a book");
+            System.out.println("5. Remove a book");
+            System.out.println("6. See the history of a customer");
+            System.out.println("7. Delete an account of a customer");
+            System.out.println("8. Log out");
             System.out.print("Enter option number: ");
             int choice = 0;
             try
@@ -146,19 +147,42 @@ public class AuthService {
                         break;
                 case 2: seeBookList();
                         break;
-                case 3: modifyDetails();
+                case 3: showBook();
                         break;
-                case 4: removeBook();
+                case 4: modifyDetails();
                         break;
-                case 5: seeHistory();
+                case 5: removeBook();
                         break;
-                case 6: removeAcc();
+                case 6: seeHistory();
                         break;
-                case 7: System.out.println();
+                case 7: removeAcc();
+                        break;
+                case 8: System.out.println();
                         return;
                 default: System.out.println("That's an invalid option. Try again.\n");
             }
         }
+    }
+
+    public void showBook()
+    {
+        Book book=null;
+        do
+        {
+            System.out.println("\nEnter the title of the book: ");
+            ArrayList<Book> books=Catalogue.getBooks();
+            String title=sc.nextLine().trim();
+            for(Book b:books)
+                if(b.getTitle().equalsIgnoreCase(title))
+                {
+                    book=b;
+                    break;
+                }  
+            if(book==null)
+                System.out.println("No Book Found! Please try again!");
+        }while(book == null);
+        System.out.println(book.display());
+        return;
     }
 
   public void removeAcc()
