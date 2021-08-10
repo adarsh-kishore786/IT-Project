@@ -14,7 +14,6 @@ public class Transaction implements Serializable {
   private ArrayList<Book> boughtBooks;
   private ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to
                                         // borrowedBooks
-  //public static Scanner details = new Scanner(System.in);
   Transaction() {
     dateOfBorrow = new ArrayList<LocalDate>();
     dateOfReturn = new ArrayList<LocalDate>();
@@ -36,7 +35,6 @@ public class Transaction implements Serializable {
 
   private boolean payment(double amount) {
     boolean status = false;
-    // long cardNumber, n;
     String cardNumber, CVV;
     int count = 0;
     char choice = 'N';
@@ -45,9 +43,6 @@ public class Transaction implements Serializable {
     int m = nowDate.getMonthValue();
     int y = nowDate.getYear();
     y %= 100;
-    // String s = String.format("%2s/%2s", m, y);
-    // About the two warnings, it's because I just used those variables for input,
-    // kept it that way so that we can update our program
     do {
       System.out.println("Enter debit/credit card number: ");
       cardNumber = Main.sc.nextLine();
@@ -65,10 +60,8 @@ public class Transaction implements Serializable {
         else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
             System.out.println("Invalid expiry date!");
         } else {
-          // Try checking if it is beyond today's date? (A possible expansion)
           System.out.println("Enter CVV/CVC: ");
-          CVV = Main.sc.nextLine(); // Later check if 3 digits or not (A possible exapansion)
-
+          CVV = Main.sc.nextLine(); 
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction... ");
             Main.sleep(1);
@@ -88,7 +81,6 @@ public class Transaction implements Serializable {
       break;
 
     } while (choice == 'Y');
-    //details.close();
     return status;
   }
 
@@ -150,13 +142,11 @@ public class Transaction implements Serializable {
     }
     if (status == true) {
       borrowedBooks.add(b);
-      isReturned.add(false); // It should technically work but check once
+      isReturned.add(false); 
       dateOfBorrow.add(newDate);
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
       b.setNumCopies(newNumberCopies);
-      //Customer.saveCustomer();
-
     }
     return status;
   }
@@ -194,13 +184,12 @@ public class Transaction implements Serializable {
           fine = -1;
     }
     if (statusPayment == true) {
-      // fine = check;
       isReturned.set(index, true);
       // newNumberCopies = borrowedBooks.get(index).getNumCopies();
       // ++newNumberCopies;
       // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
-      dateOfReturn.add(index, calculateDate); // A test here too?
+      dateOfReturn.add(index, calculateDate); 
 
       ArrayList<Book> books = Catalogue.getBooks();
      for (Book b : books)
