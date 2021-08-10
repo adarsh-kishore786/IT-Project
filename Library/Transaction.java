@@ -6,14 +6,14 @@ import java.io.*;
 
 public class Transaction implements Serializable {
 
-
   private ArrayList<LocalDate> dateOfBorrow;
   private ArrayList<LocalDate> dateOfReturn;
   private ArrayList<LocalDate> dateOfPurchase;
   private ArrayList<Book> borrowedBooks;
   private ArrayList<Book> boughtBooks;
   private ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to
-                                        // borrowedBooks
+                                         // borrowedBooks
+
   Transaction() {
     dateOfBorrow = new ArrayList<LocalDate>();
     dateOfReturn = new ArrayList<LocalDate>();
@@ -58,7 +58,7 @@ public class Transaction implements Serializable {
         if (Integer.parseInt(temp2) < y)
           System.out.println("Invalid expiry date!\n");
         else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
-            System.out.println("Invalid expiry date!\n");
+          System.out.println("Invalid expiry date!\n");
         } else {
           System.out.println("Enter CVV/CVC: ");
           CVV = Main.sc.nextLine();
@@ -72,14 +72,20 @@ public class Transaction implements Serializable {
         }
 
       }
-      if (status == false) {
-        System.out.println("Do you want to continue in payment section? Enter Y if yes else enter N: ");
-        choice = Main.sc.next().charAt(0);
-        Main.sc.nextLine();
-      }
-      else
-        break;
+      do {
+        if (status == false) {
+          System.out.println("Do you want to continue in payment section? Enter Y if yes else enter N: ");
+          choice = Main.sc.next().charAt(0);
+          Main.sc.nextLine();
+        } else
+          choice = 'N';
+        if (choice != 'Y' && choice != 'N')
+          System.out.println("Invalid option!");
 
+      } while (choice != 'Y' && choice != 'N');
+
+      if (choice == 'N')
+        break;
     } while (choice == 'Y');
     return status;
   }
@@ -97,33 +103,37 @@ public class Transaction implements Serializable {
   }
 
   public LocalDate getDateOfBorrow(Book b) {
-    int index=-1;
-    for(Book book:borrowedBooks){
-      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    int index = -1;
+    for (Book book : borrowedBooks) {
+      if (book.getTitle().equals(b.getTitle()))
+        index = this.borrowedBooks.indexOf(book);
     }
     return this.dateOfBorrow.get(index);
   }
 
   public LocalDate getDateOfPurchase(Book b) {
-    int index=-1;
-    for(Book book:boughtBooks){
-      if(book.getTitle().equals(b.getTitle())) index=this.boughtBooks.indexOf(book);
+    int index = -1;
+    for (Book book : boughtBooks) {
+      if (book.getTitle().equals(b.getTitle()))
+        index = this.boughtBooks.indexOf(book);
     }
     return this.dateOfPurchase.get(index);
   }
 
   public LocalDate getDateOfReturn(Book b) {
-    int index=-1;
-    for(Book book:borrowedBooks){
-      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+    int index = -1;
+    for (Book book : borrowedBooks) {
+      if (book.getTitle().equals(b.getTitle()))
+        index = this.borrowedBooks.indexOf(book);
     }
     return this.dateOfReturn.get(index);
   }
 
-  public boolean isReturned(Book b){
-    int index=-1;
-    for(Book book:borrowedBooks){
-      if(book.getTitle().equals(b.getTitle())) index=this.borrowedBooks.indexOf(book);
+  public boolean isReturned(Book b) {
+    int index = -1;
+    for (Book book : borrowedBooks) {
+      if (book.getTitle().equals(b.getTitle()))
+        index = this.borrowedBooks.indexOf(book);
     }
     return this.getIsReturned().get(index);
   }
@@ -174,14 +184,14 @@ public class Transaction implements Serializable {
     LocalDate calculateDate = LocalDate.now();
     numberOfDays = calculateDate.compareTo(dateOfBorrow.get(index));
     check = numberOfDays - Admin.getMaxBorrowDays();
-    if (check>0) {
+    if (check > 0) {
       System.out.println("Number of days borrowed exceeds limit! You need to pay a fine!");
       fine = Admin.getFineRate() * check;
       System.out.println("The amount you need to pay is: Rs. " + fine + " ");
       statusPayment = payment(fine);
 
       if (!statusPayment)
-          fine = -1;
+        fine = -1;
     }
     if (statusPayment == true) {
       isReturned.set(index, true);
@@ -192,22 +202,19 @@ public class Transaction implements Serializable {
       dateOfReturn.add(index, calculateDate);
 
       ArrayList<Book> books = Catalogue.getBooks();
-     for (Book b : books)
-     {
-         if (b.getISBN().equals(borrowedBooks.get(index).getISBN()))
-         {
-            newNumberCopies = b.getNumCopies();
-            b.setNumCopies(++newNumberCopies);
-            break;
+      for (Book b : books) {
+        if (b.getISBN().equals(borrowedBooks.get(index).getISBN())) {
+          newNumberCopies = b.getNumCopies();
+          b.setNumCopies(++newNumberCopies);
+          break;
         }
-     }
+      }
     }
     return fine;
   }
 
-  public static boolean custAdd()
-  {
-      Transaction t = new Transaction();
-      return t.payment(100);
+  public static boolean custAdd() {
+    Transaction t = new Transaction();
+    return t.payment(100);
   }
 }
