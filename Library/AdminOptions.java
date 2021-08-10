@@ -212,7 +212,7 @@ public class AdminOptions {
         ArrayList<Book> removeBooksList = new ArrayList<>();
 
         ArrayList<Book> booksList = Catalogue.getBooks();
-        Iterator itr = booksList.iterator();
+        Iterator<Book> itr = booksList.iterator();
         while (itr.hasNext()) {
             Book b = (Book) itr.next();
             for (String ISBN : isbnList)
