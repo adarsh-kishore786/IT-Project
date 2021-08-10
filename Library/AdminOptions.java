@@ -10,7 +10,6 @@ public class AdminOptions {
         this.admin = a;
         this.auth = auth;
         sc = sc1;
-
     }
 
     public void showFunctions() {
@@ -153,12 +152,12 @@ public class AdminOptions {
         System.out.println("Enter authors (write \"exit\" when done):");
         ArrayList<String> authorList = new ArrayList<>();
         CustomerOptions.addToList(authorList, sc);
-        System.out.println("Authors: " + authorList + "\n");
+        System.out.println();
 
         System.out.println("Enter genre (write \"exit\" when done):");
         ArrayList<String> genreList = new ArrayList<>();
         CustomerOptions.addToList(genreList, sc);
-        System.out.println("Genre: " + genreList + "\n");
+        System.out.println();
 
         double price = 0;
         do {

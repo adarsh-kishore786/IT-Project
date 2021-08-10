@@ -39,7 +39,9 @@ public class Book implements Serializable
     public String display()
     {
         String s="\nTitle  : "+m_title+"\nAuthor : "+showAuthor()+"\nGenre  : "+showGenre()+"\nPrice  : "+String.format("%.2f", m_price)+"\nISBN   : "+m_ISBN+ "\n";
-        s+="\nNumber of Copies: "+m_numCopies+"\nBorrowers: \n"+showBorrowers()+"\nBuyers: \n"+showBuyers()+"\n";
+        s+="\nNumber of Copies: "+m_numCopies+"\n\nBorrowers: \n"+showBorrowers()+"\n\nBuyers: \n"+showBuyers()+"\n\n";
+
+        s += "---------------------------------";
         return s;
     }
 
@@ -105,7 +107,7 @@ public class Book implements Serializable
                         s+=" Yes"+"\n";
                     else
                         s+=" No"+"\n";
-                break;        
+                break;
                 }
             }
             i++;

@@ -28,7 +28,7 @@ public class AuthService {
       }
 
   public  void admin_login(String username){
-      saveAdmin();
+      //saveAdmin();
       Admin admin = Admin.getAdmin();
 
       // Console c = System.console();
@@ -118,7 +118,7 @@ public class AuthService {
       System.out.println(c);
   }
 
-  
+
 
   public void logout()
   {
@@ -128,8 +128,8 @@ public class AuthService {
       Main.main(null);
   }
 
-  
-  
+
+
   private static boolean intersects(String s1, String s2){
       for (int i = 0; i < s2.length(); i++)
       {
@@ -177,6 +177,4 @@ public class AuthService {
           System.out.println(ie);
       }
   }
-
-  
 }
