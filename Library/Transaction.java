@@ -48,7 +48,7 @@ public class Transaction implements Serializable {
       cardNumber = Main.sc.nextLine();
       count = cardNumber.length();
       if (count != 16 || !checkStringIsANumber(cardNumber))
-        System.out.println("Invalid card number!");
+        System.out.println("Invalid card number!\n");
       else {
         count = 0;
         System.out.println("Enter Expiry Date in MM/YY format: ");
@@ -56,19 +56,19 @@ public class Transaction implements Serializable {
         String temp1 = expiryDate.substring(0, 2);
         String temp2 = expiryDate.substring(3, 5);
         if (Integer.parseInt(temp2) < y)
-          System.out.println("Invalid expiry date!");
+          System.out.println("Invalid expiry date!\n");
         else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
-            System.out.println("Invalid expiry date!");
+            System.out.println("Invalid expiry date!\n");
         } else {
           System.out.println("Enter CVV/CVC: ");
-          CVV = Main.sc.nextLine(); 
+          CVV = Main.sc.nextLine();
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
-            System.out.println("Processing transaction... ");
+            System.out.println("Processing transaction...\n");
             Main.sleep(1);
-            System.out.println("Transaction Successful!");
+            System.out.println("Transaction Successful!\n");
             status = true;
           } else
-            System.out.println("Invalid CVV/CVC!");
+            System.out.println("Invalid CVV/CVC!\n");
         }
 
       }
@@ -78,7 +78,7 @@ public class Transaction implements Serializable {
         Main.sc.nextLine();
       }
       else
-      break;
+        break;
 
     } while (choice == 'Y');
     return status;
@@ -142,7 +142,7 @@ public class Transaction implements Serializable {
     }
     if (status == true) {
       borrowedBooks.add(b);
-      isReturned.add(false); 
+      isReturned.add(false);
       dateOfBorrow.add(newDate);
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
@@ -189,7 +189,7 @@ public class Transaction implements Serializable {
       // ++newNumberCopies;
       // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
-      dateOfReturn.add(index, calculateDate); 
+      dateOfReturn.add(index, calculateDate);
 
       ArrayList<Book> books = Catalogue.getBooks();
      for (Book b : books)
@@ -203,5 +203,11 @@ public class Transaction implements Serializable {
      }
     }
     return fine;
+  }
+
+  public static boolean custAdd()
+  {
+      Transaction t = new Transaction();
+      return t.payment(100);
   }
 }

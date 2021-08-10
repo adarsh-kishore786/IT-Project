@@ -76,7 +76,11 @@ public class Customer extends Person {
           ch = Main.sc.nextLine();
           System.out.println();
           if (ch.equalsIgnoreCase("Y"))
-            break;
+          {
+              boolean b = Transaction.custAdd();
+              if (b) break;
+              return 1;
+          }
           else if (ch.equalsIgnoreCase("N"))
             return 1;
           else
