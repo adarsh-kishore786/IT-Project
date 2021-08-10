@@ -112,12 +112,12 @@ public class CustomerOptions {
       {
         selectedBook=b;
         break;
-      }  
+      }
     if(selectedBook==null)
     {
       System.out.println("\nNo Book Found!");
       return;
-    }  
+    }
     System.out.println(selectedBook);
     confirmBook(selectedBook);
     return;
@@ -131,6 +131,10 @@ public class CustomerOptions {
         try {
           price=Double.parseDouble(sc.nextLine());
           ArrayList<Book> booklist=Catalogue.getBookUnderPrice(price);
+          if(booklist.isEmpty()){
+            System.out.println("\nNo Book Found!");
+            return;
+          }
           showBooks(booklist);
           selectedBook = selectBook(booklist);
           confirmBook(selectedBook);
