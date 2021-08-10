@@ -1,6 +1,5 @@
 import java.util.*;
 import java.io.*;
-import java.util.HashMap;
 import java.time.LocalDate;
 
 public class Customer extends Person {
@@ -60,18 +59,34 @@ public class Customer extends Person {
       return customerList;
   }
 
-  boolean addCustomer(Customer c){
+  int addCustomer(Customer c){
       for (Customer c1 : customerList)
       {
           if (c1.getUsername().equals(c.getUsername()))
           {
               System.out.println("This username is already taken. Try another\n");
-              return false;
+              return 2;
           }
       }
+
+      String ch = "";
+      do
+      {
+          System.out.print("One-time membership is Rs. 100.00. Pay amount (Y/N): ");
+          ch = Main.sc.nextLine();
+          System.out.println();
+          if (ch.equalsIgnoreCase("Y"))
+            break;
+          else if (ch.equalsIgnoreCase("N"))
+            return 1;
+          else
+            System.out.println("Invalid input. Try again.\n");
+      }
+      while (true);
+
       customerList.add(c);
       Customer.saveCustomer();
-      return true;
+      return 0;
   }
 
   void buyBook(Book book) {

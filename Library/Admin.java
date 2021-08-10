@@ -36,6 +36,8 @@ public class Admin extends Person
         m_revenue = 0.0;
     }
 
+    public void setRevenue(double revenue) { m_revenue = revenue; }
+
     public static Admin getAdmin()
     {
         ObjectInput in = null;

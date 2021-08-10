@@ -28,7 +28,7 @@ public class AuthService {
       }
 
   public  void admin_login(String username){
-      //saveAdmin();
+      // saveAdmin();
       Admin admin = Admin.getAdmin();
 
       // Console c = System.console();
@@ -80,6 +80,7 @@ public class AuthService {
       String name = null;
       int age = 0;
       Customer c = null;
+      double fees = 0;
 
       do
       {
@@ -108,17 +109,28 @@ public class AuthService {
 
           c = new Customer(name, age, username, password);
 
-          if (cust.addCustomer(c))
-              break;
+          int state = cust.addCustomer(c);
+          if (state == 0)
+          {
+             fees = 100;
+             break;
+          }
+          if (state == 1)
+             return;
       }
       while (true);
       sleep(1);
 
       System.out.println("\nNew user created:");
       System.out.println(c);
+
+      if (fees == 0)
+        return;
+
+      Admin a = Admin.getAdmin();
+      a.setRevenue(a.getRevenue() + fees);
+      a.saveAdminDetails();
   }
-
-
 
   public void logout()
   {
