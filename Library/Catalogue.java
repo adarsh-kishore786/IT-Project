@@ -34,7 +34,7 @@ public class Catalogue
     // returns an arraylist of all the books
     public static ArrayList<Book> getBooks()
     {
-        booksInfo();
+        //booksInfo();
         initBooks();
         return booksList;
 
