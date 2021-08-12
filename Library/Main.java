@@ -26,11 +26,11 @@ public class Main
             ch = sc.nextLine();
 
             if (ch.equalsIgnoreCase("l"))
-              auth.login();  //login();
+                auth.login();  //login();
             else if (ch.equalsIgnoreCase("s"))
-              auth.create_account(new Customer()); //create_account(new Customer());
+                auth.create_account(new Customer()); //create_account(new Customer());
             else if (ch.equalsIgnoreCase("e"))
-              System.exit(0);
+                System.exit(0);
             else
                 error();
 
