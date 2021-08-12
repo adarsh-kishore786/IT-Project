@@ -254,11 +254,6 @@ public class CustomerOptions {
         confirmBook(selectedBook);
   }
 
-  //TODO: showUnavailableBooks()
-  private void showUnavailableBooks(){
-
-  }
-
   //display history
   public void showHistory(){
     HashMap<Book,ArrayList<LocalDate>> map=(HashMap<Book,ArrayList<LocalDate>>) c.getHistory();
