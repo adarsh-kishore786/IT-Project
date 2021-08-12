@@ -143,7 +143,7 @@ public class Transaction implements Serializable {
     int newNumberCopies;
     LocalDate newDate = LocalDate.now();
     for (int i = 0; i < borrowedBooks.size(); i++) {
-      if (borrowedBooks.get(i).getISBN() == b.getISBN()) {
+      if (b.getISBN().equals(borrowedBooks.get(i).getISBN())) {
         if (!isReturned.get(i)) {
           status = false;
           break;

@@ -12,10 +12,6 @@ public class CustomerOptions {
   private Customer c=null;   
   private AuthService auth=null;
   private int transaction;
-  CustomerOptions()
-  {
-
-  }
   CustomerOptions(Customer cust,AuthService auth,Scanner sc1){
     this.c=cust;
     this.auth=auth;
