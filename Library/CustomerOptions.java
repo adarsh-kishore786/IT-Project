@@ -256,7 +256,7 @@ public class CustomerOptions {
 
   private void showUnavailableBooks()
   {
-    
+
   }
 
   //display history
@@ -300,7 +300,7 @@ public class CustomerOptions {
   //confirm index of book
   private void confirmBook(Book book){
     String ch = null;
-    if (book.getNumCopies() == 0)
+    if (book.getNumCopies() == 0 && transaction != 2)
     {
         System.out.println("No copies of this book!");
         AuthService.sleep(1);
