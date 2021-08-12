@@ -37,11 +37,11 @@ public class Main
 
     public static void main(String[] args)
     {
-        // Customer cust = new Customer();
-        //  Customer.saveCustomer();
-        // // for (Customer c : cust.getCustomers())
-        // //     System.out.println(c);
-        // Catalogue.getBooks();
+        Customer cust = new Customer();
+         Customer.saveCustomer();
+        // for (Customer c : cust.getCustomers())
+        //     System.out.println(c);
+        Catalogue.getBooks();
 
         welcome();
     }

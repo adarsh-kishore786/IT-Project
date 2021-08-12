@@ -120,7 +120,7 @@ public class Admin extends Person
         if (!trans.rentBookTransaction(b))
         {
             System.out.println("You have borrowed this book already." +
-                        " Return that copy to borrow another one.");
+                        " Please try again. ");
             return false;
         }
         m_numBooksOnRent++;
