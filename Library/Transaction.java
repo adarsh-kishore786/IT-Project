@@ -64,7 +64,7 @@ public class Transaction implements Serializable {
           CVV = Main.sc.nextLine();
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction...\n");
-            Main.sleep(1);
+            AuthService.sleep(1);
             System.out.println("Transaction Successful!\n");
             status = true;
           } else
@@ -144,7 +144,7 @@ public class Transaction implements Serializable {
     LocalDate newDate = LocalDate.now();
     for (int i = 0; i < borrowedBooks.size(); i++) {
       if (borrowedBooks.get(i).getISBN() == b.getISBN()) {
-        if (isReturned.get(i)) {
+        if (!isReturned.get(i)) {
           status = false;
           break;
         }
