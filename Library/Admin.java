@@ -106,13 +106,6 @@ public class Admin extends Person
 
     public boolean sellBook(Transaction trans, Book b)
     {
-        int numCopies = getNumCopiesAvailable(b);
-        if (numCopies == 0) // if no copies, then return
-        {
-            System.out.println("Sorry, this book has no copies!");
-            return false;
-        }
-
         if (!trans.sellBookTransaction(b))
             return false;
      m_revenue+=b.getPrice();
@@ -123,13 +116,6 @@ public class Admin extends Person
 
     public boolean rentBook(Transaction trans, Book b)
     {
-        int numCopies = getNumCopiesAvailable(b);
-        if (numCopies == 0)
-        {
-            System.out.println("Sorry, this book has no copies!");
-            return false;
-        }
-
         // If customer has 1 copy already, then transaction fails
         if (!trans.rentBookTransaction(b))
         {
@@ -182,75 +168,4 @@ public class Admin extends Person
     }
 
     public static double getFineRate() { return m_fineRate; }
-
-    private int getNumCopiesAvailable(Book b)
-    {
-        // Check if book is available
-        // How many copies are there
-        // System.out.println("There are " + b.getNumCopies() + " copies of this book available.");
-        int numCopies = 1;
-
-        // How many copies Customer wants to buy
-        // System.out.println("Take 1 copy? (Y/N )");
-        // Scanner sc = new Scanner(System.in);
-        // char c='Y';
-        // c= sc.next().charAt(0);
-        // sc.nextLine();
-        // if (c!='Y')
-        //     numCopies = 0;
-        // //if (c != 1) numCopies = 0;
-        // sc.close();
-
-        return numCopies;
-    }
 }
-
-    /*private void listOfBooks()
-    {
-        ArrayList<Book> books = new ArrayList<>();
-        ArrayList<String> genre = new ArrayList<>();
-        genre.add("Fiction");
-        genre.add("Historical");
-
-        books.add(new Book("The Forest of Vanishing Stars", "Kristin Harmel",
-                    genre, 450.0, "9781982158934"));
-
-        genre.clear();
-        genre.add("Mystery");
-        genre.add("Detective");
-        genre.add("Fiction");
-        genre.add("Historical");
-
-        books.add(new Book("The Devil and the Dark Water", "Stuart Turton",
-                    genre, 548.48, "9781728234298"));
-
-        genre.clear();
-        genre.add("Non-Fiction");
-        genre.add("Contemporary");
-        genre.add("Spiritual");
-
-        books.add(new Book("Transcedental Kingdom", "Yaa Gyasi",
-                    genre, 767.36, "9781984899767"));
-
-        genre.clear();
-        genre.add("Historical");
-        genre.add("Fiction");
-
-        books.add(new Book("The Exiles", "Christina Baker Kline",
-                    genre, 815.40, "9780062356338"));
-
-        genre.clear();
-        genre.add("Non-fiction");
-        genre.add("Mathematics");
-
-        books.add(new Book("Contemporary Abstract Algebra", "Joseph Gallian",
-                    genre, 490.00, "9789353502522"));
-
-        genre.clear();
-        genre.add("Fiction");
-        genre.add("Science Fiction");
-
-        books.add(new Book("The End of Eternity", "Isaac Asimov",
-                    genre, 195.00, "9780449237045"));
-    }
-} */

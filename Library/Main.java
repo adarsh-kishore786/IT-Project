@@ -49,17 +49,4 @@ public class Main
 
         welcome();
     }
-
-    public static void sleep(int seconds)
-    {
-        try
-        {
-            TimeUnit.SECONDS.sleep(seconds);
-        }
-        catch (InterruptedException ie)
-        {
-            System.out.println(ie);
-        }
-    }
-
 }
