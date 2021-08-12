@@ -259,7 +259,7 @@ public class CustomerOptions {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     if(map.isEmpty()){
       System.out.println("\nNO HISTORY!");
-      Main.sleep(1);
+      AuthService.sleep(1);
       return;
     }
 
