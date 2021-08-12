@@ -254,7 +254,10 @@ public class CustomerOptions {
         confirmBook(selectedBook);
   }
 
-  private void showUnavailableBooks() {}
+  private void showUnavailableBooks()
+  {
+    
+  }
 
   //display history
   public void showHistory(){
