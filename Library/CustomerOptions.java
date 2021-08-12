@@ -26,8 +26,9 @@ public class CustomerOptions {
       System.out.println("1. Borrow A Book");
       System.out.println("2. Return A Book");
       System.out.println("3. Buy A Book");
-      System.out.println("4. View History");
-      System.out.println("5. Log Out");
+      System.out.println("4. View List of Books You've Currently Borrowed");
+      System.out.println("5. View History");
+      System.out.println("6. Log Out");
       System.out.print("Enter the option number: ");
       int choice = 0;
 
@@ -49,9 +50,11 @@ public class CustomerOptions {
           case 3: transaction=3;
                   showCatalogue();
                   break;
-          case 4: showHistory();
+          case 4: showBorrowDetails();
                   break;
-          case 5: System.out.println();
+          case 5: showHistory();
+                  break;
+          case 6: System.out.println();
                   auth.logout();
                   break;
 
@@ -252,6 +255,27 @@ public class CustomerOptions {
 
   private void showUnavailableBooks()
   {
+
+  }
+
+  //display borrowed book details
+  public void showBorrowDetails()
+  {
+    
+    if(c.booksBorrowed.isEmpty()){
+      System.out.println("\nNo Book Found!");
+      return;
+    }
+    int i=1;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+    for(Book b:c.booksBorrowed){
+      System.out.println("\n"+i+"\n"+b);
+      String borrowDate=c.transaction.getDateOfBorrow(b).format(formatter);
+      String maxDate=c.transaction.getDateOfBorrow(b).plusDays(14).format(formatter);
+      System.out.println("Date when you Borrowed this Book : "+borrowDate);
+      System.out.println("Last Date to Return without Fine : "+maxDate);
+      i++;
+    }
 
   }
 
