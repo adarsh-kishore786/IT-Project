@@ -6,10 +6,6 @@ import java.time.*;
 public class Main
 {
     public static Scanner sc = new Scanner(System.in);
-    public static void error()
-    {
-        System.out.println("That's an invalid input. Please try again.\n");
-    }
 
     public static void welcome()
     {
@@ -32,7 +28,7 @@ public class Main
             else if (ch.equalsIgnoreCase("e"))
               System.exit(0);
             else
-                error();
+                auth.error();
 
             ch = "";
         } while (!ch.equalsIgnoreCase("l") && !ch.equalsIgnoreCase("s") && !ch.equalsIgnoreCase("e"));
