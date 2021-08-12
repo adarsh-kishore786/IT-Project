@@ -113,6 +113,10 @@ public class Customer extends Person {
       Customer.saveCustomer(this);
 
       System.out.println("Bought Successfully!");
+
+      ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
+      dates.add(this.getTransaction().getDateOfPurchase(book));
+      history.put(book, dates);
     }
       //set transaction purchase date
       // this.transaction.setDateOfPurchase(purchaseDate);

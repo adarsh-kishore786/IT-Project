@@ -270,14 +270,26 @@ public class CustomerOptions {
     for (Map.Entry<Book,ArrayList<LocalDate>> entry : map.entrySet()) {
       Book book=(Book) entry.getKey();
       ArrayList<LocalDate> dates=(ArrayList<LocalDate>) entry.getValue();
-      String borrowDate = dates.get(0).format(formatter);
-      String returnDate = dates.get(1).format(formatter);
+      if(dates.size()==2)
+      {
+        String borrowDate = dates.get(0).format(formatter);
+        String returnDate = dates.get(1).format(formatter);
 
-      System.out.println("\n" + index++);
-      System.out.println(book);
-      System.out.println("Transaction Details: ");
-      System.out.println("Borrow Date  : "+borrowDate);
-      System.out.println("Return Date  : "+returnDate+"\n");
+        System.out.println("\n" + index++);
+        System.out.println(book);
+        System.out.println("Transaction Details: ");
+        System.out.println("Borrow Date  : "+borrowDate);
+        System.out.println("Return Date  : "+returnDate+"\n");
+      }
+      else
+      {
+        String purchaseDate = dates.get(0).format(formatter);
+        System.out.println("\n" + index++);
+        System.out.println(book);
+        System.out.println("Transaction Details: ");
+        System.out.println("Bought Date  : "+purchaseDate+"\n");
+
+      }
       System.out.println("---------------------------------");
     }
   }
