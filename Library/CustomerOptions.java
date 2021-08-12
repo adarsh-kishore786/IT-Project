@@ -7,17 +7,23 @@ import java.time.format.DateTimeFormatter;
 //TODO:After entering an index and entering b, exit to the list of books instead of showOptions
 
 public class CustomerOptions {
+  
   private static Scanner sc=null;
-  private Customer c=null;    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-    if(map.isEmpty()){
+  private Customer c=null;   
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+    
+  if(map.isEmpty()){
       System.out.println("\nNO HISTORY!");
-      Main.sleep(1);
+      //AuthService.sleep(1);
       AuthService.sleep(1);
       return;
     }
   private AuthService auth=null;
   private int transaction;
+  CustomerOptions()
+  {
 
+  }
   CustomerOptions(Customer cust,AuthService auth,Scanner sc1){
     this.c=cust;
     this.auth=auth;
@@ -267,7 +273,7 @@ public class CustomerOptions {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     if(map.isEmpty()){
       System.out.println("\nNO HISTORY!");
-      Main.sleep(1);
+      AuthService.sleep(1);
       return;
     }
 
