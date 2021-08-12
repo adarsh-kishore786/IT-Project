@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 //TODO:After entering an index and entering b, exit to the list of books instead of showOptions
 
 public class CustomerOptions {
-  
+
   private static Scanner sc=null;
-  private Customer c=null;   
+  private Customer c=null;
   private AuthService auth=null;
   private int transaction;
   CustomerOptions()
@@ -253,6 +253,8 @@ public class CustomerOptions {
         Book selectedBook = selectBook(booklist);
         confirmBook(selectedBook);
   }
+
+  private void showUnavailableBooks() {}
 
   //display history
   public void showHistory(){
