@@ -152,6 +152,10 @@ public class Transaction implements Serializable {
       borrowedBooks.add(b);
       isReturned.add(false);
       dateOfBorrow.add(newDate);
+
+      //updating index in return dates to null
+      dateOfReturn.add(null);
+
       newNumberCopies = b.getNumCopies();
       --newNumberCopies; // Decrease number of copies
       b.setNumCopies(newNumberCopies);
@@ -197,7 +201,7 @@ public class Transaction implements Serializable {
       // ++newNumberCopies;
       // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
-      dateOfReturn.add(index, calculateDate);
+      dateOfReturn.set(index,calculateDate);
 
       ArrayList<Book> books = Catalogue.getBooks();
       for (Book b : books) {
