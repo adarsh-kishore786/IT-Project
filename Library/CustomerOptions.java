@@ -28,7 +28,8 @@ public class CustomerOptions {
       System.out.println("3. Buy A Book");
       System.out.println("4. View List of Books You've Currently Borrowed");
       System.out.println("5. View History");
-      System.out.println("6. Log Out");
+      System.out.println("6. View User Manual");
+      System.out.println("7. Log Out");
       System.out.print("Enter the option number: ");
       int choice = 0;
 
@@ -54,7 +55,9 @@ public class CustomerOptions {
                   break;
           case 5: showHistory();
                   break;
-          case 6: System.out.println();
+          case 6: viewManual();
+                  break;
+          case 7: System.out.println();
                   auth.logout();
                   break;
 
@@ -405,5 +408,15 @@ public class CustomerOptions {
           }
       }  while (!val.equalsIgnoreCase("exit"));
       arList.remove(arList.size() - 1);
+  }
+
+  public static void viewManual()
+  {
+    System.out.println("\nA list of instructions: \n");
+    System.out.println("1. The maximum number of books that can be borrowed at once is 5.");
+    System.out.println("2. Each book can be borrowed for a maximum of 14 days.");
+    System.out.println("3. After 14 days, fine will be imposed at the rate of Rs 100.00 x days exceeded ");
+    System.out.println("4. You can only borrow a book once.");
+    System.out.println("5. Be sure to note down your username and password. Your username will be generated and displayed after you sign up. \n\nIMPORTANT: You cannot change your username and password!\n");
   }
 }

@@ -20,7 +20,7 @@ public class Main
         {
             System.out.print("(L)ogin, (S)ign up or (E)xit: ");
             ch = sc.nextLine();
-
+            System.out.println();
             if (ch.equalsIgnoreCase("l"))
                 auth.login();  //login();
             else if (ch.equalsIgnoreCase("s"))
