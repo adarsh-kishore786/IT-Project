@@ -40,16 +40,24 @@ public class AuthService {
       String password = null;
 
       // password = getString(c.readPassword("Enter your password: "));
-      System.out.print("Enter your password: ");
-      password = sc.nextLine();
+      
+	  Console c=System.console();
+	  System.out.print("Enter your password: ");
+	  if(c==null){
+		  System.out.println("Console unavailable");
+		  password = sc.nextLine();
+	  }
+	  else password=c.readPassword().toString();
 
       if (!password.equals(admin.getPassword()) || !username.equals(admin.getUsername()))
       {
           System.err.println("Invalid username/password.\n");
+		  password=null;
           return;
       }
 
       System.out.println("Welcome administrator " + admin.getName() + ", logging you in...\n");
+	  password=null;
       sleep(1);
       adOptions=new AdminOptions(admin, this, sc);
       adOptions.showFunctions();
