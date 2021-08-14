@@ -57,7 +57,7 @@ public class AdminOptions {
                     break;
                 case 8:
                     System.out.println();
-                    return;
+                    Main.main(null);
                 default:
                     System.out.println("That's an invalid option. Try again.\n");
             }
