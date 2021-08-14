@@ -57,7 +57,7 @@ public class Transaction implements Serializable {
         System.out.println();
         String temp1 = expiryDate.substring(0, 2);
         String temp2 = expiryDate.substring(3, 5);
-        if (Integer.parseInt(temp2) < y)
+        if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1)>12 || Integer.parseInt(temp1)<1)
           System.out.println("Invalid expiry date!\n");
         else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
           System.out.println("Invalid expiry date!\n");

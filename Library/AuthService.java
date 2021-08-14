@@ -41,13 +41,14 @@ public class AuthService {
 
       // password = getString(c.readPassword("Enter your password: "));
       
-	  Console c=System.console();
+	  //Console c=System.console();
 	  System.out.print("Enter your password: ");
-	  if(c==null){
-		  System.out.println("Console unavailable");
-		  password = sc.nextLine();
-	  }
-	  else password=c.readPassword().toString();
+	//   if(c==null){
+	// 	  System.out.println("Console unavailable");
+	// 	  password = sc.nextLine();
+	//   }
+      password = sc.nextLine();
+	  //else password=c.readPassword().toString();
 
       if (!password.equals(admin.getPassword()) || !username.equals(admin.getUsername()))
       {
