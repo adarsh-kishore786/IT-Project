@@ -57,7 +57,7 @@ public class Transaction implements Serializable {
         System.out.println();
         String temp1 = expiryDate.substring(0, 2);
         String temp2 = expiryDate.substring(3, 5);
-        if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1)>12 || Integer.parseInt(temp1)<1)
+        if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1) > 12 || Integer.parseInt(temp1) < 1)
           System.out.println("Invalid expiry date!\n");
         else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
           System.out.println("Invalid expiry date!\n");
@@ -147,8 +147,8 @@ public class Transaction implements Serializable {
     LocalDate newDate = LocalDate.now();
     for (int i = 0; i < borrowedBooks.size(); i++) {
       if (b.getISBN().equals(borrowedBooks.get(i).getISBN())) {
-          status = false;
-          break;
+        status = false;
+        break;
       }
     }
     if (status == true) {
@@ -156,7 +156,7 @@ public class Transaction implements Serializable {
       isReturned.add(false);
       dateOfBorrow.add(newDate);
 
-      //updating index in return dates to null
+      // updating index in return dates to null
       dateOfReturn.add(null);
 
       newNumberCopies = b.getNumCopies();
@@ -204,7 +204,7 @@ public class Transaction implements Serializable {
       // ++newNumberCopies;
       // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
-      dateOfReturn.set(index,calculateDate);
+      dateOfReturn.set(index, calculateDate);
 
       ArrayList<Book> books = Catalogue.getBooks();
       for (Book b : books) {

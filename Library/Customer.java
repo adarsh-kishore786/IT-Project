@@ -4,236 +4,234 @@ import java.time.LocalDate;
 
 public class Customer extends Person {
 
-  private static Admin admin=Admin.getAdmin();
-  private static ArrayList<Customer> customerList=new ArrayList<>(); //contains all customer objects; note that it is static
+  private static Admin admin = Admin.getAdmin();
+  private static ArrayList<Customer> customerList = new ArrayList<>(); // contains all customer objects; note that it is
+                                                                       // static
 
-  private static int borrowLimit=Admin.getNumBooksBorrowLimit();
+  private static int borrowLimit = Admin.getNumBooksBorrowLimit();
   private int numBooksBorrowed;
   private int numBooksBought;
-  HashMap<Book,ArrayList<LocalDate>> history; //planning to make hisory an array list at a later stage
-  ArrayList<Book> booksBorrowed; //initialized in constructor
-  ArrayList<Book> booksBought; //initialized in constructor
-  Transaction transaction; //contains history of borrow/return dates with fine; unique to every customer
+  HashMap<Book, ArrayList<LocalDate>> history; // planning to make hisory an array list at a later stage
+  ArrayList<Book> booksBorrowed; // initialized in constructor
+  ArrayList<Book> booksBought; // initialized in constructor
+  Transaction transaction; // contains history of borrow/return dates with fine; unique to every customer
 
-  public Customer(){
-      // if (customerList.size() > 0)
-      //   return;
-      // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
-      // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
-      // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
-      // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org", "B1n@ry-M");
-      
-      // customerList.add(c1);
-      // customerList.add(c2);
-      // customerList.add(c3);
-      // customerList.add(c4);
-      
-      // //System.out.println("!" + customerList.size());
-      // saveCustomer();
-      initCustomerList();
+  public Customer() {
+    // if (customerList.size() > 0)
+    // return;
+    // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
+    // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
+    // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
+    // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org",
+    // "B1n@ry-M");
+
+    // customerList.add(c1);
+    // customerList.add(c2);
+    // customerList.add(c3);
+    // customerList.add(c4);
+
+    // //System.out.println("!" + customerList.size());
+    // saveCustomer();
+    initCustomerList();
   }
 
-  Customer(String name,int age,String userName,String password){
-    super(name,age,userName,password);
-    this.booksBorrowed=new ArrayList<Book>();
-    this.booksBought=new ArrayList<Book>();
-    this.transaction=new Transaction();
-    this.history=new HashMap<Book,ArrayList<LocalDate>>();
+  Customer(String name, int age, String userName, String password) {
+    super(name, age, userName, password);
+    this.booksBorrowed = new ArrayList<Book>();
+    this.booksBought = new ArrayList<Book>();
+    this.transaction = new Transaction();
+    this.history = new HashMap<Book, ArrayList<LocalDate>>();
     // this.booksBorrowed= new Book[numBooksBorrowed];
     // this.booksBought=new Book[numBooksBought];
   }
 
-  int getBorrowLimit(){
+  int getBorrowLimit() {
     return borrowLimit;
   }
 
-  int getNumBooksBorrowed(){
+  int getNumBooksBorrowed() {
     return this.numBooksBorrowed;
   }
 
-  int getNumBooksBought(){
+  int getNumBooksBought() {
     return this.numBooksBought;
   }
 
-  ArrayList<Customer> getCustomers(){
-      return customerList;
+  ArrayList<Customer> getCustomers() {
+    return customerList;
   }
 
-  int addCustomer(Customer c){
-      for (Customer c1 : customerList)
-      {
-          if (c1.getUsername().equals(c.getUsername()))
-          {
-              System.out.println("This username is already taken. Try another\n");
-              return 2;
-          }
+  int addCustomer(Customer c) {
+    for (Customer c1 : customerList) {
+      if (c1.getUsername().equals(c.getUsername())) {
+        System.out.println("This username is already taken. Try another\n");
+        return 2;
       }
+    }
 
-      String ch = "";
-      do
-      {
-          System.out.print("One-time membership is Rs. 100.00. Pay amount (Y/N): ");
-          ch = Main.sc.nextLine();
-          System.out.println();
-          if (ch.equalsIgnoreCase("Y"))
-          {
-              boolean b = Transaction.custAdd();
-              if (b) break;
-              return 1;
-          }
-          else if (ch.equalsIgnoreCase("N"))
-            return 1;
-          else
-            System.out.println("Invalid input. Try again.\n");
-      }
-      while (true);
+    String ch = "";
+    do {
+      System.out.print("One-time membership is Rs. 100.00. Pay amount (Y/N): ");
+      ch = Main.sc.nextLine();
+      System.out.println();
+      if (ch.equalsIgnoreCase("Y")) {
+        boolean b = Transaction.custAdd();
+        if (b)
+          break;
+        return 1;
+      } else if (ch.equalsIgnoreCase("N"))
+        return 1;
+      else
+        System.out.println("Invalid input. Try again.\n");
+    } while (true);
 
-      customerList.add(c);
-      Customer.saveCustomer();
-      return 0;
+    customerList.add(c);
+    Customer.saveCustomer();
+    return 0;
   }
 
   void buyBook(Book book) {
-    //currently no restriction on buying
-    //Date purchaseDate=new Date(); //returns current date
+    // currently no restriction on buying
+    // Date purchaseDate=new Date(); //returns current date
 
-    //reduce number of copies of book
+    // reduce number of copies of book
 
-    if(admin.sellBook(transaction,book)){
-      //int n=book.getNumCopies();
-      //book.setNumCopies(n-1);
-      booksBought.add(book); //update array list
-      numBooksBought=booksBought.size(); //update number of books bought
+    if (admin.sellBook(transaction, book)) {
+      // int n=book.getNumCopies();
+      // book.setNumCopies(n-1);
+      booksBought.add(book); // update array list
+      numBooksBought = booksBought.size(); // update number of books bought
 
-      //updating book list
+      // updating book list
       book.setBuyers(this);
-      //Book.saveBook(); already called in Book.java
+      // Book.saveBook(); already called in Book.java
 
-      //update dat file
+      // update dat file
       Customer.saveCustomer(this);
 
       System.out.println("Bought Successfully!");
 
-      ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
+      ArrayList<LocalDate> dates = new ArrayList<LocalDate>();
       dates.add(this.getTransaction().getDateOfPurchase(book));
       history.put(book, dates);
     }
-      //set transaction purchase date
-      // this.transaction.setDateOfPurchase(purchaseDate);
+    // set transaction purchase date
+    // this.transaction.setDateOfPurchase(purchaseDate);
   }
 
-  void borrowBook(Book book){
-    //return current date
-    //Date borrowDate=new Date();
+  void borrowBook(Book book) {
+    // return current date
+    // Date borrowDate=new Date();
 
-    //check if limit is respected
-    if(booksBorrowed.size()<borrowLimit){
+    // check if limit is respected
+    if (booksBorrowed.size() < borrowLimit) {
 
-      if(admin.rentBook(transaction,book)){
+      if (admin.rentBook(transaction, book)) {
         book.setBorrowers(this);
         Catalogue.saveBooks();
 
-        booksBorrowed.add(book); //add book to customer list of borrowed books
-        numBooksBorrowed=booksBorrowed.size();
+        booksBorrowed.add(book); // add book to customer list of borrowed books
+        numBooksBorrowed = booksBorrowed.size();
 
-        //update dat file
+        // update dat file
         Customer.saveCustomer(this);
 
-        System.out.println("Congrats! You have borrowed a new book!");
+        System.out.println("\nCongrats! You have borrowed a new book!");
       }
 
-    }else System.out.println("Borrow Limit Reached! Please return a book to continue"); //response to limit breach
+    } else
+      System.out.println("Borrow Limit Reached! Please return a book to continue"); // response to limit breach
   }
 
-  void returnBook(Book book){
-    if(admin.getBackBook(transaction,book)){
+  void returnBook(Book book) {
+    if (admin.getBackBook(transaction, book)) {
 
-      //update history by adding the book and list of dates to hashmap
-      ArrayList<LocalDate> dates=new ArrayList<LocalDate>();
+      // update history by adding the book and list of dates to hashmap
+      ArrayList<LocalDate> dates = new ArrayList<LocalDate>();
       dates.add(this.getTransaction().getDateOfBorrow(book));
       dates.add(this.getTransaction().getDateOfReturn(book));
-      history.put(book,dates);
+      history.put(book, dates);
 
-      //remove book from list
-      for (Book b:booksBorrowed) {
-        if(b.getTitle().equals(book.getTitle())) {
+      // remove book from list
+      for (Book b : booksBorrowed) {
+        if (b.getTitle().equals(book.getTitle())) {
           booksBorrowed.remove(b);
-          numBooksBorrowed=booksBorrowed.size();
+          numBooksBorrowed = booksBorrowed.size();
           break;
         }
       }
 
-      //update dat file
+      // update dat file
       Customer.saveCustomer(this);
-      System.out.println("Successfully Returned!");
+      System.out.println("\nSuccessfully Returned!");
     }
-    //initializeReturnTransaction(return  Date);
+    // initializeReturnTransaction(return Date);
   }
 
-  HashMap<Book,ArrayList<LocalDate>> getHistory(){
+  HashMap<Book, ArrayList<LocalDate>> getHistory() {
     return this.history;
   }
 
-  //return transaction object
-  Transaction getTransaction(){
+  // return transaction object
+  Transaction getTransaction() {
     return transaction;
   }
 
-  //write customer object to dat file
-  static void saveCustomer(){
+  // write customer object to dat file
+  static void saveCustomer() {
 
-   //ObjectOutputStream os=null; //stream that writes object to file
-   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
-     os.writeObject(customerList); //write array list to file
-     initCustomerList();
+    // ObjectOutputStream os=null; //stream that writes object to file
+    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+      os.writeObject(customerList); // write array list to file
+      initCustomerList();
 
-   }catch(IOException e){
-     System.err.println(e);
-     //customerList.remove(this);
-   }
- }
-
-  static void saveCustomer(Customer cust){
-
-   //ObjectOutputStream os=null; //stream that writes object to file
-   try(ObjectOutputStream os=new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
-      if(cust != null){
-       for (Customer c: customerList) {
-           if(c.getUsername().equals(cust.getUsername())) {
-             int index=customerList.indexOf(c);
-             customerList.set(index,cust); //update customer object to list
-             break;
-           }
-         }
-      }
-       os.writeObject(customerList); //write array list to file
-       initCustomerList();
-
-     } catch(IOException e){
-        System.err.println(e);
-       //customerList.remove(this);
-     }
+    } catch (IOException e) {
+      System.err.println(e);
+      // customerList.remove(this);
+    }
   }
 
-  //get customer object from list
-  static Customer getCustomer(int n)
-  {
-    //initCustomerList();
+  static void saveCustomer(Customer cust) {
+
+    // ObjectOutputStream os=null; //stream that writes object to file
+    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+      if (cust != null) {
+        for (Customer c : customerList) {
+          if (c.getUsername().equals(cust.getUsername())) {
+            int index = customerList.indexOf(c);
+            customerList.set(index, cust); // update customer object to list
+            break;
+          }
+        }
+      }
+      os.writeObject(customerList); // write array list to file
+      initCustomerList();
+
+    } catch (IOException e) {
+      System.err.println(e);
+      // customerList.remove(this);
+    }
+  }
+
+  // get customer object from list
+  static Customer getCustomer(int n) {
+    // initCustomerList();
     return customerList.get(n);
   }
 
   @SuppressWarnings("unchecked")
-  private static void initCustomerList(){
-      //ObjectInputStream in=null;
-      //try with resources block doesnt need resource closing
-      try(ObjectInputStream in=new ObjectInputStream(new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+  private static void initCustomerList() {
+    // ObjectInputStream in=null;
+    // try with resources block doesnt need resource closing
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
 
-        customerList=(ArrayList<Customer>) in.readObject(); //write array list to file
+      customerList = (ArrayList<Customer>) in.readObject(); // write array list to file
 
-      }catch(IOException e){
-        System.err.println(e);
-      } catch(ClassNotFoundException e){
-        System.err.println(e);
-      }
+    } catch (IOException e) {
+      System.err.println(e);
+    } catch (ClassNotFoundException e) {
+      System.err.println(e);
+    }
   }
 }

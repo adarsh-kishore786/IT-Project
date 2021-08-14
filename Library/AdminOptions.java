@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class AdminOptions {
     private static Scanner sc = null;
     private Admin admin = null;
@@ -24,7 +25,7 @@ public class AdminOptions {
             System.out.println("6. See the history of a customer");
             System.out.println("7. Delete an account of a customer");
             System.out.println("8. Log out");
-            System.out.print("Enter option number: ");
+            System.out.print("\nEnter option number: ");
             int choice = 0;
             try {
                 choice = Integer.parseInt(sc.nextLine());
@@ -56,7 +57,8 @@ public class AdminOptions {
                     removeAcc();
                     break;
                 case 8:
-                    System.out.println();
+                    System.out.println("Logging you out...");
+                    AuthService.sleep(1);
                     Main.main(null);
                 default:
                     System.out.println("That's an invalid option. Try again.\n");
@@ -206,7 +208,7 @@ public class AdminOptions {
 
     private void removeBook() {
         ArrayList<String> isbnList = new ArrayList<>();
-        System.out.println("Enter ISBNs of books to remove (\"exit\" to stop):");
+        System.out.println("\nEnter ISBNs of books to remove (\"exit\" to stop):");
         CustomerOptions.addToList(isbnList, sc);
 
         ArrayList<Book> removeBooksList = new ArrayList<>();
