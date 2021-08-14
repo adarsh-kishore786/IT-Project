@@ -12,6 +12,7 @@ public class CustomerOptions {
   private Customer c=null;
   private AuthService auth=null;
   private int transaction;
+  private static int choiceCatalogue=0;
   CustomerOptions(Customer cust,AuthService auth,Scanner sc1){
     this.c=cust;
     this.auth=auth;
@@ -23,13 +24,14 @@ public class CustomerOptions {
   public void showOptions(){
     while (true) {
       System.out.println("\nWhat do you want to do?");
-      System.out.println("1. Borrow A Book");
-      System.out.println("2. Return A Book");
-      System.out.println("3. Buy A Book");
-      System.out.println("4. View List of Books You've Currently Borrowed");
-      System.out.println("5. View History");
-      System.out.println("6. View User Manual");
-      System.out.println("7. Log Out");
+      System.out.println("1. View Catalogue");
+      System.out.println("2. Borrow A Book");
+      System.out.println("3. Return A Book");
+      System.out.println("4. Buy A Book");
+      System.out.println("5. View List of Books You've Currently Borrowed");
+      System.out.println("6. View History");
+      System.out.println("7. User Manual");
+      System.out.println("8. Log Out");
       System.out.print("Enter the option number: ");
       int choice = 0;
 
@@ -42,22 +44,28 @@ public class CustomerOptions {
       }
 
       switch(choice){
-          case 1: transaction=1;
+          case 1: choiceCatalogue=1;
                   showCatalogue();
                   break;
-          case 2: transaction=2;
+          case 2: transaction=1;
+                  choiceCatalogue=0;
+                  showCatalogue();
+                  break;
+          case 3: transaction=2;
+                  choiceCatalogue=0;
                   showBorrowedBooks();
                   break;
-          case 3: transaction=3;
+          case 4: transaction=3;
+                  choiceCatalogue=0;
                   showCatalogue();
                   break;
-          case 4: showBorrowDetails();
+          case 5: showBorrowDetails();
                   break;
-          case 5: showHistory();
+          case 6: showHistory();
                   break;
-          case 6: viewManual();
+          case 7: viewManual();
                   break;
-          case 7: System.out.println();
+          case 8: System.out.println();
                   auth.logout();
                   break;
 
@@ -72,7 +80,7 @@ public class CustomerOptions {
 
     while(true){
       System.out.println("\n1. Get book by its title");
-      System.out.println("2. Filter Books based on price");
+      System.out.println("2. Filter Books under a price");
       System.out.println("3. Filter Books based on authors");
       System.out.println("4. Filter Books based on genre");
       System.out.println("5. Filter Books based on availability");
@@ -127,7 +135,18 @@ public class CustomerOptions {
       return;
     }
     System.out.println(selectedBook);
-    confirmBook(selectedBook);
+    if(choiceCatalogue==0)
+      confirmBook(selectedBook);
+    else
+    {
+      System.out.println("Go (B)ack to filters.");
+      String ch;
+      do
+      {
+        ch=sc.nextLine();
+      }while(!ch.equalsIgnoreCase("b"));
+      showCatalogue();
+    }
     return;
   }
 
@@ -144,8 +163,21 @@ public class CustomerOptions {
             return;
           }
           showBooks(booklist);
-          selectedBook = selectBook(booklist);
-          confirmBook(selectedBook);
+          if(choiceCatalogue==0)
+          {
+            selectedBook = selectBook(booklist);
+            confirmBook(selectedBook);
+          }
+          else
+          {
+            System.out.println("Go (B)ack to filters.");
+            String ch;
+            do
+            {
+              ch=sc.nextLine();
+            }while(!ch.equalsIgnoreCase("b"));
+            showCatalogue();
+          }
           break;
       } catch (NumberFormatException e){
           System.out.println("That's an invalid price. Try again.\n");
@@ -167,8 +199,21 @@ public class CustomerOptions {
       return;
     }
     showBooks(booklist);
-    selectedBook = selectBook(booklist);
-    confirmBook(selectedBook);
+    if(choiceCatalogue==0)
+          {
+            selectedBook = selectBook(booklist);
+            confirmBook(selectedBook);
+          }
+          else
+          {
+            System.out.println("\nGo (B)ack to filters.");
+            String ch;
+            do
+            {
+              ch=sc.nextLine();
+            }while(!ch.equalsIgnoreCase("b"));
+            showCatalogue();
+          }
   }
 
   private void filterByGenre(){
@@ -185,8 +230,21 @@ public class CustomerOptions {
         return;
       }
       showBooks(booklist);
-      selectedBook = selectBook(booklist);
-      confirmBook(selectedBook);
+      if(choiceCatalogue==0)
+          {
+            selectedBook = selectBook(booklist);
+            confirmBook(selectedBook);
+          }
+          else
+          {
+            System.out.println("Go (B)ack to filters.");
+            String ch;
+            do
+            {
+              ch=sc.nextLine();
+            }while(!ch.equalsIgnoreCase("b"));
+            showCatalogue();
+          }
   }
 
   private void filterByISBN(){
@@ -218,48 +276,48 @@ public class CustomerOptions {
       return;
     }
     showBooks(booklist);
-    selectedBook = selectBook(booklist);
-    confirmBook(selectedBook);
+    if(choiceCatalogue==0)
+          {
+            selectedBook = selectBook(booklist);
+            confirmBook(selectedBook);
+          }
+          else
+          {
+            System.out.println("Go (B)ack to filters.");
+            String ch;
+            do
+            {
+              ch=sc.nextLine();
+            }while(!ch.equalsIgnoreCase("b"));
+            showCatalogue();
+          }
   }
 
   private void filterByAvailability(){
-    int choice=0;
-    while(true) {
-      System.out.println("1.Show Available Books");
-      System.out.println("2.Show Borrowed Books");
-      System.out.print("Enter option number: ");
-      try {
-        choice=Integer.parseInt(sc.nextLine());
-      } catch(NumberFormatException e) {
-        System.err.println(e);
-      }
-      switch (choice) {
-        case 1: showAvailableBooks();
-                return;
-        case 2: showUnavailableBooks();
-                return;
-        default:  System.out.println("That's an invalid option. Try again.\n");
-      }
-    }
-  }
-
-  //show unborrowed books
-  private void showAvailableBooks(){
-
-        ArrayList<Book> booklist=Catalogue.getIfAvailable();
+    ArrayList<Book> booklist=Catalogue.getIfAvailable();
         if(booklist.isEmpty()){
           System.out.println("\nNo Book Found!");
           return;
         }
         showBooks(booklist);
-        Book selectedBook = selectBook(booklist);
-        confirmBook(selectedBook);
+        Book selectedBook;
+        if(choiceCatalogue==0)
+          {
+            selectedBook = selectBook(booklist);
+            confirmBook(selectedBook);
+          }
+          else
+          {
+            System.out.println("Go (B)ack to filters.");
+            String ch;
+            do
+            {
+              ch=sc.nextLine();
+            }while(!ch.equalsIgnoreCase("b"));
+            showCatalogue();
+          }
   }
 
-  private void showUnavailableBooks()
-  {
-
-  }
 
   //display borrowed book details
   public void showBorrowDetails()
