@@ -131,6 +131,8 @@ public class AuthService {
 
       System.out.println("\nNew user created:");
       System.out.println(c);
+      
+      CustomerOptions.viewManual();
 
       if (fees == 0)
         return;

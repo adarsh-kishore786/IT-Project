@@ -47,12 +47,14 @@ public class Transaction implements Serializable {
       System.out.println("Enter debit/credit card number: ");
       cardNumber = Main.sc.nextLine();
       count = cardNumber.length();
+      System.out.println();
       if (count != 16 || !checkStringIsANumber(cardNumber))
         System.out.println("Invalid card number!\n");
       else {
         count = 0;
         System.out.println("Enter Expiry Date in MM/YY format: ");
         expiryDate = Main.sc.nextLine();
+        System.out.println();
         String temp1 = expiryDate.substring(0, 2);
         String temp2 = expiryDate.substring(3, 5);
         if (Integer.parseInt(temp2) < y)
@@ -62,6 +64,7 @@ public class Transaction implements Serializable {
         } else {
           System.out.println("Enter CVV/CVC: ");
           CVV = Main.sc.nextLine();
+          System.out.println();
           if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
             System.out.println("Processing transaction...\n");
             AuthService.sleep(1);
