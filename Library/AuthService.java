@@ -31,23 +31,18 @@ public class AuthService {
       //saveAdmin();
       Admin admin = Admin.getAdmin();
 
-      // Console c = System.console();
-      // if (c == null)
-      // {
-      //     System.err.println("No console");
-      //     System.exit(1);
-      // }
       String password = null;
 
-      // password = getString(c.readPassword("Enter your password: "));
-      
-	  Console c=System.console();
-	  System.out.print("Enter your password: ");
-	  if(c==null){
-		  System.out.println("Console unavailable");
-		  password = sc.nextLine();
-	  }
-	  else password=c.readPassword().toString();
+      //password = getString(c.readPassword("Enter your password: "));
+      System.out.print("Enter yout password: ");
+      password = sc.nextLine();
+	  // Console c=System.console();
+	  // System.out.print("Enter your password: ");
+	  // if(c==null){
+		//   System.out.println("Console unavailable");
+		//   password = sc.nextLine();
+	  // }
+	  // else password=c.readPassword().toString();
 
       if (!password.equals(admin.getPassword()) || !username.equals(admin.getUsername()))
       {
@@ -131,7 +126,7 @@ public class AuthService {
 
       System.out.println("\nNew user created:");
       System.out.println(c);
-      
+
       CustomerOptions.viewManual();
 
       if (fees == 0)
