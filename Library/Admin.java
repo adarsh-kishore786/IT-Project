@@ -1,3 +1,4 @@
+
 /**
  * Will handle the functions of the admin of
  * the library.
@@ -9,8 +10,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.time.LocalDate;
 
-public class Admin extends Person
-{
+public class Admin extends Person {
     // These are pretty self-explanatory names
     private int m_numBooksOnRent;
     private int m_numBooksSold;
@@ -18,15 +18,13 @@ public class Admin extends Person
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
     private static final String m_url = "src/admin.dat";
-    private static final int m_maxBorrowDays=14;
+    private static final int m_maxBorrowDays = 14;
 
-    public static int getMaxBorrowDays()
-    {
+    public static int getMaxBorrowDays() {
         return m_maxBorrowDays;
     }
 
-    public Admin(String name, int age, String username, String password)
-    {
+    public Admin(String name, int age, String username, String password) {
         // All this is handled by the Person constructor
         super(name, age, username, password);
 
@@ -36,65 +34,76 @@ public class Admin extends Person
         m_revenue = 0.0;
     }
 
-    public void setRevenue(double revenue) { m_revenue = revenue; }
+    public void setRevenue(double revenue) {
+        m_revenue = revenue;
+    }
 
-    public static Admin getAdmin()
-    {
+    public static Admin getAdmin() {
         ObjectInput in = null;
         Admin admin = null;
 
-        try
-        {
-            in = new ObjectInputStream(new
-                    BufferedInputStream(new FileInputStream(m_url)));
+        try {
+            in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(m_url)));
             admin = (Admin) in.readObject();
-        }
-        catch (ClassNotFoundException cnfe) { System.err.println(cnfe); }
-        catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
-        catch (IOException ie) { System.err.println(ie); }
-        finally
-        {
-            if (in != null)
-            {
-                try { in.close(); }
-                catch (IOException ie) { System.err.println(ie); }
+        } catch (ClassNotFoundException cnfe) {
+            System.err.println(cnfe);
+        } catch (FileNotFoundException fnfe) {
+            System.err.println(fnfe);
+        } catch (IOException ie) {
+            System.err.println(ie);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ie) {
+                    System.err.println(ie);
+                }
             }
         }
         return admin;
     }
 
-    public void saveAdminDetails()
-    {
+    public void saveAdminDetails() {
         ObjectOutputStream out = null;
 
-        try
-        {
-            out = new ObjectOutputStream(new
-                    BufferedOutputStream(new FileOutputStream(m_url)));
+        try {
+            out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(m_url)));
 
             out.writeObject(this);
             out.flush();
-        }
-        catch (FileNotFoundException fnfe) { System.err.println(fnfe); }
-        catch (IOException ie) { System.err.println(ie); }
-        finally
-        {
-            if (out != null)
-            {
-                try { out.close(); }
-                catch (IOException ie) { System.err.println(ie); }
+        } catch (FileNotFoundException fnfe) {
+            System.err.println(fnfe);
+        } catch (IOException ie) {
+            System.err.println(ie);
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException ie) {
+                    System.err.println(ie);
+                }
             }
         }
     }
 
-    public double getRevenue() { return m_revenue; }
-    public int getNumBooksOnRent() { return m_numBooksOnRent; }
-    public int getNumBooksSold() { return m_numBooksSold; }
-    public static int getNumBooksBorrowLimit() { return m_numBooksBorrowLimit; }
+    public double getRevenue() {
+        return m_revenue;
+    }
+
+    public int getNumBooksOnRent() {
+        return m_numBooksOnRent;
+    }
+
+    public int getNumBooksSold() {
+        return m_numBooksSold;
+    }
+
+    public static int getNumBooksBorrowLimit() {
+        return m_numBooksBorrowLimit;
+    }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         String str = super.toString() + "\n";
 
         str += "Number of books on rent: " + m_numBooksOnRent + "\n";
@@ -104,23 +113,19 @@ public class Admin extends Person
         return str;
     }
 
-    public boolean sellBook(Transaction trans, Book b)
-    {
+    public boolean sellBook(Transaction trans, Book b) {
         if (!trans.sellBookTransaction(b))
             return false;
-     m_revenue+=b.getPrice();
-     m_numBooksSold++;
-     saveAdminDetails();
+        m_revenue += b.getPrice();
+        m_numBooksSold++;
+        saveAdminDetails();
         return true;
     }
 
-    public boolean rentBook(Transaction trans, Book b)
-    {
+    public boolean rentBook(Transaction trans, Book b) {
         // If customer has 1 copy already, then transaction fails
-        if (!trans.rentBookTransaction(b))
-        {
-            System.out.println("You have borrowed this book already." +
-                        " Please try again. ");
+        if (!trans.rentBookTransaction(b)) {
+            System.out.println("You have borrowed this book already." + " Please try again. ");
             return false;
         }
         m_numBooksOnRent++;
@@ -128,44 +133,39 @@ public class Admin extends Person
         return true;
     }
 
-    public boolean getBackBook(Transaction trans, Book book)
-    {
+    public boolean getBackBook(Transaction trans, Book book) {
         int index = -1;
         ArrayList<Book> books = trans.getBorrowedBooks();
 
         // checks the index of book in borrowed list
-        for (int i = 0; i < books.size(); i++)
-        {
-            if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN()))
-            {
+        for (int i = 0; i < books.size(); i++) {
+            if (!trans.getIsReturned().get(i) && books.get(i).getISBN().equals(book.getISBN())) {
                 index = i;
                 break;
             }
         }
-        if (index == -1)
-        {
+        if (index == -1) {
             System.out.println("Customer never borrowed the book.");
             return false;
         }
 
         double fine = trans.returnBookTransaction(index);
-        if (fine == -1)
-         {
-         System.out.println("Transaction failed, exiting!!!");
-           return false;
-         }
-
+        if (fine == -1) {
+            System.out.println("Transaction failed, exiting!!!");
+            return false;
+        }
 
         m_revenue += fine;
         m_numBooksOnRent--;
         saveAdminDetails();
         return true;
-     }
+    }
 
-    public HashMap<Book,ArrayList<LocalDate>> getHistory(Customer cust)
-    {
+    public HashMap<Book, ArrayList<LocalDate>> getHistory(Customer cust) {
         return cust.getHistory();
     }
 
-    public static double getFineRate() { return m_fineRate; }
+    public static double getFineRate() {
+        return m_fineRate;
+    }
 }

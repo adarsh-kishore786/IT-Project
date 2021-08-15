@@ -1,14 +1,12 @@
 import java.io.*;
 import java.util.*;
 
-public class Catalogue
-{
+public class Catalogue {
     // static variable containing a list of all the books in the library
     private static ArrayList<Book> booksList = new ArrayList<Book>();
-    static String booksFile="./src/booksFile.dat";
+    static String booksFile = "./src/booksFile.dat";
 
-    public static boolean checkISBN(String ISBN)
-    {
+    public static boolean checkISBN(String ISBN) {
         ISBN = ISBN.trim();
 
         // length of book ISBNs is 13
@@ -18,8 +16,7 @@ public class Catalogue
         // weighted sum must be divisible by 10
         // digits are multiplied with 1 and 3 alternatively
         int sum = 0;
-        for (int i = 0; i < 13; i++)
-        {
+        for (int i = 0; i < 13; i++) {
             if (i % 2 == 0)
                 sum += Character.valueOf(ISBN.charAt(i));
             else
@@ -32,9 +29,8 @@ public class Catalogue
     }
 
     // returns an arraylist of all the books
-    public static ArrayList<Book> getBooks()
-    {
-        //booksInfo();
+    public static ArrayList<Book> getBooks() {
+        // booksInfo();
         initBooks();
         return booksList;
 
@@ -42,8 +38,7 @@ public class Catalogue
 
     // initializes the books list with all the books in the file
     @SuppressWarnings("unchecked")
-    private static void initBooks()
-    {
+    private static void initBooks() {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         booksList.clear();
@@ -63,20 +58,15 @@ public class Catalogue
             // }
             // }
 
-        }
-        catch (EOFException eofe) {
+        } catch (EOFException eofe) {
             System.out.println(eofe);
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             System.err.println(ie);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             if (fis != null)
                 try {
                     fis.close();
@@ -92,8 +82,7 @@ public class Catalogue
         }
     }
 
-    public static void saveBooks()
-    {
+    public static void saveBooks() {
         // streams objects required
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -107,14 +96,11 @@ public class Catalogue
             fos = new FileOutputStream(booksFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(booksList);
-        }
-        catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
-        }
-        catch (IOException ie) {
+        } catch (IOException ie) {
             System.err.println(ie);
-        }
-        finally {
+        } finally {
             if (fos != null)
                 try {
                     fos.close();
@@ -131,15 +117,13 @@ public class Catalogue
 
     }
 
-    public static void saveBooks(ArrayList<Book> books)
-    {
+    public static void saveBooks(ArrayList<Book> books) {
         booksList = books;
         saveBooks();
     }
 
     // returns a book object with the argument as its title
-    public static Book getBookWithTitle(String title)
-    {
+    public static Book getBookWithTitle(String title) {
         initBooks();
 
         for (int i = 0; i < booksList.size(); i++)
@@ -149,9 +133,7 @@ public class Catalogue
         return null;
     }
 
-
-    static ArrayList<Book> getBookUnderPrice(double price)
-    {
+    static ArrayList<Book> getBookUnderPrice(double price) {
         initBooks();
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList) {
@@ -161,11 +143,10 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getBookWithAuthor(String[] authors)
-    {
+    static ArrayList<Book> getBookWithAuthor(String[] authors) {
         initBooks();
 
-        ArrayList<Book> filteredList=new ArrayList<Book>();// contains req list
+        ArrayList<Book> filteredList = new ArrayList<Book>();// contains req list
         List<String> authorSearchList = Arrays.asList(authors);
         for (Book b : booksList) {
             ArrayList<String> bookAuthorList = b.getAuthor();
@@ -180,8 +161,7 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getBookWithGenre(String[] genres)
-    {
+    static ArrayList<Book> getBookWithGenre(String[] genres) {
         initBooks();
 
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
@@ -201,8 +181,7 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> getIfAvailable()
-    {
+    static ArrayList<Book> getIfAvailable() {
         initBooks();
 
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
@@ -213,8 +192,7 @@ public class Catalogue
         return filteredList;
     }
 
-    static ArrayList<Book> searchByISBN(String[] ISBN)
-    {
+    static ArrayList<Book> searchByISBN(String[] ISBN) {
         initBooks();
 
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
@@ -226,22 +204,19 @@ public class Catalogue
         return filteredList;
     }
 
-    private static void booksInfo()
-    {
-        ArrayList<Book> books=new ArrayList<Book>();
-        ArrayList<String> genre=new ArrayList<String>();
-        ArrayList<String> author=new ArrayList<String>();
+    private static void booksInfo() {
+        ArrayList<Book> books = new ArrayList<Book>();
+        ArrayList<String> genre = new ArrayList<String>();
+        ArrayList<String> author = new ArrayList<String>();
         genre.add("Fiction");
         genre.add("Suspense");
         genre.add("Thriller");
         genre.add("Romance");
         author.add("Dan Brown");
 
-        Book obj1=new Book("Angels and Demons",author , genre, 258.00,
-        "9781416524793");
+        Book obj1 = new Book("Angels and Demons", author, genre, 258.00, "9781416524793");
 
-        Book obj2=new Book("The Da Vinci Code", author, genre, 246.00,
-        "9780375432309");
+        Book obj2 = new Book("The Da Vinci Code", author, genre, 246.00, "9780375432309");
 
         genre.clear();
         author.clear();
@@ -250,8 +225,7 @@ public class Catalogue
         genre.add("Fiction");
         genre.add("Historical");
         author.add("Kristin Harmel");
-        books.add(new Book("The Forest of Vanishing Stars", author,
-        genre, 450.0, "9781982158934"));
+        books.add(new Book("The Forest of Vanishing Stars", author, genre, 450.0, "9781982158934"));
 
         genre.clear();
         author.clear();
@@ -260,8 +234,7 @@ public class Catalogue
         genre.add("Fiction");
         genre.add("Historical");
         author.add("Stuart Turton");
-        books.add(new Book("The Devil and the Dark Water", author,
-        genre, 548.48, "9781728234298"));
+        books.add(new Book("The Devil and the Dark Water", author, genre, 548.48, "9781728234298"));
 
         genre.clear();
         author.clear();
@@ -269,32 +242,28 @@ public class Catalogue
         genre.add("Contemporary");
         genre.add("Spiritual");
         author.add("Yaa Gyasi");
-        books.add(new Book("Transcedental Kingdom", author,
-        genre, 767.36, "9781984899767"));
+        books.add(new Book("Transcedental Kingdom", author, genre, 767.36, "9781984899767"));
 
         genre.clear();
         author.clear();
         genre.add("Historical");
         genre.add("Fiction");
         author.add("Christina Baker Kline");
-        books.add(new Book("The Exiles", author,
-        genre, 815.40, "9780062356338"));
+        books.add(new Book("The Exiles", author, genre, 815.40, "9780062356338"));
 
         genre.clear();
         author.clear();
         genre.add("Non-fiction");
         genre.add("Mathematics");
         author.add("Joseph Gallian");
-        books.add(new Book("Contemporary Abstract Algebra",author ,
-        genre, 490.00, "9789353502522"));
+        books.add(new Book("Contemporary Abstract Algebra", author, genre, 490.00, "9789353502522"));
 
         genre.clear();
         author.clear();
         genre.add("Fiction");
         genre.add("Science Fiction");
         author.add("Isaac Asimov");
-        books.add(new Book("The End of Eternity", author,
-        genre, 195.00, "9780449237045"));
+        books.add(new Book("The End of Eternity", author, genre, 195.00, "9780449237045"));
 
         genre.clear();
         author.clear();
@@ -304,13 +273,13 @@ public class Catalogue
         genre.add("Drama");
         genre.add("Mystery");
         author.add("J K Rowling");
-        books.add(new Book("Harry Potter and the Philosopher's Stone",author,genre,284.00,"9780439362139"));
-        books.add(new Book("Harry Potter and the Chamber of Secrets",author,genre,285.00,"9780439064873"));
-        books.add(new Book("Harry Potter and the Prisoner of Azkaban",author,genre,300.00,"9780545582933"));
-        books.add(new Book("Harry Potter and the Goblet of Fire",author,genre,320.00,"9781338299175"));
-        books.add(new Book("Harry Potter and the Order of the Phoenix",author,genre,340.00,"9781439520024"));
-        books.add(new Book("Harry Potter and the Half-Blood Prince",author,genre,330.00,"9780439785969"));
-        books.add(new Book("Harry Potter and the Deathly Hallows",author,genre,350.00,"9780545010221"));
+        books.add(new Book("Harry Potter and the Philosopher's Stone", author, genre, 284.00, "9780439362139"));
+        books.add(new Book("Harry Potter and the Chamber of Secrets", author, genre, 285.00, "9780439064873"));
+        books.add(new Book("Harry Potter and the Prisoner of Azkaban", author, genre, 300.00, "9780545582933"));
+        books.add(new Book("Harry Potter and the Goblet of Fire", author, genre, 320.00, "9781338299175"));
+        books.add(new Book("Harry Potter and the Order of the Phoenix", author, genre, 340.00, "9781439520024"));
+        books.add(new Book("Harry Potter and the Half-Blood Prince", author, genre, 330.00, "9780439785969"));
+        books.add(new Book("Harry Potter and the Deathly Hallows", author, genre, 350.00, "9780545010221"));
 
         genre.clear();
         author.clear();
@@ -320,22 +289,21 @@ public class Catalogue
         genre.add("Urban Fantasy");
         author.add("Cassandra Clare");
         author.add("Joshua Lewis");
-        books.add(new Book("The Mortal Instruments: City of Bones",author,genre,310.00,"9781534406254"));
-        books.add(new Book("The Mortal Instruments: City of Ashes",author,genre,320.00,"9780606106405"));
-        books.add(new Book("The Mortal Instruments: City of Glass",author,genre,323.00,"9780606107235"));
-        books.add(new Book("The Mortal Instruments: City of Fallen Angels",author,genre,320.00,"9780606269087"));
-        books.add(new Book("The Mortal Instruments: City of Lost Souls",author,genre,340.00,"9781406332940"));
-        books.add(new Book("The Mortal Instruments: City of Heavenly Fire",author,genre,350.00,"9780606371384"));
+        books.add(new Book("The Mortal Instruments: City of Bones", author, genre, 310.00, "9781534406254"));
+        books.add(new Book("The Mortal Instruments: City of Ashes", author, genre, 320.00, "9780606106405"));
+        books.add(new Book("The Mortal Instruments: City of Glass", author, genre, 323.00, "9780606107235"));
+        books.add(new Book("The Mortal Instruments: City of Fallen Angels", author, genre, 320.00, "9780606269087"));
+        books.add(new Book("The Mortal Instruments: City of Lost Souls", author, genre, 340.00, "9781406332940"));
+        books.add(new Book("The Mortal Instruments: City of Heavenly Fire", author, genre, 350.00, "9780606371384"));
 
         genre.clear();
         author.clear();
         genre.add("Fiction");
         genre.add("Science Fiction");
         author.add("Brandon Sanderson");
-        books.add(new Book("Skyward",author,genre,290.00,"9780399555770"));
-        books.add(new Book("Starsight",author,genre,290.00,"9780399555817"));
+        books.add(new Book("Skyward", author, genre, 290.00, "9780399555770"));
+        books.add(new Book("Starsight", author, genre, 290.00, "9780399555817"));
         saveBooks(books);
     }
-
 
 }
