@@ -9,6 +9,7 @@ import java.util.*;
 import java.io.*;
 import java.util.HashMap;
 import java.time.LocalDate;
+import java.nio.file.*;
 
 public class Admin extends Person {
     // These are pretty self-explanatory names
@@ -17,7 +18,8 @@ public class Admin extends Person {
     private double m_revenue;
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
-    private static final String m_url = "src/admin.dat";
+    private static final String m_adminFile =
+        FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/admin.dat").toString();
     private static final int m_maxBorrowDays = 14;
 
     public static int getMaxBorrowDays() {
@@ -43,7 +45,7 @@ public class Admin extends Person {
         Admin admin = null;
 
         try {
-            in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(m_url)));
+            in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(m_adminFile)));
             admin = (Admin) in.readObject();
         } catch (ClassNotFoundException cnfe) {
             System.err.println(cnfe);
@@ -67,7 +69,7 @@ public class Admin extends Person {
         ObjectOutputStream out = null;
 
         try {
-            out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(m_url)));
+            out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(m_adminFile)));
 
             out.writeObject(this);
             out.flush();

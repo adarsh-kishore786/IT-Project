@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.nio.file.*;
 
 public class Customer extends Person {
 
@@ -15,6 +16,8 @@ public class Customer extends Person {
   ArrayList<Book> booksBorrowed; // initialized in constructor
   ArrayList<Book> booksBought; // initialized in constructor
   Transaction transaction; // contains history of borrow/return dates with fine; unique to every customer
+  static String customerFile =
+    FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/customer.dat").toString();
 
   public Customer() {
     // if (customerList.size() > 0)
@@ -24,12 +27,12 @@ public class Customer extends Person {
     // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
     // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org",
     // "B1n@ry-M");
-
+    //
     // customerList.add(c1);
     // customerList.add(c2);
     // customerList.add(c3);
     // customerList.add(c4);
-
+    //
     // //System.out.println("!" + customerList.size());
     // saveCustomer();
     initCustomerList();
@@ -181,7 +184,7 @@ public class Customer extends Person {
   static void saveCustomer() {
 
     // ObjectOutputStream os=null; //stream that writes object to file
-    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(customerFile))) {
       os.writeObject(customerList); // write array list to file
       initCustomerList();
 
@@ -194,7 +197,7 @@ public class Customer extends Person {
   static void saveCustomer(Customer cust) {
 
     // ObjectOutputStream os=null; //stream that writes object to file
-    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./src/customer.dat"))) {
+    try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(customerFile))) {
       if (cust != null) {
         for (Customer c : customerList) {
           if (c.getUsername().equals(cust.getUsername())) {
@@ -224,7 +227,7 @@ public class Customer extends Person {
     // ObjectInputStream in=null;
     // try with resources block doesnt need resource closing
     try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(new FileInputStream("./src/customer.dat")))) {
+        new BufferedInputStream(new FileInputStream(customerFile)))) {
 
       customerList = (ArrayList<Customer>) in.readObject(); // write array list to file
 

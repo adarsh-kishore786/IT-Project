@@ -1,10 +1,11 @@
 import java.io.*;
 import java.util.*;
+import java.nio.file.*;
 
 public class Catalogue {
     // static variable containing a list of all the books in the library
     private static ArrayList<Book> booksList = new ArrayList<Book>();
-    static String booksFile = "./src/booksFile.dat";
+    static String booksFile = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/booksFile.dat").toString();
 
     public static boolean checkISBN(String ISBN) {
         ISBN = ISBN.trim();

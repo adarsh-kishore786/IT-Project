@@ -107,7 +107,8 @@ public class Transaction implements Serializable {
 
   public LocalDate getDateOfBorrow(Book b) {
     int index = -1;
-    for (Book book : borrowedBooks) {
+    for (int i = borrowedBooks.size() - 1; i >= 0; i--) {
+      Book book = borrowedBooks.get(i);
       if (book.getTitle().equals(b.getTitle()))
         index = this.borrowedBooks.indexOf(book);
     }
@@ -125,7 +126,8 @@ public class Transaction implements Serializable {
 
   public LocalDate getDateOfReturn(Book b) {
     int index = -1;
-    for (Book book : borrowedBooks) {
+    for (int i = borrowedBooks.size() - 1; i >= 0; i--) {
+      Book book = borrowedBooks.get(i);
       if (book.getTitle().equals(b.getTitle()))
         index = this.borrowedBooks.indexOf(book);
     }
@@ -134,7 +136,8 @@ public class Transaction implements Serializable {
 
   public boolean isReturned(Book b) {
     int index = -1;
-    for (Book book : borrowedBooks) {
+    for (int i = borrowedBooks.size() - 1; i >= 0; i--) {
+      Book book = borrowedBooks.get(i);
       if (book.getTitle().equals(b.getTitle()))
         index = this.borrowedBooks.indexOf(book);
     }
