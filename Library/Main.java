@@ -1,8 +1,4 @@
-import java.io.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.time.*;
-
 public class Main {
     public static Scanner sc = new Scanner(System.in);
 
@@ -32,18 +28,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Customer cust = new Customer();
-        // Customer.saveCustomer();
-        // // for (Customer c : cust.getCustomers())
-        // // System.out.println(c);
-        // Catalogue.getBooks();
-        // saveAdmin();
 
         welcome();
     }
 
-    private static void saveAdmin() {
-        Admin a = new Admin("Andrew Jarvis", 35, "andrewj@vivlio.org", "aDm1n-PasS");
-        a.saveAdminDetails();
-    }
 }

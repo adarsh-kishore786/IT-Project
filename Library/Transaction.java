@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.io.*;
 
 public class Transaction implements Serializable {
 

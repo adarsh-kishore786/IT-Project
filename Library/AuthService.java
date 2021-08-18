@@ -1,7 +1,5 @@
-import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.time.*;
 
 public class AuthService {
     private static Scanner sc = null;
@@ -148,13 +146,6 @@ public class AuthService {
                 return true;
         }
         return false;
-    }
-
-    private static String getString(char[] arr) {
-        String nstr = "";
-        for (char c : arr)
-            nstr += c + "";
-        return nstr;
     }
 
     private static int getCustIndex(Customer cust, String username, String passwd) {

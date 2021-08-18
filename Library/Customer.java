@@ -20,21 +20,6 @@ public class Customer extends Person {
     FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/customer.dat").toString();
 
   public Customer() {
-    // if (customerList.size() > 0)
-    // return;
-    // Customer c1 = new Customer("Harish", 25, "harry123@vivlio.org", "harRy-P0t");
-    // Customer c2 = new Customer("Adarsh", 24, "ash786@vivlio.org", "C=(acrossb)");
-    // Customer c3 = new Customer("Poorna", 25, "poornah06@vivlio.org", "A=2piR");
-    // Customer c4 = new Customer("Ranjana", 24, "ranjanak45@vivlio.org",
-    // "B1n@ry-M");
-    //
-    // customerList.add(c1);
-    // customerList.add(c2);
-    // customerList.add(c3);
-    // customerList.add(c4);
-    //
-    // //System.out.println("!" + customerList.size());
-    // saveCustomer();
     initCustomerList();
   }
 

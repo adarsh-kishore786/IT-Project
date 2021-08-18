@@ -1,10 +1,7 @@
-import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//TODO:After entering an index and entering b, exit to the list of books instead of showOptions
 
 public class CustomerOptions {
 
