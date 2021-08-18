@@ -220,6 +220,11 @@ public class AdminOptions {
             Book b = (Book) itr.next();
             for (String ISBN : isbnList)
                 if (b.getISBN().equals(ISBN)) {
+                    // if (noCusto)
+                    {
+                        System.out.println("This book is on hold! Going back to home.\n");
+                        return;
+                    }
                     itr.remove();
                     removeBooksList.add(b);
                 }

@@ -60,7 +60,7 @@ public class Transaction implements Serializable {
         else {
           String temp1 = expiryDate.substring(0, 2);
           String temp2 = expiryDate.substring(3, 5);
-          if (checkStringIsANumber(temp1) && checkStringIsANumber(temp2))
+          if (!checkStringIsANumber(temp1) || !checkStringIsANumber(temp2))
             System.out.println("Invalid expiry date!\n");
           else if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1) > 12 || Integer.parseInt(temp1) < 1)
             System.out.println("Invalid expiry date!\n");
