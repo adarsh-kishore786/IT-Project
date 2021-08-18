@@ -153,10 +153,18 @@ public class CustomerOptions {
       confirmBook(selectedBook);
     else {
       System.out.println("\nGo (B)ack to filters.");
-      String ch;
-      do {
-        ch = sc.nextLine();
-      } while (!ch.equalsIgnoreCase("b"));
+      String ch="";
+          do {
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
+          } while (!ch.equalsIgnoreCase("b"));
       showCatalogue();
     }
     return;
@@ -180,9 +188,17 @@ public class CustomerOptions {
           confirmBook(selectedBook);
         } else {
           System.out.println("\nGo (B)ack to filters.");
-          String ch;
+          String ch="";
           do {
-            ch = sc.nextLine();
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
           } while (!ch.equalsIgnoreCase("b"));
           showCatalogue();
         }
@@ -212,10 +228,18 @@ public class CustomerOptions {
       confirmBook(selectedBook);
     } else {
       System.out.println("\nGo (B)ack to filters.");
-      String ch;
-      do {
-        ch = sc.nextLine();
-      } while (!ch.equalsIgnoreCase("b"));
+      String ch="";
+          do {
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
+          } while (!ch.equalsIgnoreCase("b"));
       showCatalogue();
     }
   }
@@ -239,10 +263,18 @@ public class CustomerOptions {
       confirmBook(selectedBook);
     } else {
       System.out.println("\nGo (B)ack to filters.");
-      String ch;
-      do {
-        ch = sc.nextLine();
-      } while (!ch.equalsIgnoreCase("b"));
+      String ch="";
+          do {
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
+          } while (!ch.equalsIgnoreCase("b"));
       showCatalogue();
     }
   }
@@ -280,10 +312,18 @@ public class CustomerOptions {
       confirmBook(selectedBook);
     } else {
       System.out.println("\nGo (B)ack to filters.");
-      String ch;
-      do {
-        ch = sc.nextLine();
-      } while (!ch.equalsIgnoreCase("b"));
+      String ch="";
+          do {
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
+          } while (!ch.equalsIgnoreCase("b"));
       showCatalogue();
     }
   }
@@ -301,10 +341,18 @@ public class CustomerOptions {
       confirmBook(selectedBook);
     } else {
       System.out.println("\nGo (B)ack to filters.");
-      String ch;
-      do {
-        ch = sc.nextLine();
-      } while (!ch.equalsIgnoreCase("b"));
+      String ch="";
+          do {
+            try {
+              {
+                ch = sc.nextLine();
+                if(!ch.equalsIgnoreCase("b"))
+                  throw new NoSuchElementException();
+              }
+            } catch (NoSuchElementException nsee) {
+              System.out.println("Invalid input. Please try again (B/b).");
+            }
+          } while (!ch.equalsIgnoreCase("b"));
       showCatalogue();
     }
   }
@@ -321,7 +369,7 @@ public class CustomerOptions {
     for (Book b : c.booksBorrowed) {
       System.out.println("\n" + i + "\n" + b);
       String borrowDate = c.transaction.getDateOfBorrow(b).format(formatter);
-      String maxDate = c.transaction.getDateOfBorrow(b).plusDays(14).format(formatter);
+      String maxDate = c.transaction.getDateOfBorrow(b).plusDays(Admin.getMaxBorrowDays()).format(formatter);
       System.out.println("Date when you Borrowed this Book : " + borrowDate);
       System.out.println("Last Date to Return without Fine : " + maxDate);
       i++;
