@@ -28,7 +28,6 @@ public class AuthService {
     }
 
     public void admin_login(String username) {
-         // saveAdmin();
         Admin admin = Admin.getAdmin();
 
         // Console c = System.console();
@@ -149,11 +148,6 @@ public class AuthService {
                 return true;
         }
         return false;
-    }
-
-    private static void saveAdmin() {
-        Admin a = new Admin("Andrew Jarvis", 35, "andrewj@vivlio.org", "aDm1n-PasS");
-        a.saveAdminDetails();
     }
 
     private static String getString(char[] arr) {

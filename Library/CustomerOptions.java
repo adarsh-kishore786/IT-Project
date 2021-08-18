@@ -125,7 +125,7 @@ public class CustomerOptions {
           return;
         case 7:
           System.out.println();
-          return;
+          showOptions();
 
         default:
           System.out.println("That's an invalid option. Try again.\n");
@@ -146,7 +146,8 @@ public class CustomerOptions {
       }
     if (selectedBook == null) {
       System.out.println("\nNo Book Found!");
-      return;
+      System.out.println("Going back to Catalogue:\n");
+      showCatalogue();
     }
     System.out.println(selectedBook);
     if (choiceCatalogue == 0)
@@ -180,7 +181,8 @@ public class CustomerOptions {
         ArrayList<Book> booklist = Catalogue.getBookUnderPrice(price);
         if (booklist.isEmpty()) {
           System.out.println("\nNo Book Found!");
-          return;
+          System.out.println("Try again with a valid price.\n");
+          continue;
         }
         showBooks(booklist);
         if (choiceCatalogue == 0) {
@@ -220,7 +222,8 @@ public class CustomerOptions {
     ArrayList<Book> booklist = Catalogue.getBookWithAuthor(authorList.toArray(authorArray));
     if (booklist.isEmpty()) {
       System.out.println("\nNo Book Found!");
-      return;
+      System.out.println("Going back to Catalogue:\n");
+      showCatalogue();
     }
     showBooks(booklist);
     if (choiceCatalogue == 0) {
@@ -255,7 +258,8 @@ public class CustomerOptions {
     ArrayList<Book> booklist = Catalogue.getBookWithGenre(genreList.toArray(genreArray));
     if (booklist.isEmpty()) {
       System.out.println("\nNo Book Found!");
-      return;
+      System.out.println("Going back to Catalogue:\n");
+      showCatalogue();
     }
     showBooks(booklist);
     if (choiceCatalogue == 0) {
@@ -304,7 +308,8 @@ public class CustomerOptions {
     ArrayList<Book> booklist = Catalogue.searchByISBN(ISBNList.toArray(ISBNArray));
     if (booklist.isEmpty()) {
       System.out.println("\nNo Book Found!");
-      return;
+      System.out.println("Going back to Catalogue:\n");
+      showCatalogue();
     }
     showBooks(booklist);
     if (choiceCatalogue == 0) {
@@ -428,6 +433,8 @@ public class CustomerOptions {
   // confirm index of book
   private void confirmBook(Book book) {
     String ch = null;
+    if (book == null)
+        return;
     if (book.getNumCopies() == 0 && transaction != 2) {
       System.out.println("No copies of this book!");
       AuthService.sleep(1);
@@ -456,7 +463,7 @@ public class CustomerOptions {
         System.out.println();
         return;
       } else
-        System.out.println("Invalid input ,Try again");
+        System.out.println("Invalid input, try again.");
 
       ch = "";
     } while (!ch.equalsIgnoreCase("c") && !ch.equalsIgnoreCase("b"));

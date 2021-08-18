@@ -37,7 +37,13 @@ public class Main {
         // // for (Customer c : cust.getCustomers())
         // // System.out.println(c);
         // Catalogue.getBooks();
+        // saveAdmin();
 
         welcome();
+    }
+
+    private static void saveAdmin() {
+        Admin a = new Admin("Andrew Jarvis", 35, "andrewj@vivlio.org", "aDm1n-PasS");
+        a.saveAdminDetails();
     }
 }
