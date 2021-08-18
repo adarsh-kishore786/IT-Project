@@ -3,7 +3,8 @@ import java.util.*;
 
 public class Book implements Serializable {
     // instance variables
-    private String m_title, m_ISBN;
+    private String m_title;
+    private final String m_ISBN;
     private double m_price;
     private int m_numCopies;
     private ArrayList<Customer> m_borrowersList, m_buyersList;
@@ -11,6 +12,7 @@ public class Book implements Serializable {
 
     // default constructor with null/default values
     public Book() {
+        m_ISBN="0000000000000";
     }
 
     // constructor taking in 5 characteristic inputs; others are updated with time
@@ -139,15 +141,6 @@ public class Book implements Serializable {
 
     public void setAuthor(ArrayList<String> author) {
         m_author.addAll(author);
-        Catalogue.saveBooks();
-    }
-
-    public void setISBN(String ISBN) {
-        if (Catalogue.checkISBN(ISBN)) {
-            m_ISBN = ISBN;
-            Catalogue.saveBooks();
-        } else
-            System.out.println("Inavlid ISBN input! Please try again.");
         Catalogue.saveBooks();
     }
 
