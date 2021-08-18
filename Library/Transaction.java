@@ -55,27 +55,30 @@ public class Transaction implements Serializable {
         System.out.println("Enter Expiry Date in MM/YY format: ");
         expiryDate = Main.sc.nextLine();
         System.out.println();
-        String temp1 = expiryDate.substring(0, 2);
-        String temp2 = expiryDate.substring(3, 5);
-        if (checkStringIsANumber(temp1) && checkStringIsANumber(temp2) && expiryDate.length() == 5)
+        if (expiryDate.length() != 5)
           System.out.println("Invalid expiry date!\n");
-        else if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1) > 12 || Integer.parseInt(temp1) < 1)
-          System.out.println("Invalid expiry date!\n");
-        else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
-          System.out.println("Invalid expiry date!\n");
-        } else {
-          System.out.println("Enter CVV/CVC: ");
-          CVV = Main.sc.nextLine();
-          System.out.println();
-          if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
-            System.out.println("Processing transaction...\n");
-            AuthService.sleep(1);
-            System.out.println("Transaction Successful!\n");
-            status = true;
-          } else
-            System.out.println("Invalid CVV/CVC!\n");
+        else {
+          String temp1 = expiryDate.substring(0, 2);
+          String temp2 = expiryDate.substring(3, 5);
+          if (checkStringIsANumber(temp1) && checkStringIsANumber(temp2))
+            System.out.println("Invalid expiry date!\n");
+          else if (Integer.parseInt(temp2) < y || Integer.parseInt(temp1) > 12 || Integer.parseInt(temp1) < 1)
+            System.out.println("Invalid expiry date!\n");
+          else if (Integer.parseInt(temp2) == y && Integer.parseInt(temp1) <= m) {
+            System.out.println("Invalid expiry date!\n");
+          } else {
+            System.out.println("Enter CVV/CVC: ");
+            CVV = Main.sc.nextLine();
+            System.out.println();
+            if (CVV.length() == 3 && checkStringIsANumber(CVV)) {
+              System.out.println("Processing transaction...\n");
+              AuthService.sleep(1);
+              System.out.println("Transaction Successful!\n");
+              status = true;
+            } else
+              System.out.println("Invalid CVV/CVC!\n");
+          }
         }
-
       }
       do {
         if (status == false) {
