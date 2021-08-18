@@ -211,9 +211,6 @@ public class Transaction implements Serializable {
     }
     if (statusPayment == true) {
       isReturned.set(index, true);
-      // newNumberCopies = borrowedBooks.get(index).getNumCopies();
-      // ++newNumberCopies;
-      // borrowedBooks.get(index).setNumCopies(newNumberCopies);
 
       dateOfReturn.set(index, calculateDate);
 

@@ -28,24 +28,10 @@ public class AuthService {
     public void admin_login(String username) {
         Admin admin = Admin.getAdmin();
 
-        // Console c = System.console();
-        // if (c == null)
-        // {
-        // System.err.println("No console");
-        // System.exit(1);
-        // }
         String password = null;
 
-        // password = getString(c.readPassword("Enter your password: "));
-
-        // Console c=System.console();
         System.out.print("Enter your password: ");
-        // if(c==null){
-        // System.out.println("Console unavailable");
-        // password = sc.nextLine();
-        // }
         password = sc.nextLine();
-        // else password=c.readPassword().toString();
 
         if (!password.equals(admin.getPassword()) || !username.equals(admin.getUsername())) {
             System.err.println("Invalid username/password.\n");
@@ -151,7 +137,7 @@ public class AuthService {
     private static int getCustIndex(Customer cust, String username, String passwd) {
         for (int i = 0; i < cust.getCustomers().size(); i++) {
             Customer c = Customer.getCustomer(i);
-            // System.out.println(c);
+            
             if (c.getUsername().equals(username))
                 if (c.getPassword().equals(passwd))
                     return i;
