@@ -18,3 +18,7 @@
    The details are:  
    Username: ```poornah06@vivlio.org```  
    Password: ```A=2piR```
+6. While paying, these are the following conditions for a successful payment:
+    1. The credit/debit card card number should be 16 digits.
+    2. The expiry date has to be entered as MM/YY, and the expiry date should be a valid one.
+    3. The CVV/CVC should be 3 digits.
