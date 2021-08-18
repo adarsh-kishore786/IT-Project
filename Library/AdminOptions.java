@@ -218,15 +218,26 @@ public class AdminOptions {
         Iterator<Book> itr = booksList.iterator();
         while (itr.hasNext()) {
             Book b = (Book) itr.next();
+            bookLoop: 
             for (String ISBN : isbnList)
-                if (b.getISBN().equals(ISBN)) {
+                if (b.getISBN().equals(ISBN)) 
+                {
+                    for (Customer c : b.getBorrowers())
+                        for (Customer cust : c.getCustomers())
+                            if (cust.getUsername().equalsIgnoreCase(c.getUsername()))
+                                for (Book bk : cust.booksBorrowed)
+                                    if (b.getISBN().equalsIgnoreCase(bk.getISBN())) 
+                                    {
+                                        System.out.println("\nBook :" + b.getISBN() + " is on hold, can't be removed.");
+                                        break bookLoop;
+                                    }
                     itr.remove();
                     removeBooksList.add(b);
                 }
         }
 
         if (removeBooksList.size() == 0)
-            System.out.println("No books match these ISBN values!\n");
+            System.out.println("\nNo books match these ISBN values!\n");
         else {
             System.out.println("Removed books:\n");
             for (Book b : removeBooksList)
