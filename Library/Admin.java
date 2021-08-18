@@ -33,7 +33,7 @@ public class Admin extends Person {
         // Initially, set everything to 0 when library opens up
         m_numBooksOnRent = 0;
         m_numBooksSold = 0;
-        m_revenue = 0.0;
+        m_revenue = 400.0;
     }
 
     public void setRevenue(double revenue) {

@@ -79,6 +79,15 @@ public class AdminOptions {
         } while (cust == null);
         System.out.println(cust);
         String ch;
+        for (Book book : Catalogue.getBooks())
+        {
+            if (!cust.getTransaction().isReturned(book))
+            {
+                System.out.println("There are still books left to be returned! Returning to home screen.");
+                return;
+            }
+        }
+
         do {
             System.out.print("Delete this account? (Y/N): ");
             ch = sc.nextLine();
@@ -208,6 +217,7 @@ public class AdminOptions {
     }
 
     private void removeBook() {
+        boolean flag = true;
         ArrayList<String> isbnList = new ArrayList<>();
         System.out.println("\nEnter ISBNs of books to remove (\"exit\" to stop):");
         CustomerOptions.addToList(isbnList, sc);
@@ -220,7 +230,7 @@ public class AdminOptions {
             Book b = (Book) itr.next();
             bookLoop:
             for (String ISBN : isbnList)
-                if (b.getISBN().equals(ISBN)) 
+                if (b.getISBN().equals(ISBN))
                 {
                     for (Customer c : b.getBorrowers())
                         for (Customer cust : c.getCustomers())
@@ -228,7 +238,8 @@ public class AdminOptions {
                                 for (Book bk : cust.booksBorrowed)
                                     if (b.getISBN().equalsIgnoreCase(bk.getISBN()))
                                     {
-                                        System.out.println("\nBook :" + b.getISBN() + " is on hold, can't be removed.");
+                                        System.out.println("\nBook: " + b.getISBN() + " is on hold, can't be removed.");
+                                        flag = false;
                                         break bookLoop;
                                     }
                     itr.remove();
@@ -236,7 +247,7 @@ public class AdminOptions {
                 }
         }
 
-        if (removeBooksList.size() == 0)
+        if (removeBooksList.size() == 0 && flag)
             System.out.println("\nNo books match these ISBN values!\n");
         else {
             System.out.println("Removed books:\n");

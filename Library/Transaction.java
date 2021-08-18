@@ -146,6 +146,8 @@ public class Transaction implements Serializable {
       if (book.getTitle().equals(b.getTitle()))
         index = this.borrowedBooks.indexOf(book);
     }
+    if (index == -1)
+        return true;
     return this.getIsReturned().get(index);
   }
 
