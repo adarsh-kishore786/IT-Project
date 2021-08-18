@@ -324,6 +324,7 @@ public class CustomerOptions {
       String maxDate = c.transaction.getDateOfBorrow(b).plusDays(14).format(formatter);
       System.out.println("Date when you Borrowed this Book : " + borrowDate);
       System.out.println("Last Date to Return without Fine : " + maxDate);
+      System.out.println("\n---------------------------------");
       i++;
     }
 

@@ -119,6 +119,7 @@ public class AdminOptions {
         do {
             System.out.print("\nEnter the username of customer: ");
             String uname = sc.nextLine();
+            AuthService.sleep(1);
 
             cust = findCustomer(uname);
             if (cust == null) {
