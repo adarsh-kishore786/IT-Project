@@ -12,7 +12,7 @@ public class Book implements Serializable {
 
     // default constructor with null/default values
     public Book() {
-        m_ISBN="0000000000000";
+        m_ISBN = "0000000000000";
     }
 
     // constructor taking in 5 characteristic inputs; others are updated with time

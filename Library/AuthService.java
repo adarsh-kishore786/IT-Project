@@ -137,7 +137,7 @@ public class AuthService {
     private static int getCustIndex(Customer cust, String username, String passwd) {
         for (int i = 0; i < cust.getCustomers().size(); i++) {
             Customer c = Customer.getCustomer(i);
-            
+
             if (c.getUsername().equals(username))
                 if (c.getPassword().equals(passwd))
                     return i;

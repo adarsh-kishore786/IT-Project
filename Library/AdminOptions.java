@@ -79,10 +79,8 @@ public class AdminOptions {
         } while (cust == null);
         System.out.println(cust);
         String ch;
-        for (Book book : Catalogue.getBooks())
-        {
-            if (!cust.getTransaction().isReturned(book))
-            {
+        for (Book book : Catalogue.getBooks()) {
+            if (!cust.getTransaction().isReturned(book)) {
                 System.out.println("There are still books left to be returned! Returning to home screen.");
                 return;
             }
@@ -228,16 +226,13 @@ public class AdminOptions {
         Iterator<Book> itr = booksList.iterator();
         while (itr.hasNext()) {
             Book b = (Book) itr.next();
-            bookLoop:
-            for (String ISBN : isbnList)
-                if (b.getISBN().equals(ISBN))
-                {
+            bookLoop: for (String ISBN : isbnList)
+                if (b.getISBN().equals(ISBN)) {
                     for (Customer c : b.getBorrowers())
                         for (Customer cust : c.getCustomers())
                             if (cust.getUsername().equalsIgnoreCase(c.getUsername()))
                                 for (Book bk : cust.booksBorrowed)
-                                    if (b.getISBN().equalsIgnoreCase(bk.getISBN()))
-                                    {
+                                    if (b.getISBN().equalsIgnoreCase(bk.getISBN())) {
                                         System.out.println("\nBook: " + b.getISBN() + " is on hold, can't be removed.");
                                         flag = false;
                                         break bookLoop;

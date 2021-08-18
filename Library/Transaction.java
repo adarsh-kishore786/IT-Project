@@ -145,7 +145,7 @@ public class Transaction implements Serializable {
         index = this.borrowedBooks.indexOf(book);
     }
     if (index == -1)
-        return true;
+      return true;
     return this.getIsReturned().get(index);
   }
 

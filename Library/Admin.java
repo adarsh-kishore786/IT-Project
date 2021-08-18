@@ -18,8 +18,8 @@ public class Admin extends Person {
     private double m_revenue;
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
-    private static final String m_adminFile =
-        FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/admin.dat").toString();
+    private static final String m_adminFile = FileSystems.getDefault()
+            .getPath(System.getProperty("user.dir"), "dat/admin.dat").toString();
     private static final int m_maxBorrowDays = 14;
 
     public static int getMaxBorrowDays() {

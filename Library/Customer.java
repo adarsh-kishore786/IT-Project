@@ -16,8 +16,8 @@ public class Customer extends Person {
   ArrayList<Book> booksBorrowed; // initialized in constructor
   ArrayList<Book> booksBought; // initialized in constructor
   Transaction transaction; // contains history of borrow/return dates with fine; unique to every customer
-  static String customerFile =
-    FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/customer.dat").toString();
+  static String customerFile = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/customer.dat")
+      .toString();
 
   public Customer() {
     initCustomerList();
@@ -211,8 +211,7 @@ public class Customer extends Person {
   private static void initCustomerList() {
     // ObjectInputStream in=null;
     // try with resources block doesnt need resource closing
-    try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(new FileInputStream(customerFile)))) {
+    try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(customerFile)))) {
 
       customerList = (ArrayList<Customer>) in.readObject(); // write array list to file
 

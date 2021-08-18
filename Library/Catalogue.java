@@ -5,7 +5,8 @@ import java.nio.file.*;
 public class Catalogue {
     // static variable containing a list of all the books in the library
     private static ArrayList<Book> booksList = new ArrayList<Book>();
-    static String booksFile = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/booksFile.dat").toString();
+    static String booksFile = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/booksFile.dat")
+            .toString();
 
     public static boolean checkISBN(String ISBN) {
         ISBN = ISBN.trim();
@@ -47,17 +48,7 @@ public class Catalogue {
             fis = new FileInputStream(booksFile);
             ois = new ObjectInputStream(fis);
             Object o = ois.readObject();
-            // if(o instanceof ArrayList<?> )
             booksList = (ArrayList<Book>) o;
-            // while ((object = ois.readObject()) instanceof Book)
-            // {
-            // if(object instanceof Book)
-            // {
-            // Book book = (Book) object;
-            // booksList.add(book);
-            // }
-            // }
-
         } catch (EOFException eofe) {
             System.out.println(eofe);
         } catch (FileNotFoundException fnfe) {
@@ -203,6 +194,5 @@ public class Catalogue {
         }
         return filteredList;
     }
-
 
 }
