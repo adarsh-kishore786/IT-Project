@@ -14,7 +14,8 @@
     The details of the Admin are as follows:  
     Username: ```andrewj@vivlio.org```  
     Password: ```aDm1n-PasS```
-5. In this implementation, there is a customer account already created for testing.  
+5. In this implementation, there is a customer account already created for testing.
+   This account also has a borrowed book, 'The Da Vinci Code' borrowed on 03/08/2021, that can be used for testing fine.  
    The details are:  
    Username: ```poornah06@vivlio.org```  
    Password: ```A=2piR```
