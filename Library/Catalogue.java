@@ -110,8 +110,6 @@ public class Catalogue
     // returns a book object with the argument as its title
     static Book getBookWithTitle(String title)
     {
-        initBooks();
-
         for (int i = 0; i < booksList.size(); i++)
             if (booksList.get(i).getTitle().equalsIgnoreCase(title.trim()))
                 return booksList.get(i);
@@ -121,8 +119,6 @@ public class Catalogue
 
     static ArrayList<Book> getBookUnderPrice(double price)
     {
-        initBooks();
-
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList) {
             if (b.getPrice() < price)
@@ -133,8 +129,6 @@ public class Catalogue
 
     static ArrayList<Book> getBookWithAuthor(String[] authors)
     {
-        initBooks();
-
         ArrayList<Book> filteredList = new ArrayList<Book>();// contains req list
         List<String> authorSearchList = Arrays.asList(authors);
         for (Book b : booksList) {
@@ -151,8 +145,6 @@ public class Catalogue
 
     static ArrayList<Book> getBookWithGenre(String[] genres)
     {
-        initBooks();
-
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> genreList = Arrays.asList(genres);
 
@@ -174,8 +166,6 @@ public class Catalogue
 
     static ArrayList<Book> getIfAvailable()
     {
-        initBooks();
-
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         for (Book b : booksList)
         {
@@ -187,8 +177,6 @@ public class Catalogue
 
     static ArrayList<Book> searchByISBN(String[] ISBN)
     {
-        initBooks();
-
         ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
         List<String> isbnList = Arrays.asList(ISBN);
         for (Book b : booksList)
