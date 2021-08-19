@@ -2,14 +2,24 @@ import java.io.*;
 import java.util.*;
 import java.nio.file.*;
 
+/**
+  * Catalogue.java
+  *
+  * This class implements an ArrayList of books so that
+  * the admin/customer can view the catalogue of books
+  * as it is or a filter as per their choice.
+  */
 public class Catalogue
 {
     // static variable containing a list of all the books in the library
     private static ArrayList<Book> booksList = new ArrayList<Book>();
+
+    // Place to save it into the dat file
     static String booksFile =
         FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/booksFile.dat")
             .toString();
 
+    // ISBN checking scheme
     public static boolean checkISBN(String ISBN)
     {
         ISBN = ISBN.trim();
@@ -83,7 +93,8 @@ public class Catalogue
 
         try
         {
-            // file containing books arraylist-booksFile.dat passed to the stream
+            // file containing books arraylist-booksFile.dat passed to
+            // the stream
             fos = new FileOutputStream(booksFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(booksList);
@@ -99,6 +110,7 @@ public class Catalogue
                 try { oos.close(); }
                 catch (IOException e) { e.printStackTrace(); }
         }
+        booksList = getBooks();
     }
 
     public static void saveBooks(ArrayList<Book> books)
@@ -110,6 +122,7 @@ public class Catalogue
     // returns a book object with the argument as its title
     static Book getBookWithTitle(String title)
     {
+        initBooks();
         for (int i = 0; i < booksList.size(); i++)
             if (booksList.get(i).getTitle().equalsIgnoreCase(title.trim()))
                 return booksList.get(i);
@@ -117,9 +130,13 @@ public class Catalogue
         return null;
     }
 
+    // various methods to filter, so cutomer can see what they want
     static ArrayList<Book> getBookUnderPrice(double price)
     {
-        ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
+        initBooks();
+        ArrayList<Book> filteredList = new ArrayList<Book>();
+        // contains req list
+
         for (Book b : booksList) {
             if (b.getPrice() < price)
                 filteredList.add(b);
@@ -129,7 +146,10 @@ public class Catalogue
 
     static ArrayList<Book> getBookWithAuthor(String[] authors)
     {
-        ArrayList<Book> filteredList = new ArrayList<Book>();// contains req list
+        initBooks();
+        ArrayList<Book> filteredList = new ArrayList<Book>();
+        // contains req list
+
         List<String> authorSearchList = Arrays.asList(authors);
         for (Book b : booksList) {
             ArrayList<String> bookAuthorList = b.getAuthor();
@@ -145,13 +165,15 @@ public class Catalogue
 
     static ArrayList<Book> getBookWithGenre(String[] genres)
     {
-        ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
+        initBooks();
+        ArrayList<Book> filteredList = new ArrayList<Book>();
+        // contains req list
+
         List<String> genreList = Arrays.asList(genres);
 
         for (Book b : booksList)
         {
             ArrayList<String> bookGenreList = b.getGenre();
-
             for (String genre : genreList)
             {
                 if (bookGenreList.stream().anyMatch(genre.trim()::equalsIgnoreCase))
@@ -166,7 +188,10 @@ public class Catalogue
 
     static ArrayList<Book> getIfAvailable()
     {
-        ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
+        initBooks();
+        ArrayList<Book> filteredList = new ArrayList<Book>();
+        // contains req list
+
         for (Book b : booksList)
         {
             if (b.isAvailable())
@@ -177,7 +202,10 @@ public class Catalogue
 
     static ArrayList<Book> searchByISBN(String[] ISBN)
     {
-        ArrayList<Book> filteredList = new ArrayList<Book>(); // contains req list
+        initBooks();
+        ArrayList<Book> filteredList = new ArrayList<Book>();
+        // contains req list
+
         List<String> isbnList = Arrays.asList(ISBN);
         for (Book b : booksList)
         {

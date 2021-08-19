@@ -1,16 +1,16 @@
-/**
-  * Admin.java
-  *
-  * Will handle the functions of the admin of
-  * the library.It is a child class from Person.java
-  */
-
 import java.util.*;
 import java.io.*;
-import java.util.HashMap;
 import java.time.LocalDate;
 import java.nio.file.*;
 
+/**
+  * Admin.java
+  *
+  * This class represents and Admin object which
+  * represents an administrator of the library. It
+  * will handle the functions of the admin of the
+  * library. It is a child class from Person.java
+  */
 public class Admin extends Person {
     // These are pretty self-explanatory names
     private int m_numBooksOnRent;

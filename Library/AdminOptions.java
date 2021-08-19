@@ -1,13 +1,13 @@
+import java.util.*;
+
 /**
   * AdminOptions.java
   *
   * It will handle the UI shown to the
   * Admin.
   */
-
-import java.util.*;
-
-public class AdminOptions {
+public class AdminOptions
+{
     private static Scanner sc = null;
     private Admin admin = null;
     private AuthService auth = null;
@@ -49,6 +49,7 @@ public class AdminOptions {
                 continue;
             }
 
+            // All functions which the admin can do
             switch (choice)
             {
                 case 1: showCustomers();
@@ -82,6 +83,7 @@ public class AdminOptions {
         }
     }
 
+    // Remove a user's account with consent from the user and no pending dues
     public void removeAcc()
     {
         Customer cust = null;
@@ -102,6 +104,7 @@ public class AdminOptions {
         String ch;
         for (Book book : Catalogue.getBooks())
         {
+            // Customer should have no dues
             if (!cust.getTransaction().isReturned(book))
             {
                 System.out.println("There are still books left to be returned! Returning to home screen.");
@@ -117,6 +120,7 @@ public class AdminOptions {
             {
                 c.getCustomers().remove(cust);
 
+                // Update data file
                 Customer.saveCustomer();
 
                 System.out.println("Account deleted successfully!\n");
@@ -130,6 +134,7 @@ public class AdminOptions {
         while (true);
     }
 
+    // Show a particular book, its details and list of borrowers and buyers
     public void showBook()
     {
         Book book = null;
@@ -155,6 +160,8 @@ public class AdminOptions {
         return;
     }
 
+    // See the history of a customer: personal details, list of books bought
+    // and borrowed
     public void seeHistory() {
         Customer cust = null;
 
@@ -179,6 +186,7 @@ public class AdminOptions {
         custOptions.showHistory();
     }
 
+    // Find a customer on basis of username
     public Customer findCustomer(String uname)
     {
         for (Customer customer : c.getCustomers())
@@ -187,6 +195,7 @@ public class AdminOptions {
         return null;
     }
 
+    // See the entire catalogue of books
     private void seeBookList()
     {
         ArrayList<Book> bookList = Catalogue.getBooks();
@@ -196,6 +205,7 @@ public class AdminOptions {
         System.out.println("\n---------------------------------");
     }
 
+    // Modify the details of any particular book, or add a new book
     private void modifyDetails()
     {
         System.out.print("\nEnter title: ");
@@ -246,6 +256,9 @@ public class AdminOptions {
         Book b = new Book(title, authorList, genreList, price, ISBN);
         System.out.println("Book:\n" + b);
 
+        // If it is an ISBN which already exists in the database, it means we
+        // are modifying the details of some old book. If it is a new ISBN
+        // means it is a new book
         if (hasBook(ISBN))
         {
             String choice;
@@ -271,6 +284,7 @@ public class AdminOptions {
         System.out.println("---------------------------------");
     }
 
+    // remove a book if it is not borrowed currently
     private void removeBook()
     {
         boolean flag = true;
@@ -284,6 +298,8 @@ public class AdminOptions {
         ArrayList<Book> booksList = Catalogue.getBooks();
         Iterator<Book> itr = booksList.iterator();
 
+        // this complex looking loop basically checks if no customer has
+        // borrowed it currently.
         while (itr.hasNext())
         {
             Book b = (Book) itr.next();
@@ -306,6 +322,8 @@ public class AdminOptions {
                 }
         }
 
+        // ISBN is not in database, means book is not existing in the first
+        // place!
         if (removeBooksList.size() == 0 && flag)
             System.out.println("\nNo books match these ISBN values!\n");
         else
@@ -319,6 +337,7 @@ public class AdminOptions {
         System.out.println("---------------------------------");
     }
 
+    // Checks if a book is there on basis of ISBN
     private boolean hasBook(String ISBN)
     {
         for (Book b : Catalogue.getBooks())
@@ -327,6 +346,7 @@ public class AdminOptions {
         return false;
     }
 
+    // Add a new book
     private void addBook(Book book)
     {
         boolean found = false;
@@ -352,6 +372,7 @@ public class AdminOptions {
         Catalogue.saveBooks(booksList);
     }
 
+    // Show list of customers
     private static void showCustomers()
     {
         Customer c1 = new Customer();

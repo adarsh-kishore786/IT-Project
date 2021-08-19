@@ -1,5 +1,13 @@
 import java.io.*;
 
+/**
+  * Person.java
+  *
+  * An abstract class which has all the login
+  * credentials common to Admin and Customer.
+  * It is the parent class of Admin.java and
+  * Customer.java
+  */
 public abstract class Person implements Serializable
 {
     protected String m_name;
@@ -17,12 +25,14 @@ public abstract class Person implements Serializable
         m_password = password;
     }
 
+    // getter functions
     public String getName() { return m_name; }
     public int getAge() { return m_age; }
 
     public String getUsername() { return m_username; }
     public String getPassword() { return m_password; }
 
+    // toString() to print it
     @Override
     public String toString()
     {

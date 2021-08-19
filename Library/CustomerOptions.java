@@ -2,6 +2,12 @@ import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+  * CustomerOptions.java
+  *
+  * It will handle the UI shown to the
+  * Customer.
+  */
 public class CustomerOptions
 {
     private static Scanner sc = null;
@@ -18,7 +24,7 @@ public class CustomerOptions
         transaction = 0;
     }
 
-    // borrow,buy,return,view history,logout
+    // borrow, buy, return, view history, logout
     public void showOptions()
     {
         while (true)
@@ -45,6 +51,7 @@ public class CustomerOptions
                 continue;
             }
 
+            // all options that customer can use
             switch (choice)
             {
                 case 1: choiceCatalogue = 1;
@@ -85,10 +92,9 @@ public class CustomerOptions
         }
     }
 
-    // filter based on price,author,genre,availability,isbn
+    // filter based on price, author, genre, availability, ISBN
     private void showCatalogue()
     {
-
         while (true)
         {
             System.out.println("\n1. Get book by its title");
@@ -138,6 +144,7 @@ public class CustomerOptions
         }
     }
 
+    // filter functions
     private void filterByTitle()
     {
         Book selectedBook = null;
@@ -457,7 +464,7 @@ public class CustomerOptions
         }
     }
 
-    // display history
+    // display history using a HashMap Data Structure
     public void showHistory()
     {
         HashMap<Book, ArrayList<LocalDate>> map = (HashMap<Book, ArrayList<LocalDate>>) c.getHistory();
@@ -594,6 +601,7 @@ public class CustomerOptions
         }
     }
 
+    // a private function to handle adding inputs
     public static void addToList(ArrayList<String> arList, Scanner sc)
     {
         String val = "";

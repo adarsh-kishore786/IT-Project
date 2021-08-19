@@ -3,6 +3,13 @@ import java.io.*;
 import java.time.LocalDate;
 import java.nio.file.*;
 
+/**
+  * Customer.java
+  *
+  * This class represents a Customer object, who
+  * can interact with the library and use its features.
+  * This class is a child class of Person.java.
+  */
 public class Customer extends Person
 {
     private static Admin admin = Admin.getAdmin();
@@ -16,8 +23,10 @@ public class Customer extends Person
 
     ArrayList<Book> booksBorrowed; // initialized in constructor
     ArrayList<Book> booksBought; // initialized in constructor
-    Transaction transaction; // contains history of borrow/return dates with fine; unique to every customer
+    Transaction transaction; // contains history of borrow/return dates with
+                            // fine; unique to every customer
 
+    // Location of the dat file to store everything
     static String customerFile =
     FileSystems.getDefault().getPath(System.getProperty("user.dir"), "dat/customer.dat").toString();
 
@@ -32,12 +41,14 @@ public class Customer extends Person
         this.history = new HashMap<Book, ArrayList<LocalDate>>();
     }
 
+    // getter functions
     int getBorrowLimit() { return borrowLimit; }
     int getNumBooksBorrowed() { return this.numBooksBorrowed; }
     int getNumBooksBought() { return this.numBooksBought; }
 
     ArrayList<Customer> getCustomers() { return customerList; }
 
+    // add a new customer with membership fees
     int addCustomer(Customer c)
     {
         for (Customer c1 : customerList)
@@ -75,21 +86,18 @@ public class Customer extends Person
         return 0;
     }
 
+    // buy a book
     void buyBook(Book book)
     {
-        // currently no restriction on buying
-        // reduce number of copies of book
-
         if (admin.sellBook(transaction, book))
         {
-            // int n=book.getNumCopies();
-            // book.setNumCopies(n-1);
             booksBought.add(book); // update array list
             numBooksBought = booksBought.size();
             // update number of book bought
 
             // updating book list
             book.setBuyers(this);
+            Catalogue.saveBooks();
 
             // set transaction purchase date
             // this.transaction.setDateOfPurchase(purchaseDate);
@@ -102,6 +110,7 @@ public class Customer extends Person
         }
     }
 
+    // borrow a book
     void borrowBook(Book book)
     {
         // check if limit is respected
@@ -112,7 +121,8 @@ public class Customer extends Person
                 book.setBorrowers(this);
                 Catalogue.saveBooks();
 
-                booksBorrowed.add(book); // add book to customer list of borrowed books
+                booksBorrowed.add(book); // add book to customer list of
+                                         // borrowed books
                 numBooksBorrowed = booksBorrowed.size();
 
                 // update dat file
@@ -166,6 +176,8 @@ public class Customer extends Person
         catch (IOException e) { System.err.println(e); }
     }
 
+    // an overloaded function that modifies a particular customer's
+    // details also
     static void saveCustomer(Customer cust)
     {
         try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(customerFile)))

@@ -2,6 +2,15 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+  * Transaction.java
+  *
+  * This class represents a Transaction
+  * object which is unique to every customer.
+  * The Transaction class acually does all the
+  * library transactions and the Admin acts as a
+  * window between the Customer and the Transaction.
+  */
 public class Transaction implements Serializable
 {
     private ArrayList<LocalDate> dateOfBorrow;
@@ -9,7 +18,8 @@ public class Transaction implements Serializable
     private ArrayList<LocalDate> dateOfPurchase;
     private ArrayList<Book> borrowedBooks;
     private ArrayList<Book> boughtBooks;
-    private ArrayList<Boolean> isReturned; // So it will have isReturned one to one map to borrowedBooks
+    private ArrayList<Boolean> isReturned; // So it will have isReturned one to
+                                           // one map to borrowedBooks
 
     Transaction()
     {
@@ -42,7 +52,7 @@ public class Transaction implements Serializable
         char choice = 'N';
         String expiryDate = new String();
         LocalDate nowDate = LocalDate.now(); //Stores the present date
-        int m = nowDate.getMonthValue(); 
+        int m = nowDate.getMonthValue();
         int y = nowDate.getYear();
         y %= 100;
         do
@@ -51,8 +61,9 @@ public class Transaction implements Serializable
             cardNumber = Main.sc.nextLine();
             count = cardNumber.length();
             System.out.println();
-            //A valid debit/credit card can only have 16 digits and should be a number
-            if (count != 16 || !checkStringIsANumber(cardNumber)) 
+            // A valid debit/credit card can only have 16 digits and
+            // should be a number
+            if (count != 16 || !checkStringIsANumber(cardNumber))
                 System.out.println("Invalid card number!\n");
             else
             {
@@ -60,7 +71,8 @@ public class Transaction implements Serializable
                 System.out.println("Enter Expiry Date in MM/YY format: ");
                 expiryDate = Main.sc.nextLine();
                 System.out.println();
-                //A valid expiry date should be of the form MM/YY and expire only after the present month and year
+                // A valid expiry date should be of the form MM/YY and
+                // expire only after the present month and year
                 if (expiryDate.length() != 5)
                     System.out.println("Invalid expiry date!\n");
                 else
@@ -81,7 +93,8 @@ public class Transaction implements Serializable
                         System.out.println("Enter CVV/CVC: ");
                         cvv = Main.sc.nextLine();
                         System.out.println();
-                        //A valid CVV/CVC can only have 3 digits and should be a number
+                        // A valid CVV/CVC can only have 3 digits and
+                        // should be a number
                         if (cvv.length() == 3 && checkStringIsANumber(cvv))
                         {
                             System.out.println("Processing transaction...\n");
@@ -265,7 +278,7 @@ public class Transaction implements Serializable
         return fine;
     }
 
-    //Add a new customer (collecting one-time membership fee)
+    // Add a new customer (collecting one-time membership fee)
     public static boolean custAdd()
     {
         Transaction t = new Transaction();

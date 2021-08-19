@@ -1,6 +1,14 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Book.java
+ *
+ * This class implements a Book of the library
+ * with the details of title, authors, price,
+ * ISBN and number of copies. It also maintains
+ * list of buyers and borrowers for the book
+ */
 public class Book implements Serializable
 {
     // instance variables
@@ -28,10 +36,10 @@ public class Book implements Serializable
         m_borrowersList = new ArrayList<Customer>();
     }
 
+    // String representation of the book object with all of its characteristic
+    // details
     public String toString()
     {
-        // String representation of the book object with all of its characteristic
-        // details
         String s = "\nTitle  : " + m_title + "\nAuthor : " + showAuthor() + "\nGenre  : " + showGenre() + "\nPrice  : "
                 + String.format("%.2f", m_price) + "\nISBN   : " + m_ISBN + "\n";
         return s;
@@ -62,6 +70,7 @@ public class Book implements Serializable
     public ArrayList<Customer> getBorrowers() { return m_borrowersList; }
     public ArrayList<Customer> getBuyers() { return m_buyersList; }
 
+    // show list of customers who borrowed a particular book
     private String showBorrowers()
     {
         String s = "";
@@ -89,6 +98,7 @@ public class Book implements Serializable
         return s;
     }
 
+    // show list of customers who bought a particular book
     private String showBuyers()
     {
         String s = "";
@@ -164,5 +174,4 @@ public class Book implements Serializable
         m_buyersList.add(buyer);
         Catalogue.saveBooks();
     }
-
 }

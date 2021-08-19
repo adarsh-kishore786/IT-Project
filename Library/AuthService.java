@@ -1,6 +1,13 @@
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+  * AuthService.java
+  *
+  * This class acts as a UI for both customer
+  * and admin. It authorizes their login via
+  * username and password.
+  */
 public class AuthService
 {
     private static Scanner sc = null;
@@ -8,16 +15,15 @@ public class AuthService
     private CustomerOptions custOptions = null;
     private AdminOptions adOptions = null;
 
-    AuthService(Scanner sc1)
-    {
-        sc = sc1;
-    }
+    AuthService(Scanner sc1) { sc = sc1;}
 
+    // Something which is printed regularly
     public void error()
     {
         System.out.println("That's an invalid input. Please try again.\n");
     }
 
+    // User/admin login
     public void login()
     {
         System.out.print("Enter your username: ");
@@ -35,6 +41,7 @@ public class AuthService
 
         String password = null;
 
+        // username/password authentication
         System.out.print("Enter your password: ");
         password = sc.nextLine();
 
@@ -57,6 +64,7 @@ public class AuthService
     {
         Customer cust = new Customer();
 
+        // username/password authentication
         System.out.print("Enter your password: ");
         String password = sc.nextLine();
         int index = getCustIndex(cust, username, password);
@@ -74,6 +82,7 @@ public class AuthService
         }
     }
 
+    // create a new account
     public void create_account(Customer cust)
     {
         String username = null;
@@ -94,6 +103,7 @@ public class AuthService
             }
             catch (NumberFormatException e)
             {
+                // It takes a default age of 25
                 System.out.println("That's not a valid age. Taking 25 as default.");
                 age = 25;
             }
@@ -109,6 +119,7 @@ public class AuthService
 
             c = new Customer(name, age, username, password);
 
+            // membership fees
             int state = cust.addCustomer(c);
             if (state == 0)
             {
@@ -143,6 +154,7 @@ public class AuthService
         Main.main(null);
     }
 
+    // private function checks if String has any digits
     private static boolean intersects(String s1, String s2)
     {
         for (int i = 0; i < s2.length(); i++)
@@ -153,6 +165,7 @@ public class AuthService
         return false;
     }
 
+    // get index of a customer on basis of username and password
     private static int getCustIndex(Customer cust, String username, String passwd)
     {
         for (int i = 0; i < cust.getCustomers().size(); i++)
@@ -168,6 +181,7 @@ public class AuthService
         return -1;
     }
 
+    // give a delay of 1s at necessary places
     public static void sleep(int seconds)
     {
         try { TimeUnit.SECONDS.sleep(seconds); }

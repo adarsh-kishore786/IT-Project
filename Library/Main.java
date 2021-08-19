@@ -1,5 +1,12 @@
 import java.util.*;
 
+/**
+  * Main.java
+  *
+  * The driver code to run all the
+  * classes together in a syncnhronized
+  * manner.
+  */
 public class Main
 {
     public static Scanner sc = new Scanner(System.in);
