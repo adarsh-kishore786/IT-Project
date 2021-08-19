@@ -33,15 +33,16 @@ public class Transaction implements Serializable
         return check;
     }
 
+    //Private function to handle payment
     private boolean payment(double amount)
     {
         boolean status = false;
-        String cardNumber, CVV;
+        String cardNumber, cvv;
         int count = 0;
         char choice = 'N';
         String expiryDate = new String();
-        LocalDate nowDate = LocalDate.now();
-        int m = nowDate.getMonthValue();
+        LocalDate nowDate = LocalDate.now(); //Stores the present date
+        int m = nowDate.getMonthValue(); 
         int y = nowDate.getYear();
         y %= 100;
         do
@@ -50,8 +51,8 @@ public class Transaction implements Serializable
             cardNumber = Main.sc.nextLine();
             count = cardNumber.length();
             System.out.println();
-
-            if (count != 16 || !checkStringIsANumber(cardNumber))
+            //A valid debit/credit card can only have 16 digits and should be a number
+            if (count != 16 || !checkStringIsANumber(cardNumber)) 
                 System.out.println("Invalid card number!\n");
             else
             {
@@ -59,7 +60,7 @@ public class Transaction implements Serializable
                 System.out.println("Enter Expiry Date in MM/YY format: ");
                 expiryDate = Main.sc.nextLine();
                 System.out.println();
-
+                //A valid expiry date should be of the form MM/YY and expire only after the present month and year
                 if (expiryDate.length() != 5)
                     System.out.println("Invalid expiry date!\n");
                 else
@@ -78,9 +79,10 @@ public class Transaction implements Serializable
                     else
                     {
                         System.out.println("Enter CVV/CVC: ");
-                        CVV = Main.sc.nextLine();
+                        cvv = Main.sc.nextLine();
                         System.out.println();
-                        if (CVV.length() == 3 && checkStringIsANumber(CVV))
+                        //A valid CVV/CVC can only have 3 digits and should be a number
+                        if (cvv.length() == 3 && checkStringIsANumber(cvv))
                         {
                             System.out.println("Processing transaction...\n");
                             AuthService.sleep(1);
@@ -180,6 +182,7 @@ public class Transaction implements Serializable
         {
             if (b.getISBN().equals(borrowedBooks.get(i).getISBN()))
             {
+                //If the book had already been borrowed, the status can be true only if the book has been returned
                 if (!isReturned.get(i))
                 {
                     status = false;
@@ -234,12 +237,12 @@ public class Transaction implements Serializable
         if (check > 0)
         {
             System.out.println("Number of days borrowed exceeds limit! You need to pay a fine!");
-            fine = Admin.getFineRate() * check;
+            fine = Admin.getFineRate() * check; //Calculation of fine
             System.out.println("The amount you need to pay is: Rs. " + fine + " ");
             statusPayment = payment(fine);
 
             if (!statusPayment)
-                fine = -1;
+                fine = -1; //If payment failed, return -1
         }
 
         if (statusPayment == true)
@@ -254,7 +257,7 @@ public class Transaction implements Serializable
                 if (b.getISBN().equals(borrowedBooks.get(index).getISBN()))
                 {
                     newNumberCopies = b.getNumCopies();
-                    b.setNumCopies(++newNumberCopies);
+                    b.setNumCopies(++newNumberCopies); //Increase number of copies
                     break;
                 }
             }
@@ -262,6 +265,7 @@ public class Transaction implements Serializable
         return fine;
     }
 
+    //Add a new customer (collecting one-time membership fee)
     public static boolean custAdd()
     {
         Transaction t = new Transaction();
