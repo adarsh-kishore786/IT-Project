@@ -1,10 +1,10 @@
-
 /**
- * Will handle the functions of the admin of
- * the library.
- *
- * It is a child class from Person.java
- */
+  * Admin.java
+  *
+  * Will handle the functions of the admin of
+  * the library.It is a child class from Person.java
+  */
+
 import java.util.*;
 import java.io.*;
 import java.util.HashMap;
@@ -18,6 +18,8 @@ public class Admin extends Person {
     private double m_revenue;
     private static final int m_numBooksBorrowLimit = 5; // maximum books which a Customer can borrow
     private static final double m_fineRate = 100.0; // this value can be decided later
+    // This gives the location of the file to save the dat according to the
+    // file system of the user
     private static final String m_adminFile = FileSystems.getDefault()
             .getPath(System.getProperty("user.dir"), "dat/admin.dat").toString();
     private static final int m_maxBorrowDays = 14;
@@ -40,6 +42,7 @@ public class Admin extends Person {
         m_revenue = revenue;
     }
 
+    // gets the admin data from the dat file
     public static Admin getAdmin() {
         ObjectInput in = null;
         Admin admin = null;
@@ -65,6 +68,7 @@ public class Admin extends Person {
         return admin;
     }
 
+    // this sames the Admin details into the dat file
     public void saveAdminDetails() {
         ObjectOutputStream out = null;
 
@@ -104,6 +108,7 @@ public class Admin extends Person {
         return m_numBooksBorrowLimit;
     }
 
+    // Print a few more things other than personal details
     @Override
     public String toString() {
         String str = super.toString() + "\n";
@@ -125,7 +130,8 @@ public class Admin extends Person {
     }
 
     public boolean rentBook(Transaction trans, Book b) {
-        // If customer has 1 copy already, then transaction fails
+        // If customer has currently borrowed a copy already, then the
+        // transaction fails
         if (!trans.rentBookTransaction(b)) {
             System.out.println("You have borrowed this book already." + " Please try again. ");
             return false;
